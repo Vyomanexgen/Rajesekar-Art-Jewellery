@@ -116,15 +116,12 @@ const Shop = ({ handlers }) => {
 
   const allDisplayProducts = getDisplayProducts() || [];
   
-  // Pagination logic - only for specific categories
-  const paginationCategories = ['Necklaces', 'Rings', 'Bridal Sets', 'Temple Jewellery', 'Bangles'];
-  const isPaginationCategory = (currentCategory && paginationCategories.includes(currentCategory)) || 
-                               (!currentCategory && showShopPage); // All Products page
+  // Get total products count from All Products page (unfiltered, all categories)
+  const totalAllProducts = Array.isArray(products) ? products.length : 0;
   
+  // Pagination logic - apply to all category pages
   const productsPerPage = 15;
-  const hasMoreThan15Products = allDisplayProducts.length > 15;
-  const shouldPaginate = isPaginationCategory && hasMoreThan15Products;
-  const totalPages = shouldPaginate ? Math.ceil(allDisplayProducts.length / productsPerPage) : 1;
+  const totalPages = Math.ceil(allDisplayProducts.length / productsPerPage);
   
   // Reset to page 1 when category or filters change
   useEffect(() => {
@@ -132,9 +129,7 @@ const Shop = ({ handlers }) => {
   }, [currentCategory, priceRange, selectedFilters, sortOption, setCurrentPage]);
   
   // Get paginated products
-  const displayProducts = shouldPaginate
-    ? allDisplayProducts.slice((currentPage - 1) * productsPerPage, currentPage * productsPerPage)
-    : allDisplayProducts;
+  const displayProducts = allDisplayProducts.slice((currentPage - 1) * productsPerPage, currentPage * productsPerPage);
   
   // Pagination handlers
   const handleNextPage = () => {
@@ -430,7 +425,11 @@ const Shop = ({ handlers }) => {
               {/* Sort and View Options */}
               <div className="products-header">
                 <div className="products-count">
-                  <span>{displayProducts.length} Products</span>
+                  {currentCategory ? (
+                    <span>{allDisplayProducts.length} out of {totalAllProducts} products</span>
+                  ) : (
+                    <span>{allDisplayProducts.length} Products</span>
+                  )}
                 </div>
                 <div className="products-controls">
                   <div className="view-mode-buttons">
@@ -547,8 +546,9 @@ const Shop = ({ handlers }) => {
                 </div>
               )}
 
-              {/* Pagination Controls */}
-              {shouldPaginate && (
+              {/* Pagination Controls - Always show if there are products */}
+              {/* Pagination Controls - Always show for category pages */}
+              {(currentCategory || showShopPage) && (
                 <div className="pagination-controls" style={{ 
                   display: 'flex', 
                   justifyContent: 'center', 

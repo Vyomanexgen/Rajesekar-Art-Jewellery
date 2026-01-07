@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 :root {
   --top-bar: #3d1d4e;
   --header-start: #5f2b7f;
@@ -2042,10 +2044,11 @@ form.search-box {
   .hero-buttons button {
     padding: 8px 16px;
     font-size: 12px;
-    flex: 1;
-    min-width: 0;
-    max-width: 100%;
-    flex-shrink: 1;
+    flex: 0 0 auto;
+    min-width: 120px;
+    width: auto;
+    max-width: none;
+    flex-shrink: 0;
     white-space: nowrap;
     border-radius: 999px;
     font-weight: 600;
@@ -2056,16 +2059,27 @@ form.search-box {
     height: auto;
     text-align: center;
   }
+  
+  /* Ensure both buttons have the same width */
+  .hero-buttons button.primary,
+  .hero-buttons button.secondary {
+    width: calc(50% - 4px);
+    min-width: calc(50% - 4px);
+    max-width: calc(50% - 4px);
+  }
 
   .hero-arrows {
     left: 12px;
     right: 12px;
+    justify-content: center;
+    gap: 12px;
   }
 
   .hero-arrow {
-    width: 34px;
-    height: 34px;
-    font-size: 16px;
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+    flex-shrink: 0;
   }
 
   .hero-dots {
@@ -2134,10 +2148,11 @@ form.search-box {
   .hero-buttons button {
     padding: 6px 12px;
     font-size: 11px;
-    flex: 1;
-    min-width: 0;
-    max-width: 100%;
-    flex-shrink: 1;
+    flex: 0 0 auto;
+    min-width: 100px;
+    width: auto;
+    max-width: none;
+    flex-shrink: 0;
     white-space: nowrap;
     border-radius: 999px;
     font-weight: 600;
@@ -2147,6 +2162,28 @@ form.search-box {
     line-height: 1.4;
     height: auto;
     text-align: center;
+  }
+
+  .hero-arrows {
+    left: 12px;
+    right: 12px;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .hero-arrow {
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  
+  /* Ensure both buttons have the same width on small screens */
+  .hero-buttons button.primary,
+  .hero-buttons button.secondary {
+    width: calc(50% - 3px);
+    min-width: calc(50% - 3px);
+    max-width: calc(50% - 3px);
   }
 }
 
@@ -2159,6 +2196,49 @@ form.search-box {
   background: transparent;
   color: #fff;
   border-color: rgba(255, 255, 255, 0.6);
+}
+
+/* Ensure buttons are equal size and in single row on all mobile/reduced screens */
+@media (max-width: 1024px) {
+  .hero-buttons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 8px;
+    width: 100%;
+    align-items: stretch;
+  }
+  
+  .hero-buttons button {
+    flex: 1;
+    min-width: 0;
+    width: auto;
+    height: 100%;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  .hero-arrows {
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .hero-arrow {
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  
+  /* Ensure both buttons are exactly the same size */
+  .hero-buttons button.primary,
+  .hero-buttons button.secondary {
+    flex: 1 1 0%;
+    width: 0;
+  }
 }
 
 .hero-buttons button:hover {
