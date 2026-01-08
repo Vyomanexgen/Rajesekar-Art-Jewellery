@@ -62,14 +62,34 @@ const AppRouter = () => {
   useEffect(() => {
     const path = window.location.pathname;
     
+    // Don't interfere if we're in checkout mode
+    if (showCheckout && (path === '/checkout' || path === '/signin')) {
+      return;
+    }
+    
     if (path === '/signin') {
       handlers.setShowSignIn(true);
       handlers.setShowSignUp(false);
       // Preserve checkout state if user is coming from checkout
       const wasInCheckout = showCheckout;
-      handlers.closeAllPages();
-      // Restore checkout state if it was set before navigation
-      if (wasInCheckout) {
+      if (!wasInCheckout) {
+        handlers.closeAllPages();
+      } else {
+        // Only close pages that aren't related to checkout
+        handlers.setShowShopPage(false);
+        handlers.setCurrentCategory(null);
+        handlers.setShowNewArrivals(false);
+        handlers.setShowAboutPage(false);
+        handlers.setShowContactPage(false);
+        handlers.setShowWishlist(false);
+        handlers.setShowOrdersPage(false);
+        handlers.setShowAccountPage(false);
+        handlers.setShowCartModal(false);
+        handlers.setShowOrderConfirmation(false);
+        handlers.setIsSearching(false);
+        handlers.setSearchQuery('');
+        handlers.setShowNotFound(false);
+        // Keep checkout state
         handlers.setShowCheckout(true);
         handlers.setCheckoutStep('address');
       }
@@ -127,6 +147,24 @@ const AppRouter = () => {
     } else if (path === '/wishlist') {
       handlers.setShowWishlist(true);
       handlers.closeAllPages();
+    } else if (path === '/checkout') {
+      // Handle checkout route
+      if (isLoggedIn) {
+        handlers.setShowCheckout(true);
+        handlers.setCheckoutStep('address');
+        handlers.setShowSignIn(false);
+        handlers.setShowSignUp(false);
+        handlers.setShowAccountPage(false);
+        handlers.setShowNotFound(false);
+      } else {
+        // User not logged in, redirect to signin but preserve checkout intent
+        handlers.setShowCheckout(true);
+        handlers.setCheckoutStep('address');
+        handlers.setShowSignIn(true);
+        if (window?.history?.pushState) {
+          window.history.pushState({}, '', '/signin');
+        }
+      }
     } else if (path.startsWith('/shop/')) {
       const categorySlug = path.replace('/shop/', '');
       const categoryMap = {
@@ -150,7 +188,7 @@ const AppRouter = () => {
         handlers.setShowNotFound(true);
         handlers.closeAllPages();
       }
-    } else if (path !== '/' && path !== '/signin') {
+    } else if (path !== '/' && path !== '/signin' && path !== '/checkout') {
       handlers.setShowNotFound(true);
       handlers.closeAllPages();
     } else {
@@ -163,7 +201,7 @@ const AppRouter = () => {
         window.history.replaceState({}, '', '/');
       }
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, showCheckout]);
 
   const currentPath = typeof window !== 'undefined' ? window.location.pathname : '/';
   const isOnSignInRoute = currentPath === '/signin';
