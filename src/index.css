@@ -2047,40 +2047,35 @@ form.search-box {
   }
 
   .hero-buttons button {
-    width: 130px;
-    height: 130px;
-    min-width: 130px;
-    min-height: 130px;
-    max-width: 130px;
-    max-height: 130px;
-    padding: 10px 14px;
-    font-size: 12px;
+    padding: 12px 24px;
+    font-size: 13px;
+    flex: 0 1 auto;
+    min-width: 100px;
+    height: 44px;
+    min-height: 44px;
+    max-height: 44px;
     flex-shrink: 0;
-    white-space: normal;
-    word-wrap: break-word;
-    border-radius: 50%;
+    white-space: nowrap;
+    border-radius: 999px;
     font-weight: 600;
     border: 2px solid transparent;
     transition: transform 0.2s ease, background 0.2s ease;
     box-sizing: border-box;
-    line-height: 1.25;
+    line-height: 1.2;
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
-    aspect-ratio: 1;
     overflow: hidden;
   }
   
-  /* Ensure both buttons have equal width and height */
+  /* Ensure both buttons have equal height and proper pill shape */
   .hero-buttons button.primary,
   .hero-buttons button.secondary {
-    width: 130px;
-    height: 130px;
-    min-width: 130px;
-    min-height: 130px;
-    max-width: 130px;
-    max-height: 130px;
+    height: 44px;
+    min-height: 44px;
+    max-height: 44px;
+    border-radius: 999px;
   }
 
   .hero-arrows {
@@ -2193,28 +2188,25 @@ form.search-box {
   }
 
   .hero-buttons button {
-    width: 130px;
-    height: 130px;
-    min-width: 130px;
-    min-height: 130px;
-    max-width: 130px;
-    max-height: 130px;
-    padding: 10px 14px;
-    font-size: 12px;
+    padding: 12px 24px;
+    font-size: 13px;
+    flex: 0 1 auto;
+    min-width: 100px;
+    height: 44px;
+    min-height: 44px;
+    max-height: 44px;
     flex-shrink: 0;
-    white-space: normal;
-    word-wrap: break-word;
-    border-radius: 50%;
+    white-space: nowrap;
+    border-radius: 999px;
     font-weight: 600;
     border: 2px solid transparent;
     transition: transform 0.2s ease, background 0.2s ease;
     box-sizing: border-box;
-    line-height: 1.25;
+    line-height: 1.2;
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
-    aspect-ratio: 1;
     overflow: hidden;
   }
 
@@ -2232,15 +2224,13 @@ form.search-box {
     flex-shrink: 0;
   }
   
-  /* Ensure both buttons have equal width and height - circular buttons */
+  /* Ensure both buttons have equal height and proper pill shape */
   .hero-buttons button.primary,
   .hero-buttons button.secondary {
-    width: 130px;
-    height: 130px;
-    min-width: 130px;
-    min-height: 130px;
-    max-width: 130px;
-    max-height: 130px;
+    height: 44px;
+    min-height: 44px;
+    max-height: 44px;
+    border-radius: 999px;
   }
 
   .hero-arrows {
@@ -2293,22 +2283,26 @@ form.search-box {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    gap: 8px;
+    gap: 12px;
     width: 100%;
-    align-items: stretch;
+    align-items: center;
+    justify-content: flex-start;
   }
   
   .hero-buttons button {
-    flex: 1 1 0%;
-    min-width: 0;
-    width: 0;
+    padding: 12px 24px;
+    font-size: 13px;
+    flex: 0 1 auto;
+    min-width: 100px;
     height: 44px;
     min-height: 44px;
     max-height: 44px;
+    border-radius: 999px;
     display: flex;
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
+    white-space: nowrap;
   }
 
   .hero-arrows {
@@ -2341,14 +2335,13 @@ form.search-box {
     background: rgba(255, 255, 255, 1);
   }
   
-  /* Ensure both buttons are exactly the same size with equal width and height */
+  /* Ensure both buttons have equal height and proper pill shape */
   .hero-buttons button.primary,
   .hero-buttons button.secondary {
-    flex: 1 1 0%;
-    width: 0;
     height: 44px;
     min-height: 44px;
     max-height: 44px;
+    border-radius: 999px;
   }
 }
 
