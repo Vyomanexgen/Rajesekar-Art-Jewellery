@@ -1898,6 +1898,8 @@ form.search-box {
   padding: 40px 48px;
   opacity: 0;
   animation: heroOverlayFadeIn 0.5s ease-out 0.8s forwards;
+  z-index: 1;
+  pointer-events: none;
 }
 
 @keyframes heroOverlayFadeIn {
@@ -1919,6 +1921,9 @@ form.search-box {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  pointer-events: auto;
+  position: relative;
+  z-index: 2;
 }
 
 @keyframes heroTextZoomIn {
@@ -2101,6 +2106,38 @@ form.search-box {
   .hero-dot.active {
     width: 18px;
   }
+
+  .hero-arrows {
+    left: 8px;
+    right: 8px;
+    justify-content: space-between;
+    gap: 0;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .hero-arrow {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
+    font-size: 20px;
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    pointer-events: auto;
+    z-index: 11;
+    position: relative;
+    border: none;
+  }
+
+  .hero-arrow:active {
+    transform: scale(0.9);
+    background: rgba(255, 255, 255, 1);
+  }
 }
 
 /* Extra-small mobile: keep buttons on a single row and aligned with title */
@@ -2197,6 +2234,38 @@ form.search-box {
     min-height: 44px;
     max-height: 44px;
   }
+
+  .hero-arrows {
+    left: 8px;
+    right: 8px;
+    justify-content: space-between;
+    gap: 0;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .hero-arrow {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
+    font-size: 20px;
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    pointer-events: auto;
+    z-index: 11;
+    position: relative;
+    border: none;
+  }
+
+  .hero-arrow:active {
+    transform: scale(0.9);
+    background: rgba(255, 255, 255, 1);
+  }
 }
 
 .hero-buttons .primary {
@@ -2235,15 +2304,33 @@ form.search-box {
   }
 
   .hero-arrows {
-    justify-content: center;
-    gap: 12px;
+    justify-content: space-between;
+    gap: 0;
+    z-index: 10;
+    pointer-events: none;
   }
 
   .hero-arrow {
-    width: 44px;
-    height: 44px;
-    font-size: 18px;
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
+    font-size: 20px;
     flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    pointer-events: auto;
+    z-index: 11;
+    position: relative;
+    border: none;
+  }
+
+  .hero-arrow:active {
+    transform: scale(0.9);
+    background: rgba(255, 255, 255, 1);
   }
   
   /* Ensure both buttons are exactly the same size with equal width and height */
@@ -2271,6 +2358,8 @@ form.search-box {
   transform: translateY(-50%);
   opacity: 0;
   animation: heroElementsFadeIn 0.4s ease-out 1.9s forwards;
+  z-index: 10;
+  pointer-events: none;
 }
 
 .hero-arrow {
@@ -2284,6 +2373,22 @@ form.search-box {
   justify-content: center;
   font-size: 18px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  border: none;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  pointer-events: auto;
+  z-index: 11;
+  transition: transform 0.2s ease, background 0.2s ease, opacity 0.2s ease;
+}
+
+.hero-arrow:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: scale(1.1);
+}
+
+.hero-arrow:active {
+  transform: scale(0.95);
 }
 
 .hero-dots {
