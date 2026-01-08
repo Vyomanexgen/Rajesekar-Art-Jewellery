@@ -402,18 +402,22 @@ export const useAppHandlers = () => {
       app.setShowOrderConfirmation(false);
       app.setShowNotFound(false);
       
-      // Navigate to sign-in page
+      // Navigate to sign-in page but keep checkout state
+      app.setShowSignIn(true);
+      app.setShowSignUp(false);
       if (window?.history?.pushState) {
         window.history.pushState({}, '', '/signin');
       }
-      app.setShowSignIn(true);
-      app.setShowSignUp(false);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       // User is logged in, proceed to checkout normally
       app.closeAllPages();
       app.setShowCheckout(true);
       app.setCheckoutStep('address');
+      // Update URL to checkout
+      if (window?.history?.pushState) {
+        window.history.pushState({}, '', '/checkout');
+      }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }, [app]);
@@ -727,9 +731,20 @@ export const useAppHandlers = () => {
     
     // If user was in checkout flow, redirect to checkout address step
     if (wasInCheckout) {
+      // Update URL first to prevent AppRouter useEffect from interfering
+      if (window?.history?.replaceState) {
+        window.history.replaceState({}, '', '/checkout');
+      } else if (window?.history?.pushState) {
+        window.history.pushState({}, '', '/checkout');
+      }
+      // Close sign-in/sign-up pages first
+      app.setShowSignIn(false);
+      app.setShowSignUp(false);
+      app.setShowAccountPage(false);
+      // Then set checkout state
       app.setShowCheckout(true);
       app.setCheckoutStep('address');
-      app.setShowAccountPage(false);
+      app.setShowNotFound(false);
       app.setToastMessage('Signed in successfully.');
       app.setShowToast(true);
       setTimeout(() => {
@@ -816,15 +831,22 @@ export const useAppHandlers = () => {
     app.setShowNewArrivals(false);
     app.setIsSearching(false);
     
-    // Show success animation
-    app.setSuccessAnimationMessage('Account Created!');
-    app.setShowSuccessAnimation(true);
-    
     // If user was in checkout flow, redirect to checkout address step
     if (wasInCheckout) {
+      // Update URL first to prevent AppRouter useEffect from interfering
+      if (window?.history?.replaceState) {
+        window.history.replaceState({}, '', '/checkout');
+      } else if (window?.history?.pushState) {
+        window.history.pushState({}, '', '/checkout');
+      }
+      // Close sign-in/sign-up pages first
+      app.setShowSignIn(false);
+      app.setShowSignUp(false);
+      app.setShowAccountPage(false);
+      // Then set checkout state
       app.setShowCheckout(true);
       app.setCheckoutStep('address');
-      app.setShowAccountPage(false);
+      app.setShowNotFound(false);
       app.setToastMessage('Account created successfully.');
       app.setShowToast(true);
       setTimeout(() => {
@@ -900,9 +922,20 @@ export const useAppHandlers = () => {
     
     // If user was in checkout flow, redirect to checkout address step
     if (wasInCheckout) {
+      // Update URL first to prevent AppRouter useEffect from interfering
+      if (window?.history?.replaceState) {
+        window.history.replaceState({}, '', '/checkout');
+      } else if (window?.history?.pushState) {
+        window.history.pushState({}, '', '/checkout');
+      }
+      // Close sign-in/sign-up pages first
+      app.setShowSignIn(false);
+      app.setShowSignUp(false);
+      app.setShowAccountPage(false);
+      // Then set checkout state
       app.setShowCheckout(true);
       app.setCheckoutStep('address');
-      app.setShowAccountPage(false);
+      app.setShowNotFound(false);
       app.setToastMessage('Signed in successfully.');
       app.setShowToast(true);
       setTimeout(() => {
@@ -1209,31 +1242,31 @@ export const useAppHandlers = () => {
       'Earrings': {
         title: 'Earrings',
         description: 'Beautiful earrings that complement your style. From elegant studs to statement jhumkas, discover our collection of handcrafted earrings.',
-        bgImage: '/Earings.jpg',
+        bgImage: '/Earings_bg.jpg',
         styles: ['Jhumkas', 'Studs', 'Hoops', 'Danglers', 'Chandbalis', 'Temple Earrings']
       },
       'Bangles': {
         title: 'Bangles',
         description: 'Traditional and modern bangles that add elegance to your wrist. Crafted with attention to detail and premium materials.',
-        bgImage: '/Bangles.jpg',
+        bgImage: '/Bangles_bg.jpg',
         styles: ['Traditional Bangles', 'Kadas', 'Churis', 'Stackable Bangles', 'Antique Bangles']
       },
       'Rings': {
         title: 'Rings',
         description: 'Stunning rings for every occasion. From engagement rings to statement pieces, find the perfect ring to express your style.',
-        bgImage: '/Rings.jpg',
+        bgImage: '/Rings_bg.jpg',
         styles: ['Solitaire Rings', 'Cocktail Rings', 'Stackable Rings', 'Antique Rings', 'Temple Rings']
       },
       'Bridal Sets': {
         title: 'Bridal Sets',
         description: 'Complete bridal jewellery sets that make your special day unforgettable. Exquisite designs crafted for the modern bride.',
-        bgImage: '/Bridal_set.jpg',
+        bgImage: '/Bridal_set_bg.jpg',
         styles: ['Traditional Sets', 'Contemporary Sets', 'Antique Sets', 'Temple Sets']
       },
       'Temple Jewellery': {
         title: 'Temple Jewellery',
         description: 'Sacred and elegant temple jewellery inspired by traditional designs. Perfect for special occasions and ceremonies.',
-        bgImage: '/Temple_Jewellery.jpg',
+        bgImage: '/Temple_Jewellery_bg.jpg',
         styles: ['Temple Necklaces', 'Temple Earrings', 'Temple Sets', 'Antique Temple']
       }
     };

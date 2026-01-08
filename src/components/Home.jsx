@@ -3,29 +3,29 @@ import Footer from './Footer';
 
 // Slides data - moved from NavbarOnly.jsx
 const slides = [
-  "/Chain_in_Blue_Cloth.jpg",
-  "/jewellery_in_shop.jpg",
-  "/watch.jpg"
+  "/Earing_home.jpg",
+  "/Necklace_home.jpg",
+  "/Bangles_home.jpg"
 ];
 
 const slideContent = [
   {
-    title: "Chain Collection 2025",
+    title: "New Earing Collection",
     subtitle: "Crafted with Love & Tradition",
     primaryButton: "Explore Now",
     secondaryButton: "Book Appointment"
   },
   {
-    title: "Necklaces",
+    title: "Necklace",
     subtitle: "Traditional Designs, Modern Appeal",
     primaryButton: "Shop Necklace",
     secondaryButton: "Learn More"
   },
   {
-    title: "Watches",
+    title: "Bangles",
     subtitle: "At the Best Price",
     primaryButton: "Shop Now",
-    secondaryButton: "View Collections"
+    secondaryButton: "View Products"
   }
 ];
 

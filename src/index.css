@@ -2042,12 +2042,14 @@ form.search-box {
   }
 
   .hero-buttons button {
-    padding: 8px 16px;
+    padding: 10px 16px;
     font-size: 12px;
-    flex: 0 0 auto;
-    min-width: 120px;
-    width: auto;
-    max-width: none;
+    flex: 1 1 0%;
+    min-width: 0;
+    width: 0;
+    height: 44px;
+    min-height: 44px;
+    max-height: 44px;
     flex-shrink: 0;
     white-space: nowrap;
     border-radius: 999px;
@@ -2056,16 +2058,20 @@ form.search-box {
     transition: transform 0.2s ease, background 0.2s ease;
     box-sizing: border-box;
     line-height: 1.4;
-    height: auto;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
-  /* Ensure both buttons have the same width */
+  /* Ensure both buttons have equal width and height */
   .hero-buttons button.primary,
   .hero-buttons button.secondary {
-    width: calc(50% - 4px);
-    min-width: calc(50% - 4px);
-    max-width: calc(50% - 4px);
+    flex: 1 1 0%;
+    width: 0;
+    height: 44px;
+    min-height: 44px;
+    max-height: 44px;
   }
 
   .hero-arrows {
@@ -2136,7 +2142,7 @@ form.search-box {
     flex-wrap: nowrap;
     align-items: center;
     justify-content: flex-start;
-    gap: 6px;
+    gap: 8px;
     width: 100%;
     max-width: 100%;
     margin-left: 0;
@@ -2146,12 +2152,14 @@ form.search-box {
   }
 
   .hero-buttons button {
-    padding: 6px 12px;
-    font-size: 11px;
-    flex: 0 0 auto;
-    min-width: 100px;
-    width: auto;
-    max-width: none;
+    padding: 10px 16px;
+    font-size: 12px;
+    flex: 1 1 0%;
+    min-width: 0;
+    width: 0;
+    height: 44px;
+    min-height: 44px;
+    max-height: 44px;
     flex-shrink: 0;
     white-space: nowrap;
     border-radius: 999px;
@@ -2160,8 +2168,10 @@ form.search-box {
     transition: transform 0.2s ease, background 0.2s ease;
     box-sizing: border-box;
     line-height: 1.4;
-    height: auto;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .hero-arrows {
@@ -2178,12 +2188,14 @@ form.search-box {
     flex-shrink: 0;
   }
   
-  /* Ensure both buttons have the same width on small screens */
+  /* Ensure both buttons have equal width and height */
   .hero-buttons button.primary,
   .hero-buttons button.secondary {
-    width: calc(50% - 3px);
-    min-width: calc(50% - 3px);
-    max-width: calc(50% - 3px);
+    flex: 1 1 0%;
+    width: 0;
+    height: 44px;
+    min-height: 44px;
+    max-height: 44px;
   }
 }
 
@@ -2210,11 +2222,12 @@ form.search-box {
   }
   
   .hero-buttons button {
-    flex: 1;
+    flex: 1 1 0%;
     min-width: 0;
-    width: auto;
-    height: 100%;
+    width: 0;
+    height: 44px;
     min-height: 44px;
+    max-height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2233,11 +2246,14 @@ form.search-box {
     flex-shrink: 0;
   }
   
-  /* Ensure both buttons are exactly the same size */
+  /* Ensure both buttons are exactly the same size with equal width and height */
   .hero-buttons button.primary,
   .hero-buttons button.secondary {
     flex: 1 1 0%;
     width: 0;
+    height: 44px;
+    min-height: 44px;
+    max-height: 44px;
   }
 }
 
