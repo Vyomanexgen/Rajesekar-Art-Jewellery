@@ -14910,7 +14910,7 @@ form.search-box {
   }
 
   .loader-name {
-    font-size: 0.9em !important;
+    font-size: calc(0.9em + 10px) !important;
     letter-spacing: 1.5px !important;
     flex-wrap: wrap !important;
     justify-content: center !important;
@@ -14920,7 +14920,7 @@ form.search-box {
   }
 
   .loader-subtitle {
-    font-size: 0.5em !important;
+    font-size: calc(0.5em + 10px) !important;
     letter-spacing: 1px !important;
     margin-top: 6px !important;
     width: 100% !important;
@@ -14947,13 +14947,13 @@ form.search-box {
   }
 
   .loader-name {
-    font-size: 0.75em !important;
+    font-size: calc(0.75em + 10px) !important;
     letter-spacing: 1px !important;
     line-height: 1.2 !important;
   }
 
   .loader-subtitle {
-    font-size: 0.45em !important;
+    font-size: calc(0.45em + 10px) !important;
     letter-spacing: 0.5px !important;
     margin-top: 4px !important;
   }
@@ -14968,12 +14968,12 @@ form.search-box {
   }
 
   .loader-name {
-    font-size: 0.7em !important;
+    font-size: calc(0.7em + 10px) !important;
     letter-spacing: 0.5px !important;
   }
 
   .loader-subtitle {
-    font-size: 0.4em !important;
+    font-size: calc(0.4em + 10px) !important;
     letter-spacing: 0.5px !important;
   }
 }
