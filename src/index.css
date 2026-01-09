@@ -2047,14 +2047,15 @@ form.search-box {
   }
 
   .hero-buttons button {
-    padding: 12px 24px;
+    padding: 12px 20px;
     font-size: 13px;
-    flex: 0 1 auto;
-    min-width: 100px;
+    flex: 1 1 0;
+    min-width: 0;
+    width: auto;
     height: 44px;
     min-height: 44px;
     max-height: 44px;
-    flex-shrink: 0;
+    flex-shrink: 1;
     white-space: nowrap;
     border-radius: 999px;
     font-weight: 600;
@@ -2069,13 +2070,17 @@ form.search-box {
     overflow: hidden;
   }
   
-  /* Ensure both buttons have equal height and proper pill shape */
+  /* Ensure both buttons have equal height and proper pill shape - all 6 buttons same size */
   .hero-buttons button.primary,
   .hero-buttons button.secondary {
     height: 44px;
     min-height: 44px;
     max-height: 44px;
     border-radius: 999px;
+    flex: 1 1 0;
+    min-width: 0;
+    width: 100%;
+    max-width: calc(50% - 6px);
   }
 
   .hero-arrows {
@@ -2188,14 +2193,15 @@ form.search-box {
   }
 
   .hero-buttons button {
-    padding: 12px 24px;
+    padding: 12px 20px;
     font-size: 13px;
-    flex: 0 1 auto;
-    min-width: 100px;
+    flex: 1 1 0;
+    min-width: 0;
+    width: auto;
     height: 44px;
     min-height: 44px;
     max-height: 44px;
-    flex-shrink: 0;
+    flex-shrink: 1;
     white-space: nowrap;
     border-radius: 999px;
     font-weight: 600;
@@ -2224,13 +2230,17 @@ form.search-box {
     flex-shrink: 0;
   }
   
-  /* Ensure both buttons have equal height and proper pill shape */
+  /* Ensure both buttons have equal height and proper pill shape - all 6 buttons same size */
   .hero-buttons button.primary,
   .hero-buttons button.secondary {
     height: 44px;
     min-height: 44px;
     max-height: 44px;
     border-radius: 999px;
+    flex: 1 1 0;
+    min-width: 0;
+    width: 100%;
+    max-width: calc(50% - 6px);
   }
 
   .hero-arrows {
@@ -2290,10 +2300,11 @@ form.search-box {
   }
   
   .hero-buttons button {
-    padding: 12px 24px;
+    padding: 12px 20px;
     font-size: 13px;
-    flex: 0 1 auto;
-    min-width: 100px;
+    flex: 1 1 0;
+    min-width: 0;
+    width: auto;
     height: 44px;
     min-height: 44px;
     max-height: 44px;
@@ -2303,6 +2314,7 @@ form.search-box {
     justify-content: center;
     box-sizing: border-box;
     white-space: nowrap;
+    flex-shrink: 1;
   }
 
   .hero-arrows {
@@ -2335,13 +2347,17 @@ form.search-box {
     background: rgba(255, 255, 255, 1);
   }
   
-  /* Ensure both buttons have equal height and proper pill shape */
+  /* Ensure both buttons have equal height and proper pill shape - all 6 buttons same size */
   .hero-buttons button.primary,
   .hero-buttons button.secondary {
     height: 44px;
     min-height: 44px;
     max-height: 44px;
     border-radius: 999px;
+    flex: 1 1 0;
+    min-width: 0;
+    width: 100%;
+    max-width: calc(50% - 6px);
   }
 }
 
@@ -14870,5 +14886,94 @@ form.search-box {
 
   h3 {
     font-size: 20px;
+  }
+}
+
+/* Mobile optimizations for loading animation */
+@media (max-width: 768px) {
+  .loader-wrapper {
+    width: 100% !important;
+    max-width: 90vw !important;
+    height: auto !important;
+    min-height: 120px !important;
+    margin: 1rem !important;
+    scale: 1 !important;
+    font-size: 1.2em !important;
+    padding: 0 1rem !important;
+    box-sizing: border-box !important;
+  }
+
+  .loader-text-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+
+  .loader-name {
+    font-size: 0.9em !important;
+    letter-spacing: 1.5px !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    word-break: keep-all !important;
+  }
+
+  .loader-subtitle {
+    font-size: 0.5em !important;
+    letter-spacing: 1px !important;
+    margin-top: 6px !important;
+    width: 100% !important;
+    text-align: center !important;
+  }
+
+  .loader-letter {
+    display: inline-block !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 480px) {
+  .loader-wrapper {
+    width: 100% !important;
+    max-width: 95vw !important;
+    height: auto !important;
+    min-height: 100px !important;
+    margin: 0.5rem !important;
+    scale: 0.9 !important;
+    font-size: 1em !important;
+    padding: 0 0.75rem !important;
+  }
+
+  .loader-name {
+    font-size: 0.75em !important;
+    letter-spacing: 1px !important;
+    line-height: 1.2 !important;
+  }
+
+  .loader-subtitle {
+    font-size: 0.45em !important;
+    letter-spacing: 0.5px !important;
+    margin-top: 4px !important;
+  }
+}
+
+/* Very small mobile devices */
+@media (max-width: 360px) {
+  .loader-wrapper {
+    scale: 0.8 !important;
+    font-size: 0.9em !important;
+    padding: 0 0.5rem !important;
+  }
+
+  .loader-name {
+    font-size: 0.7em !important;
+    letter-spacing: 0.5px !important;
+  }
+
+  .loader-subtitle {
+    font-size: 0.4em !important;
+    letter-spacing: 0.5px !important;
   }
 }
