@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Footer from './Footer';
 
 // Slides data - moved from NavbarOnly.jsx
@@ -52,6 +52,19 @@ const Home = ({
   navigateToAccount,
   navigateToOrders
 }) => {
+  // State for hovered category
+  const [hoveredCategory, setHoveredCategory] = useState(null);
+
+  // Category descriptions
+  const categoryDescriptions = {
+    'Necklaces': 'Elegant necklaces crafted with precision, featuring traditional and modern designs that complement every occasion.',
+    'Earrings': 'Stunning earrings ranging from delicate studs to statement pieces, perfect for adding sparkle to your look.',
+    'Bangles': 'Beautiful bangles in various designs and materials, from traditional gold to contemporary styles.',
+    'Rings': 'Exquisite rings for every finger, featuring intricate designs and premium quality craftsmanship.',
+    'Bridal Sets': 'Complete bridal collections designed to make your special day unforgettable with timeless elegance.',
+    'Temple Jewellery': 'Traditional temple jewellery pieces that celebrate heritage and culture with authentic designs.'
+  };
+
   // Scroll-triggered fade-in animation for sections
   useEffect(() => {
     // Small delay to ensure DOM is ready
@@ -142,57 +155,195 @@ const Home = ({
             <p className="category-subtitle">Discover our exclusive collections</p>
           </div>
           <div className="category-grid">
-            <div className="category-card" onClick={(e) => { e.preventDefault(); handleCategoryClick('Necklaces'); }} style={{ cursor: "pointer" }}>
+            <div 
+              className="category-card" 
+              onMouseEnter={() => setHoveredCategory('Necklaces')}
+              onMouseLeave={() => setHoveredCategory(null)}
+              onClick={() => setHoveredCategory(hoveredCategory === 'Necklaces' ? null : 'Necklaces')}
+            >
               <div className="category-image-wrapper">
                 <img src="/Necklaces.jpg" alt="Necklaces" className="category-image" />
                 <div className="category-content">
                   <span className="category-emoji">📿</span>
                   <div className="category-label">Necklaces</div>
+                  {(hoveredCategory === 'Necklaces') && (
+                    <div className="category-overlay-content">
+                      <p className="category-description">{categoryDescriptions['Necklaces']}</p>
+                      <button 
+                        className="category-explore-btn"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleCategoryClick('Necklaces');
+                        }}
+                      >
+                        Explore Now
+                        <span className="btn-arrow">→</span>
+                      </button>
+                    </div>
+                  )}
+                </div>
+                <div className="category-arrow-icon">
+                  <span>→</span>
                 </div>
               </div>
             </div>
-            <div className="category-card" onClick={(e) => { e.preventDefault(); handleCategoryClick('Earrings'); }} style={{ cursor: "pointer" }}>
+            <div 
+              className="category-card" 
+              onMouseEnter={() => setHoveredCategory('Earrings')}
+              onMouseLeave={() => setHoveredCategory(null)}
+              onClick={() => setHoveredCategory(hoveredCategory === 'Earrings' ? null : 'Earrings')}
+            >
               <div className="category-image-wrapper">
                 <img src="/Earings.jpg" alt="Earrings" className="category-image" />
                 <div className="category-content">
                   <span className="category-emoji">💎</span>
                   <div className="category-label">Earrings</div>
+                  {(hoveredCategory === 'Earrings') && (
+                    <div className="category-overlay-content">
+                      <p className="category-description">{categoryDescriptions['Earrings']}</p>
+                      <button 
+                        className="category-explore-btn"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleCategoryClick('Earrings');
+                        }}
+                      >
+                        Explore Now
+                        <span className="btn-arrow">→</span>
+                      </button>
+                    </div>
+                  )}
+                </div>
+                <div className="category-arrow-icon">
+                  <span>→</span>
                 </div>
               </div>
             </div>
-            <div className="category-card" onClick={(e) => { e.preventDefault(); handleCategoryClick('Bangles'); }} style={{ cursor: "pointer" }}>
+            <div 
+              className="category-card" 
+              onMouseEnter={() => setHoveredCategory('Bangles')}
+              onMouseLeave={() => setHoveredCategory(null)}
+              onClick={() => setHoveredCategory(hoveredCategory === 'Bangles' ? null : 'Bangles')}
+            >
               <div className="category-image-wrapper">
                 <img src="/Bangles.jpg" alt="Bangles" className="category-image" />
                 <div className="category-content">
                   <span className="category-emoji">⭕</span>
                   <div className="category-label">Bangles</div>
+                  {(hoveredCategory === 'Bangles') && (
+                    <div className="category-overlay-content">
+                      <p className="category-description">{categoryDescriptions['Bangles']}</p>
+                      <button 
+                        className="category-explore-btn"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleCategoryClick('Bangles');
+                        }}
+                      >
+                        Explore Now
+                        <span className="btn-arrow">→</span>
+                      </button>
+                    </div>
+                  )}
+                </div>
+                <div className="category-arrow-icon">
+                  <span>→</span>
                 </div>
               </div>
             </div>
-            <div className="category-card" onClick={(e) => { e.preventDefault(); handleCategoryClick('Rings'); }} style={{ cursor: "pointer" }}>
+            <div 
+              className="category-card" 
+              onMouseEnter={() => setHoveredCategory('Rings')}
+              onMouseLeave={() => setHoveredCategory(null)}
+              onClick={() => setHoveredCategory(hoveredCategory === 'Rings' ? null : 'Rings')}
+            >
               <div className="category-image-wrapper">
                 <img src="/Rings.jpg" alt="Rings" className="category-image" />
                 <div className="category-content">
                   <span className="category-emoji">💍</span>
                   <div className="category-label">Rings</div>
+                  {(hoveredCategory === 'Rings') && (
+                    <div className="category-overlay-content">
+                      <p className="category-description">{categoryDescriptions['Rings']}</p>
+                      <button 
+                        className="category-explore-btn"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleCategoryClick('Rings');
+                        }}
+                      >
+                        Explore Now
+                        <span className="btn-arrow">→</span>
+                      </button>
+                    </div>
+                  )}
+                </div>
+                <div className="category-arrow-icon">
+                  <span>→</span>
                 </div>
               </div>
             </div>
-            <div className="category-card" onClick={(e) => { e.preventDefault(); handleCategoryClick('Bridal Sets'); }} style={{ cursor: "pointer" }}>
+            <div 
+              className="category-card" 
+              onMouseEnter={() => setHoveredCategory('Bridal Sets')}
+              onMouseLeave={() => setHoveredCategory(null)}
+              onClick={() => setHoveredCategory(hoveredCategory === 'Bridal Sets' ? null : 'Bridal Sets')}
+            >
               <div className="category-image-wrapper">
                 <img src="/Bridal_set.jpg" alt="Bridal Sets" className="category-image" />
                 <div className="category-content">
                   <span className="category-emoji">👰</span>
                   <div className="category-label">Bridal Sets</div>
+                  {(hoveredCategory === 'Bridal Sets') && (
+                    <div className="category-overlay-content">
+                      <p className="category-description">{categoryDescriptions['Bridal Sets']}</p>
+                      <button 
+                        className="category-explore-btn"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleCategoryClick('Bridal Sets');
+                        }}
+                      >
+                        Explore Now
+                        <span className="btn-arrow">→</span>
+                      </button>
+                    </div>
+                  )}
+                </div>
+                <div className="category-arrow-icon">
+                  <span>→</span>
                 </div>
               </div>
             </div>
-            <div className="category-card" onClick={(e) => { e.preventDefault(); handleCategoryClick('Temple Jewellery'); }} style={{ cursor: "pointer" }}>
+            <div 
+              className="category-card" 
+              onMouseEnter={() => setHoveredCategory('Temple Jewellery')}
+              onMouseLeave={() => setHoveredCategory(null)}
+              onClick={() => setHoveredCategory(hoveredCategory === 'Temple Jewellery' ? null : 'Temple Jewellery')}
+            >
               <div className="category-image-wrapper">
                 <img src="/Temple_Jewellery.jpg" alt="Temple Jewellery" className="category-image" />
                 <div className="category-content">
                   <span className="category-emoji">🛕</span>
                   <div className="category-label">Temple Jewellery</div>
+                  {(hoveredCategory === 'Temple Jewellery') && (
+                    <div className="category-overlay-content">
+                      <p className="category-description">{categoryDescriptions['Temple Jewellery']}</p>
+                      <button 
+                        className="category-explore-btn"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleCategoryClick('Temple Jewellery');
+                        }}
+                      >
+                        Explore Now
+                        <span className="btn-arrow">→</span>
+                      </button>
+                    </div>
+                  )}
+                </div>
+                <div className="category-arrow-icon">
+                  <span>→</span>
                 </div>
               </div>
             </div>
