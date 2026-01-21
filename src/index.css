@@ -11455,6 +11455,11 @@ form.search-box {
     color: #fff;
   }
 
+  /* Reduce search icon size specifically */
+  .header-icons-mobile .mobile-search-icon button {
+    font-size: 20px !important;
+  }
+
   .header-icons-mobile .wishlist-badge {
     position: absolute;
     top: 4px;
@@ -16256,7 +16261,7 @@ form.search-box {
 .mobile-search-icon button {
   background: transparent !important;
   border: none !important;
-  font-size: 24px !important;
+  font-size: 20px !important;
   cursor: pointer;
   padding: 8px !important;
   display: flex;
@@ -16300,5 +16305,182 @@ form.search-box {
   .mobile-search-dropdown .search-tag {
     padding: 6px 12px;
     font-size: 12px;
+  }
+}
+
+/* Ensure Related and Recommended Products scroll containers work properly on all screens */
+.related-products-scroll,
+.recommended-products-scroll {
+  scroll-padding-left: 16px;
+  scroll-padding-right: 16px;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Ensure sections don't have padding that cuts off first item */
+.related-products-section,
+.recommended-products-section {
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.related-products-section > div,
+.recommended-products-section > div {
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Center product cards on laptop/desktop view with equal spacing */
+@media (min-width: 769px) {
+  /* Center the product cards with equal spacing before first and after last */
+  .related-products-scroll,
+  .recommended-products-scroll {
+    justify-content: center !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* Add equal padding to create spacing before first and after last product */
+  .related-products-section,
+  .recommended-products-section {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* The wrapper div should allow centering */
+  .related-products-section > div:nth-child(2),
+  .recommended-products-section > div:nth-child(2) {
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
+  }
+}
+
+.related-products-scroll::-webkit-scrollbar,
+.recommended-products-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.related-products-scroll::-webkit-scrollbar-track,
+.recommended-products-scroll::-webkit-scrollbar-track {
+  background: #f5f5f5;
+  border-radius: 3px;
+}
+
+.related-products-scroll::-webkit-scrollbar-thumb,
+.recommended-products-scroll::-webkit-scrollbar-thumb {
+  background: #5f2b7f;
+  border-radius: 3px;
+}
+
+/* Remove grey container around product image on All Products page for mobile */
+@media (max-width: 768px) {
+  .all-products-center-image {
+    background: transparent !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    border: none !important;
+  }
+  
+  .all-products-center-image .product-image {
+    border-radius: 0 !important;
+  }
+
+  /* Ensure uniform product card sizes for Related and Recommended Products */
+  .related-product-card,
+  .recommended-product-card {
+    width: 200px !important;
+    min-width: 200px !important;
+    max-width: 200px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .related-product-card > div:first-child,
+  .recommended-product-card > div:first-child {
+    width: 100% !important;
+    padding-top: 100% !important;
+    position: relative !important;
+  }
+
+  .related-product-card img,
+  .recommended-product-card img {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  .related-product-card > div:last-child,
+  .recommended-product-card > div:last-child {
+    padding: 12px !important;
+    min-height: 60px;
+  }
+
+  /* Ensure scroll containers have proper padding for first and last items */
+  .related-products-scroll,
+  .recommended-products-scroll {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    scroll-padding-left: 16px;
+    scroll-padding-right: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .all-products-center-image {
+    background: transparent !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    border: none !important;
+  }
+  
+  .all-products-center-image .product-image {
+    border-radius: 0 !important;
+  }
+
+  /* Ensure uniform product card sizes for Related and Recommended Products on small screens */
+  .related-product-card,
+  .recommended-product-card {
+    width: 200px !important;
+    min-width: 200px !important;
+    max-width: 200px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .related-product-card > div:first-child,
+  .recommended-product-card > div:first-child {
+    width: 100% !important;
+    padding-top: 100% !important;
+    position: relative !important;
+  }
+
+  .related-product-card img,
+  .recommended-product-card img {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  .related-product-card > div:last-child,
+  .recommended-product-card > div:last-child {
+    padding: 12px !important;
+    min-height: 60px;
+  }
+
+  /* Ensure scroll containers have proper padding for first and last items on small screens */
+  .related-products-scroll,
+  .recommended-products-scroll {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    scroll-padding-left: 16px;
+    scroll-padding-right: 16px;
   }
 }

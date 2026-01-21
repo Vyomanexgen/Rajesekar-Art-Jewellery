@@ -8,10 +8,6 @@ const products = (productsData && Array.isArray(productsData.products))
   ? productsData.products 
   : (Array.isArray(productsData) ? productsData : []);
 
-if (typeof window !== 'undefined' && products.length === 0) {
-  console.warn('Products array is empty. Check db.json import.');
-}
-
 export const AppProvider = ({ children }) => {
   // Navigation states
   const [menuOpen, setMenuOpen] = useState(false);
