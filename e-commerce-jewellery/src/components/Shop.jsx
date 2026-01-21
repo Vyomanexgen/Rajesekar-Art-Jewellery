@@ -908,7 +908,7 @@ const Shop = ({ handlers }) => {
                         flexShrink: 0
                       }}>
                         <div 
-                          className="product-image-wrapper" 
+                          className="product-image-wrapper all-products-center-image" 
                           onClick={() => handleProductClick && handleProductClick(centerProduct)}
                           style={{ 
                             position: 'relative',
@@ -1172,27 +1172,33 @@ const Shop = ({ handlers }) => {
                       </h2>
                       <div style={{ 
                         display: 'flex', 
-                        justifyContent: 'center', 
                         width: '100%',
-                        boxSizing: 'border-box'
+                        boxSizing: 'border-box',
+                        overflow: 'hidden'
                       }}>
                         <div className="related-products-scroll" style={{
                           display: 'flex',
                           gap: '20px',
                           overflowX: 'auto',
+                          paddingLeft: '16px',
+                          paddingRight: '16px',
                           paddingBottom: '20px',
                           scrollbarWidth: 'thin',
                           scrollbarColor: '#5f2b7f #f5f5f5',
                           WebkitOverflowScrolling: 'touch',
-                          justifyContent: 'center',
-                          maxWidth: '100%'
+                          justifyContent: 'flex-start',
+                          width: '100%',
+                          boxSizing: 'border-box'
                         }}>
                         {relatedProducts.map((product) => (
                           <div
                             key={product.id}
+                            className="related-product-card"
                             onClick={() => handleProductSelect(product)}
                             style={{
+                              width: '200px',
                               minWidth: '200px',
+                              maxWidth: '200px',
                               cursor: 'pointer',
                               background: '#fff',
                               borderRadius: '8px',
@@ -1253,27 +1259,33 @@ const Shop = ({ handlers }) => {
                       </h2>
                       <div style={{ 
                         display: 'flex', 
-                        justifyContent: 'center', 
                         width: '100%',
-                        boxSizing: 'border-box'
+                        boxSizing: 'border-box',
+                        overflow: 'hidden'
                       }}>
                         <div className="recommended-products-scroll" style={{
                           display: 'flex',
                           gap: '20px',
                           overflowX: 'auto',
+                          paddingLeft: '16px',
+                          paddingRight: '16px',
                           paddingBottom: '20px',
                           scrollbarWidth: 'thin',
                           scrollbarColor: '#5f2b7f #f5f5f5',
                           WebkitOverflowScrolling: 'touch',
-                          justifyContent: 'center',
-                          maxWidth: '100%'
+                          justifyContent: 'flex-start',
+                          width: '100%',
+                          boxSizing: 'border-box'
                         }}>
                         {recommendedProducts.map((product) => (
                           <div
                             key={product.id}
+                            className="recommended-product-card"
                             onClick={() => handleProductSelect(product)}
                             style={{
+                              width: '200px',
                               minWidth: '200px',
+                              maxWidth: '200px',
                               cursor: 'pointer',
                               background: '#fff',
                               borderRadius: '8px',
