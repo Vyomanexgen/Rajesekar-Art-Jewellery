@@ -1,0 +1,153 @@
+/* --- Individual Metric Card Styling --- */
+.metric-card {
+  height: auto;
+  display: flex;
+  position: relative;
+  background-color: #ffffff;
+
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  padding: 1vw;
+  /* min-height: 10vh; */
+}
+
+.inner-metric-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* Card Header (Title and Icon Container) */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5vw;
+  position: relative;
+}
+
+/* Title */
+.card-title {
+  font-size: clamp(14px, 1.1vw, 16px);
+  color: #6c757d;
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* Card Icon Container */
+.card-icon-container {
+  width: clamp(30px, 3vw, 40px);
+  height: clamp(30px, 3vw, 40px);
+  border-radius: 8px;
+  background-color: #e6f0ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0; /* Prevents it from shrinking */
+}
+
+.card-icon {
+  /* Dynamic icon size */
+  font-size: clamp(16px, 1.5vw, 20px);
+  color: #007bff; /* Blue icon color */
+}
+
+/* Card Body (Value and Trend) */
+.card-body {
+  /* Ensures value and trend are vertically aligned towards the bottom */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: auto;
+}
+
+/* Metric Value Font: Large and Bold */
+.card-value {
+  /* Large, dynamic font size for the main value */
+  font-size: clamp(18px, 2.5vw, 28px);
+  font-weight: bold;
+  color: #343a40;
+  margin-bottom: 0.5vw;
+  line-height: 1;
+}
+
+/* Trend Indicator (Percentage change) */
+.trend-indicator {
+  display: flex;
+  align-items: center;
+  /* Dynamic font size for trend text */
+  font-size: clamp(12px, 0.9vw, 14px);
+  font-weight: 600;
+}
+
+.trend-arrow {
+  /* Dynamic arrow size */
+  font-size: clamp(10px, 0.8vw, 12px);
+  margin-right: 0.2vw;
+}
+
+/* Trend Color Classes (Green for up, Red for down) */
+.trend-up {
+  color: #28a745; /* Green */
+  background-color: #e9f8e9; /* Light green background for the highlighted area */
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+.trend-down {
+  color: #dc3545; /* Red */
+  background-color: #fcebeb; /* Light red background for the highlighted area */
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+/* --- Media Queries for Layout Refinement --- */
+
+/* For smaller screens (e.g., mobile portrait) */
+@media (max-width: 600px) {
+  .metric-card {
+    padding: 20px;
+    min-height: auto;
+  }
+}
+
+/* For tablets and medium screens */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .sales-performance-container {
+    /* 2 columns on tablets */
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.SalesPerformanceRightContainer {
+  height: 50%;
+  width: 25%;
+  background-color: #e9effc;
+  color: #2764eb;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 6px;
+  font-size: 1.4em;
+}
+
+.SalesPerformanceRightContainer {
+  /* CRITICAL: Position the icon relative to the .metric-card */
+  position: absolute;
+
+  /* Stick to the right bottom corner, with some padding/offset */
+  top: 0;
+  right: 0;
+
+  /* Apply padding/size to match the visual in the original image */
+  padding: 1vw; /* Padding from the corner */
+
+  /* Icon container styling */
+  /* We can adjust the background/size here if needed, but it's set in .card-icon below */
+}
+
+/* Enhanced Metric Card */

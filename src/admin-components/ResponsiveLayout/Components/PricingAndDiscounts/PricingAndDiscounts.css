@@ -1,0 +1,291 @@
+.PricingAndDiscountsContainer {
+  min-height: 82vh;
+  max-width: 100%;
+
+  padding: 0vh 2vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 20px;
+  padding-top: 2vh;
+  background-color: #e4e8e9;
+
+  overflow-y: auto;
+}
+
+/* Summary Card */
+
+.PricingAndDiscountsSummaryCard {
+  display: flex;
+  justify-content: start;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+/* Search Bar */
+
+.BrandsSearchBarContainer {
+  height: 6vh;
+  width: 60%;
+}
+
+.BrandsSearchBar {
+  height: 5vh;
+  width: 100%;
+  border-radius: 6px;
+  border-width: 0px;
+  box-shadow: 0px 0px 1px black;
+
+  font-size: 0.9em;
+}
+
+/* --- General Table Container and Layout --- */
+.tablecontainer {
+  border-radius: 8px; /* Optional: Rounded corners for the container */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse; /* Ensure single borders */
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+/* --- Table Header Styling --- */
+thead tr {
+  background-color: #f7f9fc; /* Light background for header */
+  color: #5d6d7e; /* Darker text color */
+  border-bottom: 2px solid #e0e6ed; /* Separator line */
+}
+
+th {
+  padding: 12px 15px;
+  text-align: left;
+  font-weight: 600; /* Semi-bold */
+  text-transform: uppercase;
+}
+
+/* --- Table Body and Row Styling --- */
+tbody tr {
+  border-bottom: 1px solid #ebf0f5; /* Light separator for rows */
+}
+
+tbody tr {
+  /* Optional: Background for alternating rows, though the image appears uniform */
+  background-color: #ffffff;
+}
+
+td {
+  padding: 12px 15px;
+  color: #333;
+  vertical-align: top; /* Align content to the top of the cell */
+}
+
+/* --- Specific Cell Styling --- */
+
+/* Rule Name Cell: For multi-line text */
+.rule-name-cell {
+  min-width: 180px; /* Ensure space for two lines */
+}
+
+.main-rule-name {
+  display: block;
+  font-weight: 600; /* Rule Name is bold/semi-bold */
+  color: #333;
+}
+
+.rule-category {
+  display: block;
+  font-size: 12px;
+  color: #7f8c8d; /* Lighter color for the category/sub-text */
+}
+
+/* Type Cell: Styling for the badge/chip look */
+.type-cell span {
+  display: inline-block;
+  padding: 1px 2px;
+  font-size: 12px;
+  font-weight: 500;
+  /* white-space: nowrap; */
+
+  border-radius: 4px;
+  border-width: 0px;
+}
+
+/* Specific Type Colors (Inferred from image) */
+.type-percentage {
+  background-color: #e6f7ff; /* Light blue */
+  color: #1890ff; /* Dark blue */
+  border: 1px solid #91d5ff;
+}
+
+.type-bulk {
+  background-color: #fffbe6; /* Light yellow */
+  color: #faad14; /* Dark yellow/orange */
+  border: 1px solid #ffe58f;
+}
+
+.type-flat {
+  background-color: #52c41a; /* Dark green */
+  color: #f6ffed; /* Light green */
+  border: 1px solid #b7eb8f;
+}
+
+/* Value Cell: Bolded and colored text */
+.value-cell {
+  font-weight: 700;
+  color: #1890ff; /* Blue color for values like 25% and ₹10 */
+}
+
+/* Conditions Cell: Normal text */
+
+/* Usage Cell: Styling for fraction */
+.usage-used {
+  font-weight: 500;
+  color: #5d6d7e; /* Darker gray for the used count */
+}
+
+.usage-total {
+  color: #bdc3c7; /* Lighter gray for the total count */
+}
+
+/* Status Cell: Badge styling (The most distinct visual element) */
+.status-cell {
+  padding-top: 15px; /* Adjust padding for badge centering if needed */
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status-active {
+  background-color: #e9f8ed; /* Light green background */
+  color: #38a169; /* Dark green text */
+  border: 1px solid #9ae6b4;
+}
+
+.status-inactive {
+  background-color: #f7f8f9; /* Light grey background */
+  color: #9aa5b1; /* Dark grey text */
+  border: 1px solid #e0e6ed;
+}
+
+/* Actions Cell: Icons styling */
+.actions-cell {
+  min-width: 80px;
+}
+
+.actions-cell button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  margin-left: 5px;
+  font-size: 16px;
+  transition: color 0.2s;
+}
+
+.delete {
+  color: red;
+}
+
+/* */
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  width: 100%;
+}
+
+@media screen and (max-width: 576px) {
+  .stat-grid {
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+  }
+}
+
+/*------------------------------
+----- Add Discount Rule --------
+------------------------------*/
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 4000;
+}
+
+.modal-container {
+  background: white;
+  width: 40%;
+  padding: 20px;
+  border-radius: 12px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.modal-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-form input,
+.modal-form select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.save-btn {
+  background: #1a73e8;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background: #ccc;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .modal-container {
+    width: 90%;
+    height: 60%;
+  }
+}

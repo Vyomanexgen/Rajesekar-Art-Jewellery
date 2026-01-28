@@ -1,0 +1,276 @@
+.CustomersHeadingContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 6vh;
+  width: 100%;
+}
+
+.CustomersHeadingContainerHead,
+.CustomersHeadingContainerDescription {
+  margin: 0px;
+}
+
+.CustomersButton,
+.CustomersExportButton {
+  height: 5vh;
+  width: 8vw;
+  padding: 0vh 1vh;
+
+  background-color: blue;
+  color: white;
+
+  display: flex;
+  align-items: center;
+
+  border-radius: 6px;
+  border-width: 0px;
+  box-shadow: 0px 0px 1px black;
+
+  font-size: 0.9em;
+}
+
+.CustomersExportButton {
+  width: 7vw;
+  background-color: white;
+  color: black;
+  font-size: 0.9em;
+  display: flex;
+  justify-content: center;
+}
+
+.CustomersHeadingRightContainer {
+  display: flex;
+  gap: 15px;
+}
+
+/* Filter Bar */
+
+.CustomersFilterBarContainer {
+  height: 5vh;
+  background-color: white;
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.CustomersFilterBarSearch {
+  height: 5vh;
+  width: 65%;
+
+  border-radius: 6px;
+  border-width: 0px;
+  box-shadow: 0px 0px 1px black;
+}
+
+.CustomersFilterBarFilter,
+.CustomersFilterBarDownload {
+  height: 5vh;
+  width: 3%;
+
+  border-radius: 6px;
+  border-width: 0px;
+  box-shadow: 0px 0px 1px black;
+
+  font-size: 1.2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.CustomersFilterBarCustomerActive,
+.CustomersFilterBarCustomerType {
+  height: 5vh;
+  width: 11%;
+
+  font-size: 0.85em;
+
+  border-radius: 6px;
+  border-width: 0px;
+  box-shadow: 0px 0px 1px black;
+}
+
+/* Data Table */
+
+/* Data Table */
+/* Data Table - General Styles */
+
+.table-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 5vh;
+}
+
+.customers-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.customers-table th {
+  background: #f3f3f3;
+  padding: 12px;
+  text-align: left;
+  font-weight: 600;
+  text-transform: uppercase; /* Ensure headers are capitalized */
+  color: #555;
+}
+
+.customers-table td {
+  padding: 12px;
+  border-bottom: 1px solid #e3e3e3;
+}
+
+.customers-table tr:hover {
+  background: #fafafa;
+}
+
+.blue-link {
+  color: #1a73e8;
+  cursor: pointer;
+}
+
+.bold {
+  font-weight: 600;
+}
+
+.Menu {
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* --- Specific Column Styling for Customer Data Table --- */
+
+/* Customer Info Column */
+.customer-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.customer-id {
+  font-size: 12px;
+  color: #777;
+  font-weight: 400;
+  margin-top: 2px;
+}
+
+/* Contact Info Column */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 2px;
+}
+
+.contact-item i {
+  margin-right: 6px;
+  width: 15px; /* Fixed width for icons */
+  text-align: center;
+  color: #999;
+}
+
+/* Segment Badges (The oval shape badges) */
+.badge.segment {
+  padding: 4px 10px;
+  border-radius: 12px;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.badge-purple {
+  background: #7b1fa2; /* VIP */
+}
+
+.badge-blue {
+  background: #1976d2; /* Loyal */
+}
+
+.badge-green {
+  background: #388e3c; /* Regular */
+}
+
+.badge-yellow {
+  background: #fbc02d; /* New (Darker yellow text color might be needed, using white for now) */
+  color: #333;
+}
+
+/* Risk Flags (The badges with background color, like High RTO) */
+.risk-flag-badge {
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.flag-red {
+  background: #fde8e8;
+  color: #c62828; /* High RTO */
+}
+
+.flag-orange {
+  background: #fff3e0;
+  color: #ef6c00; /* COD-Only */
+}
+
+.flag-none {
+  background: transparent;
+  color: inherit;
+  font-weight: normal;
+}
+
+/* --- Pagination --- */
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 15px;
+}
+
+.footer-pagination {
+  justify-content: flex-end;
+}
+
+.showing-info {
+  margin-right: auto;
+  font-size: 13px;
+  color: #555;
+}
+
+.page-btn,
+.page-number {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.page-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.page-number.active {
+  background: #1a73e8;
+  color: white;
+  border-color: #1a73e8;
+}
+
+.ellipsis {
+  font-size: 16px;
+  color: #555;
+  padding: 0 4px;
+}

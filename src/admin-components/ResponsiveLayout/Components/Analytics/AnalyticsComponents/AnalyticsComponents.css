@@ -1,0 +1,265 @@
+.analytics-container {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.stat-card {
+  /* align-items: center; */
+  display: flex;
+  padding: 20px;
+  border-radius: 12px;
+  min-width: 0; /* prevent overflow */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+
+  position: relative;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+
+.stat-icon {
+  font-size: 30px;
+  margin-right: 15px;
+}
+
+.stat-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-title {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.stat-value {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.stat-comparison {
+  font-size: 13px;
+  color: #777;
+}
+
+.percent-change {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.percent-change.positive {
+  color: green;
+}
+
+.percent-change.negative {
+  color: red;
+}
+
+.last-period {
+  margin-left: 5px;
+  color: #999;
+}
+
+/* Tablet: 2 cards per row */
+@media (max-width: 1024px) {
+  .analytics-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile: 1 or 2 cards per row depending on width */
+@media (max-width: 600px) {
+  .analytics-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.analytics-container {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(4, 1fr); /* Desktop: 4 cards in a row */
+}
+
+/* Tablet: 2 cards per row */
+@media (max-width: 1024px) {
+  .analytics-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile: 1 or 2 cards per row depending on width */
+@media (max-width: 600px) {
+  .analytics-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* -----------------------------------
+------ Category Container ------------
+------------------------------------*/
+
+.category-container {
+  width: 100%;
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.category-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto; /* Enables responsive scroll */
+}
+
+.category-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 700px; /* Prevents breaking on small screens */
+}
+
+.category-table thead th {
+  text-align: left;
+  font-size: 14px;
+  color: #6b7280;
+  /* padding-bottom: 12px; */
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.category-table tbody td {
+  /* padding: 12px 20px 12px 0; */
+  padding: 10px 20px;
+  font-size: 15px;
+  color: #374151;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.category-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.category-name {
+  font-weight: 500;
+}
+
+.growth {
+  font-weight: 600;
+}
+
+.growth.positive {
+  color: #16a34a; /* green */
+}
+
+.growth.negative {
+  color: #dc2626; /* red */
+}
+
+/* Mobile optimization */
+@media (max-width: 768px) {
+  .category-title {
+    font-size: 18px;
+  }
+
+  .category-table tbody td {
+    padding: 10px 12px;
+  }
+}
+
+/*----------------------------------
+----- Traffic Sources --------------
+----------------------------------*/
+
+.traffic-container {
+  width: 100%;
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.traffic-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.traffic-table-wrapper {
+  overflow-x: auto;
+}
+
+.traffic-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 750px;
+}
+
+.traffic-table thead th {
+  text-align: left;
+  font-size: 14px;
+  color: #6b7280;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.traffic-table tbody td {
+  /* padding: 12px 20px 12px 0; */
+  text-align: left;
+  font-size: 15px;
+  color: #374151;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.traffic-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.traffic-source {
+  font-weight: 500;
+}
+
+.rate-green {
+  font-weight: 600;
+  color: #16a34a;
+}
+
+/* Performance bars */
+.traffic-bar-cell {
+  width: 200px;
+}
+
+.bar-background {
+  width: 100%;
+  height: 8px;
+  background: #edf2f7;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  background: #16a34a;
+  border-radius: 8px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .traffic-title {
+    font-size: 18px;
+  }
+
+  .traffic-table tbody td {
+    padding: 10px 12px;
+  }
+}

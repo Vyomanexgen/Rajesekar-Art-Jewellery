@@ -1,0 +1,470 @@
+/*-------------------------------------
+---------- Payment Stats Container ----
+-------------------------------------*/
+
+.payment-stats-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  width: 100%;
+
+  /* margin: 20px 0; */
+}
+
+.payment-stat-card {
+  background: #fff;
+  padding: 18px;
+  border-radius: 14px;
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 3px 10px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  /* justify-content: space-between; */
+}
+
+.payment-stat-card:hover {
+  transform: translateY(-4px);
+}
+
+.payment-stat-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-size: 22px;
+}
+
+.payment-stat-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.payment-stat-title {
+  margin: 0;
+  font-size: 13px;
+  color: #5f6b7a;
+  font-weight: 500;
+}
+
+.payment-stat-value {
+  margin: 2px 0 0 0;
+  font-size: 24px;
+  color: #111827;
+  font-weight: 700;
+}
+
+/* 📱 RESPONSIVE DESIGN */
+
+@media (max-width: 1024px) {
+  .payment-stats-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .payment-stats-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/*------------------------------------------
+----------- Payment Gateway ----------------
+------------------------------------------*/
+
+.pg-container {
+  width: 100%;
+  padding: 20px;
+  overflow-x: hidden;
+}
+
+.pg-header-bar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.pg-search {
+  width: 250px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.pg-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 20px;
+}
+
+.pg-card {
+  background: white;
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid #f0f0f0;
+}
+
+.pg-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pg-logo {
+  width: 55px;
+}
+
+.pg-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pg-status {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.pg-status.active {
+  background: #e8f9f1;
+  color: #00a96e;
+}
+
+.pg-status.inactive {
+  background: #ffe6e6;
+  color: #e63946;
+}
+
+.pg-status.primary {
+  background: #fff4e6;
+  color: #ff8c00;
+  font-weight: 600;
+}
+
+.pg-info {
+  margin-top: 10px;
+}
+
+.pg-row {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  /* justify-content: space-between; */
+  /* margin: 6px 0; */
+}
+
+.pg-grey {
+  color: #777;
+  margin: 0px;
+}
+
+.pg-success {
+  color: #00a96e;
+  font-weight: 600;
+}
+
+.pg-footer-text {
+  font-size: 12px;
+  color: #555;
+  margin-top: 10px;
+}
+
+.pg-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.pg-btn {
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  font-size: 14px;
+}
+
+.pg-btn.configure {
+  background: #efefef;
+}
+
+.pg-btn.activate {
+  background: #d4ebff;
+  color: #0077cc;
+}
+
+.pg-btn.deactivate {
+  background: #ffe6e6;
+  color: #d00000;
+}
+
+.pg-btn.add {
+  background: #ffda6b;
+  font-weight: bold;
+}
+
+/* ------- Modal ------- */
+
+.pg-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pg-modal {
+  background: white;
+  width: 450px;
+  padding: 22px;
+  border-radius: 12px;
+}
+
+.pg-modal input {
+  width: 100%;
+  margin: 6px 0;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.pg-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.pg-btn.save {
+  background: #4caf50;
+  color: white;
+}
+
+.pg-btn.cancel {
+  background: #ccc;
+}
+
+@media (max-width: 600px) {
+  /* .pg-container {
+    width: 50%;
+  } */
+
+  .pg-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pg-modal {
+    width: 90%;
+  }
+
+  .pg-actions {
+    flex-direction: column;
+  }
+}
+
+/* --------------------------------------
+--------- Recent Transactions -----------
+---------------------------------------*/
+
+.rt-container {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.rt-search {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  outline: none;
+  margin-bottom: 14px;
+  font-size: 14px;
+}
+
+.rt-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rt-item {
+  background: #fff;
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #f1f1f1;
+}
+
+.rt-item:hover {
+  border-color: #cddfff;
+  transition: 0.2s ease;
+}
+
+.rt-left h4 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.rt-status {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 13px;
+  margin: 4px 0;
+  text-transform: capitalize;
+}
+
+.rt-customer,
+.rt-id,
+.rt-date {
+  font-size: 13px;
+  color: #777;
+  margin: 2px 0;
+}
+
+.rt-right {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+.rt-amount {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.rt-details-btn {
+  margin-top: 6px;
+  background: white;
+  border: 1px solid #ddd;
+  padding: 6px 10px;
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rt-details-btn:hover {
+  background: #eef4ff;
+  border-color: #9ebeff;
+}
+
+/*------------------------------
+------ Overlay Effect ----------
+------------------------------*/
+
+/* Overlay */
+.od-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Popup container */
+.od-popup {
+  background: #fff;
+  width: 650px;
+  max-width: 95%;
+  max-height: 90vh;
+
+  display: flex;
+  flex-direction: column;
+
+  border-radius: 12px;
+  overflow: hidden; /* 🔑 IMPORTANT */
+}
+
+/* Header (fixed) */
+.od-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #eee;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.od-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Body (scrollable area) */
+.od-body {
+  padding: 20px;
+  overflow-y: auto; /* 🔑 SCROLL HERE */
+  flex: 1; /* 🔑 TAKE REMAINING SPACE */
+}
+
+/* Footer (fixed) */
+.od-footer {
+  padding: 16px 20px;
+  border-top: 1px solid #eee;
+  text-align: right;
+}
+
+.od-btn {
+  padding: 8px 16px;
+  border: none;
+  background: #000;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Table */
+.od-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.od-table th,
+.od-table td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+
+.od-total {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.od-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.od-btn.primary {
+  background: #000;
+  color: #fff;
+}
+
+.od-btn.secondary {
+  background: #f1f1f1;
+  color: #000;
+}

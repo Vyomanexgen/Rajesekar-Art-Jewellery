@@ -1,0 +1,175 @@
+/* Brands Heading Container */
+
+.PricingAndDiscountsHeadingContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 6vh;
+  width: 100%;
+}
+
+.PricingAndDiscountsHeadingContainerHead,
+.PricingAndDiscountsHeadingContainerDescription {
+  margin: 0px;
+}
+
+.PricingAndDiscountsButton {
+  height: 5vh;
+  width: 11vw;
+  padding: 0vh 1vh;
+
+  background-color: blue;
+  color: white;
+
+  display: flex;
+  align-items: center;
+
+  border-radius: 6px;
+  border-width: 0px;
+  box-shadow: 0px 0px 1px black;
+
+  font-size: 0.9em;
+}
+
+.PricingAndDiscountsHeadingRightContainer {
+  display: flex;
+  gap: 15px;
+}
+
+/* Summary Card */
+
+.PricingAndDiscountsCardContainer {
+  height: auto;
+  width: 20vw;
+  background-color: white;
+
+  border-radius: 6px;
+  border-width: 0px;
+  box-shadow: 0px 0px 1px black;
+
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  padding: 3px 10px;
+
+  /* Prevent flex container from shrinking the card */
+  /* flex: 0 0 auto;
+  box-sizing: border-box; */
+}
+
+.PricingAndDiscountsContainerHead,
+.PricingAndDiscountsContainerValue {
+  margin: 0px;
+}
+
+/* Responsiveness */
+
+@media screen and (min-width: 1245px) {
+  .PricingAndDiscountsCardContainer {
+    width: 25vw;
+    font-size: 0.8em;
+  }
+}
+
+/* @media screen and (max-width: 1245px) {
+  .PricingAndDiscountsCardContainer {
+    width: 16vw;
+    font-size: 0.8em;
+  }
+} */
+
+@media screen and (max-width: 768px) {
+  .PricingAndDiscountsCardContainer {
+    width: 40vw;
+    font-size: 0.8em;
+  }
+}
+
+/* @media screen and (max-width: 373px) {
+  .PricingAndDiscountsCardContainer {
+    width: 39vw;
+    font-size: 0.8em;
+  }
+} */
+
+/*----------------------
+----- Pop Up -----------
+----------------------*/
+
+.PopupOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5000;
+}
+
+.PopupContainer {
+  background: #fff;
+  width: 45%;
+  padding: 25px;
+  border-radius: 12px;
+  max-height: 80vh;
+  overflow-y: auto;
+  animation: fadeIn 0.2s ease;
+}
+
+@media (max-width: 600px) {
+  .PopupContainer {
+    width: 90% !important;
+    height: 60% !important;
+  }
+}
+
+.PopupTitle {
+  font-size: 22px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.PopupContainer input,
+.PopupContainer select {
+  width: 100%;
+  margin-bottom: 14px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.PopupButtons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.CancelBtn {
+  background: #ccc;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.SaveBtn {
+  background: #0d6efd;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

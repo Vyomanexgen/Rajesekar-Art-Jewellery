@@ -13,7 +13,9 @@ const Order = ({
   navigateToContact,
   navigateToAccount,
   navigateToOrders,
-  handleCategoryClick
+  handleCategoryClick,
+  setShowTrackOrderPage,
+  setSelectedOrderId
 }) => {
   return (
     <div className="orders-page-wrapper">
@@ -51,7 +53,7 @@ const Order = ({
                     </div>
                   </div>
                   <div className="order-header-right">
-                    <span className={`order-status-badge ${order.status === 'Delivery in progress' ? 'delivered' : order.status === 'In Transit' ? 'in-transit' : ''}`}>
+                    <span className={`order-status-badge-header ${order.status === 'Delivery in progress' ? 'delivered' : order.status === 'In Transit' ? 'in-transit' : order.status === 'Delivered' ? 'delivered' : 'pending'}`}>
                       {order.status}
                     </span>
                     <span className="order-total">₹{order.total.toLocaleString()}</span>
@@ -60,7 +62,7 @@ const Order = ({
                 
                 <div className="order-items-section">
                   <h4 className="order-items-title">Order Items</h4>
-                  <div className="order-items-grid">
+                  <div className="order-items-list-container">
                     {order.items.map((item, idx) => (
                       <div key={idx} className="order-item-card">
                         <div className="order-item-image">
@@ -78,12 +80,47 @@ const Order = ({
                   </div>
                 </div>
 
-                <div className="order-card-footer">
-                  <div className="order-footer-info">
-                    <span className="order-delivery-label">Estimated Delivery:</span>
-                    <span className="order-delivery-date">{order.deliveryDate}</span>
+                {/* Tracking Details Card */}
+                <div className="order-tracking-card">
+                  <div className="order-tracking-header">
+                    <h4 className="order-tracking-title">Tracking Details</h4>
+                    <span className={`order-status-badge-card ${order.status === 'Delivery in progress' ? 'delivered' : order.status === 'In Transit' ? 'in-transit' : order.status === 'Delivered' ? 'delivered' : 'pending'}`}>
+                      {order.status}
+                    </span>
                   </div>
-                  <button className="order-track-btn">
+                  <div className="order-tracking-info-grid">
+                    <div className="order-tracking-info-item">
+                      <span className="order-tracking-label">Order Date</span>
+                      <span className="order-tracking-value">{order.date}</span>
+                    </div>
+                    <div className="order-tracking-info-item">
+                      <span className="order-tracking-label">Estimated Delivery</span>
+                      <span className="order-tracking-value">{order.deliveryDate}</span>
+                    </div>
+                    <div className="order-tracking-info-item">
+                      <span className="order-tracking-label">Order Total</span>
+                      <span className="order-tracking-value">₹{order.total.toLocaleString()}</span>
+                    </div>
+                    <div className="order-tracking-info-item">
+                      <span className="order-tracking-label">Items</span>
+                      <span className="order-tracking-value">{order.itemCount} item(s)</span>
+                    </div>
+                  </div>
+                  <button 
+                    className="order-track-btn-card"
+                    onClick={() => {
+                      setSelectedOrderId(order.id);
+                      setShowTrackOrderPage(true);
+                      setShowOrdersPage(false);
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                  >
+                    <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M2 4H4L5 8H15L16 4H18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M5 8L3 18H17L15 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      <circle cx="6" cy="18" r="1.5" fill="currentColor"/>
+                      <circle cx="14" cy="18" r="1.5" fill="currentColor"/>
+                    </svg>
                     Track Order
                   </button>
                 </div>

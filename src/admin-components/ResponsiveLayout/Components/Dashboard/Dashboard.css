@@ -1,0 +1,30 @@
+/* --- Main Container: CSS Grid for Responsive Layout --- */
+.sales-performance-container {
+  display: grid;
+  /* Adjusts column count based on screen size */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1vw; /* Dynamic spacing based on viewport width */
+  /* padding: 0.3vw; */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* --- Media Queries for Layout Refinement --- */
+
+/* For smaller screens (e.g., mobile portrait) */
+@media (max-width: 600px) {
+  .sales-performance-container {
+    /* Stack cards more vertically on very small screens */
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 15px;
+  }
+}
+
+/* For tablets and medium screens */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .sales-performance-container {
+    /* 2 columns on tablets */
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

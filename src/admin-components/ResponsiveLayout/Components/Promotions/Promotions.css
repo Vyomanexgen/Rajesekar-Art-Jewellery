@@ -1,0 +1,79 @@
+.PromotionsContainer {
+  min-height: 80vh;
+  /* width: 86vw; */
+  width: 100%;
+  /* padding: 10px; */
+  padding: 2vh;
+  background-color: #e4e8e9;
+  overflow-y: auto; /* New */
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.PromotionsCardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/*-------------------------------
+----- Overlay Style -------------
+-------------------------------*/
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-container {
+  background: white;
+  width: 40%;
+  padding: 25px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modal-btns {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.cancel {
+  background: #ccc;
+  padding: 8px 14px;
+  border-radius: 6px;
+}
+
+.submit {
+  background: #007bff;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+}
+
+/* Mobile responsive popup */
+@media (max-width: 600px) {
+  .modal-container {
+    width: 90%;
+    height: 60%;
+    overflow-y: auto;
+  }
+}

@@ -1,0 +1,134 @@
+/* --- Global Container Sizing --- */
+.responsive-container {
+  height: 85vh; /* 85% of viewport height as requested */
+  width: 100vw; /* 100% of viewport width */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: "Times New Roman", Times, serif;
+  border: 1px solid #ccc; /* Border to visualize the 85vh boundary */
+}
+
+/* --- Top Navigation Bar --- */
+.top-navbar {
+  color: #ffffff;
+  min-height: 56px;
+  flex-shrink: 0;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.app-title {
+  font-size: 1.2rem;
+}
+.toggle-btn {
+  color: #fff;
+}
+
+/* --- Main Layout Area --- */
+.main-layout-area {
+  flex-grow: 1; /* Takes the remaining 85vh height minus the header */
+  overflow: hidden;
+  position: relative; /* Needed for positioning the mobile overlay */
+}
+
+/* --- Content Area (Simulates the blue container) --- */
+.content-area {
+  overflow-y: auto; /* Allows content scrolling within the area */
+  background-color: #f0f0f0; /* Light background for the overall area */
+}
+.feature-container {
+  background-color: #00ffff; /* Cyan/Blue color from Image 1 */
+  height: 100%; /* Ensures it fills the content area vertically */
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+}
+
+/* --- Sidebar Styles (Shared) --- */
+
+.sidebar-links {
+  padding: 2px 10px;
+}
+
+.list-unstyled {
+  margin-top: 1vh;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sidebar-link-item {
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.sidebar-link-item {
+  text-decoration: none;
+  color: #333;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.sidebar-link-item:hover {
+  background-color: #e5e5e5;
+}
+
+/* --- 1. Persistent Sidebar (Web View - Large Screens) --- */
+.persistent-sidebar {
+  width: 240px;
+  background-color: #ffffff;
+  overflow-y: auto;
+  border-right: 1px solid #e5e5e5;
+}
+
+/* --- 2. Mobile View Sidebar (Overlay - Small Screens) --- */
+
+/* Overlay Background */
+.sidebar-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent dark overlay */
+  z-index: 10;
+}
+
+/* Actual Sidebar that slides in */
+.mobile-overlay-sidebar {
+  position: absolute;
+  top: 0;
+  left: -240px; /* Hidden initially */
+  height: 100%;
+  width: 240px;
+  background-color: #ffffff;
+  overflow-y: auto;
+  z-index: 20;
+  transition: left 0.3s ease-in-out; /* Smooth transition */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Class to show the sidebar */
+.mobile-overlay-sidebar.open {
+  left: 0;
+}
+
+/* --- Media Queries for Layout Switching --- */
+
+/* Mobile View (Below 768px) */
+@media (max-width: 767.98px) {
+  /* On mobile, the persistent sidebar is hidden by Bootstrap utility d-md-block */
+  /* The Content area takes 100% width, full screen */
+  .content-area {
+    padding: 0; /* Remove padding if the blue container needs to be edge-to-edge */
+  }
+}
+
+/* Web View (768px and up) */
+@media (min-width: 768px) {
+  /* The Content area is now side-by-side with the persistent sidebar */
+}

@@ -216,19 +216,35 @@ const Account = ({
                   {userOrders.length > 0 ? (
                     <div className="account-orders-list">
                       {userOrders.slice(0, 3).map((order) => (
-                        <div key={order.id} className="account-order-item">
-                          <div className="account-order-info">
-                            <div className="account-order-number">{order.id}</div>
-                            <div className="account-order-meta">
-                              <span className="account-order-date">{order.date}</span>
-                              <span className="account-order-items">{order.itemCount} item(s)</span>
+                        <div key={order.id} className="account-order-card-item">
+                          <div className="account-order-card-header">
+                            <div className="account-order-info">
+                              <div className="account-order-number">{order.id}</div>
+                              <div className="account-order-meta">
+                                <span className="account-order-date">{order.date}</span>
+                                <span className="account-order-items">{order.itemCount} item(s)</span>
+                              </div>
+                            </div>
+                            <div className="account-order-right">
+                              <span className={`account-order-status-card ${order.status === 'Delivery in progress' ? 'delivered' : order.status === 'In Transit' ? 'in-transit' : order.status === 'Delivered' ? 'delivered' : 'pending'}`}>
+                                {order.status}
+                              </span>
                             </div>
                           </div>
-                          <div className="account-order-right">
-                            <span className={`account-order-status ${order.status === 'Delivery in progress' ? 'delivered' : order.status === 'In Transit' ? 'in-transit' : ''}`}>
-                              {order.status}
-                            </span>
-                            <span className="account-order-price">₹{order.total.toLocaleString()}</span>
+                          <div className="account-order-card-footer">
+                            <div className="account-order-total-info">
+                              <span className="account-order-total-label">Total Amount</span>
+                              <span className="account-order-price">₹{order.total.toLocaleString()}</span>
+                            </div>
+                            <button className="account-order-track-btn">
+                              <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2 4H4L5 8H15L16 4H18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                <path d="M5 8L3 18H17L15 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                <circle cx="6" cy="18" r="1.5" fill="currentColor"/>
+                                <circle cx="14" cy="18" r="1.5" fill="currentColor"/>
+                              </svg>
+                              Track
+                            </button>
                           </div>
                         </div>
                       ))}
@@ -270,24 +286,46 @@ const Account = ({
                   {userOrders.length > 0 ? (
                     <div className="account-orders-list">
                       {userOrders.map((order) => (
-                        <div key={order.id} className="account-order-item">
-                          <div className="account-order-info">
-                            <div className="account-order-number">{order.id}</div>
-                            <div className="account-order-meta">
-                              <span className="account-order-date">{order.date}</span>
-                              <span className="account-order-items">{order.itemCount} item(s)</span>
+                        <div key={order.id} className="account-order-card-item-full">
+                          <div className="account-order-card-header-full">
+                            <div className="account-order-info-full">
+                              <div className="account-order-number-full">{order.id}</div>
+                              <div className="account-order-meta-full">
+                                <span className="account-order-date">{order.date}</span>
+                                <span className="account-order-items">{order.itemCount} item(s)</span>
+                              </div>
                             </div>
-                            <div className="account-order-items-detail">
+                            <div className="account-order-status-container">
+                              <span className={`account-order-status-card-full ${order.status === 'Delivery in progress' ? 'delivered' : order.status === 'In Transit' ? 'in-transit' : order.status === 'Delivered' ? 'delivered' : 'pending'}`}>
+                                {order.status}
+                              </span>
+                            </div>
+                          </div>
+                          <div className="account-order-items-section-card">
+                            <h5 className="account-order-items-title">Order Items</h5>
+                            <div className="account-order-items-list-card">
                               {order.items.map((item, idx) => (
-                                <span key={idx} className="account-order-item-name">{item.name} (Qty: {item.quantity})</span>
+                                <div key={idx} className="account-order-item-card">
+                                  <span className="account-order-item-name">{item.name}</span>
+                                  <span className="account-order-item-qty">Qty: {item.quantity}</span>
+                                </div>
                               ))}
                             </div>
                           </div>
-                          <div className="account-order-right">
-                            <span className={`account-order-status ${order.status === 'Delivery in progress' ? 'delivered' : order.status === 'In Transit' ? 'in-transit' : ''}`}>
-                              {order.status}
-                            </span>
-                            <span className="account-order-price">₹{order.total.toLocaleString()}</span>
+                          <div className="account-order-card-footer-full">
+                            <div className="account-order-total-section">
+                              <span className="account-order-total-label">Total Amount</span>
+                              <span className="account-order-price-full">₹{order.total.toLocaleString()}</span>
+                            </div>
+                            <button className="account-order-track-btn-full">
+                              <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2 4H4L5 8H15L16 4H18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                <path d="M5 8L3 18H17L15 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                <circle cx="6" cy="18" r="1.5" fill="currentColor"/>
+                                <circle cx="14" cy="18" r="1.5" fill="currentColor"/>
+                              </svg>
+                              Track Order
+                            </button>
                           </div>
                         </div>
                       ))}

@@ -1,0 +1,15 @@
+.InvoicesContainer {
+  min-height: 80vh;
+  max-width: 100%;
+
+  padding: 0vh 2vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 10px;
+  padding-top: 2vh;
+  background-color: #e4e8e9;
+
+  overflow-y: auto;
+}

@@ -30,7 +30,10 @@ export const AppProvider = ({ children }) => {
   // Page visibility states
   const [showWishlist, setShowWishlist] = useState(false);
   const [showOrdersPage, setShowOrdersPage] = useState(false);
+  const [showTrackOrderPage, setShowTrackOrderPage] = useState(false);
+  const [selectedOrderId, setSelectedOrderId] = useState(null);
   const [showCartModal, setShowCartModal] = useState(false);
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
   const [showCartToast, setShowCartToast] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
@@ -265,6 +268,8 @@ export const AppProvider = ({ children }) => {
     setShowCartModal(false);
     setShowWishlist(false);
     setShowOrdersPage(false);
+    setShowTrackOrderPage(false);
+    setSelectedOrderId(null);
     setShowAccountPage(false);
     setShowOrderConfirmation(false);
     setShowSignIn(false);
@@ -303,6 +308,8 @@ export const AppProvider = ({ children }) => {
     // Page visibility states
     showWishlist, setShowWishlist,
     showOrdersPage, setShowOrdersPage,
+    showTrackOrderPage, setShowTrackOrderPage,
+    selectedOrderId, setSelectedOrderId,
     showCartModal, setShowCartModal,
     showCartToast, setShowCartToast,
     showToast, setShowToast,
@@ -383,6 +390,9 @@ export const AppProvider = ({ children }) => {
     // Order states
     orderTriggered, setOrderTriggered,
     orderId, setOrderId,
+
+    // Admin states
+    isAdminAuthenticated, setIsAdminAuthenticated,
 
     // Helper functions
     closeAllPages,

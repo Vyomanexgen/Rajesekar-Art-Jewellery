@@ -609,20 +609,36 @@ export const useAppHandlers = () => {
       setTimeout(() => {
         const newOrderId = 'ORD' + Date.now();
         app.setOrderId(newOrderId);
+        const orderItems = Array.from(app.cartItems.entries()).map(([productId, quantity]) => {
+          const product = products.find(p => p.id === productId);
+          return product ? { ...product, quantity } : null;
+        }).filter(Boolean);
+        
+        const selectedAddress = app.selectedAddressId 
+          ? app.addresses.find(addr => addr.id === app.selectedAddressId)
+          : null;
+        
+        const newOrder = {
+          id: newOrderId,
+          date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+          items: orderItems,
+          itemCount: orderItems.reduce((sum, item) => sum + item.quantity, 0),
+          total: getOrderTotal(),
+          status: 'In Transit', // All new orders start as "In Transit"
+          deliveryDate: getEstimatedDeliveryDate(),
+          userDetails: app.userDetails ? {
+            fullName: app.userDetails.fullName || app.userDetails.name,
+            email: app.userDetails.email,
+            phone: app.userDetails.phone
+          } : (selectedAddress ? {
+            fullName: selectedAddress.name,
+            email: 'N/A',
+            phone: selectedAddress.phone
+          } : null),
+          deliveryAddress: selectedAddress
+        };
+        
         if (app.isLoggedIn) {
-          const orderItems = Array.from(app.cartItems.entries()).map(([productId, quantity]) => {
-            const product = products.find(p => p.id === productId);
-            return product ? { ...product, quantity } : null;
-          }).filter(Boolean);
-          const newOrder = {
-            id: newOrderId,
-            date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-            items: orderItems,
-            itemCount: orderItems.reduce((sum, item) => sum + item.quantity, 0),
-            total: getOrderTotal(),
-            status: app.userOrders.length === 0 ? 'Delivery in progress' : 'In Transit',
-            deliveryDate: getEstimatedDeliveryDate()
-          };
           app.setUserOrders(prev => [newOrder, ...prev]);
         }
         app.setCartItems(new Map());
@@ -719,16 +735,26 @@ export const useAppHandlers = () => {
       return;
     }
     
+    // Check if user has an account
+    const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+    const userExists = registeredUsers.find(user => user.email === app.signInForm.email);
+    
+    if (!userExists) {
+      // Show popup message if user doesn't have an account
+      alert('Sign-in failed. Please create an account.');
+      return;
+    }
+    
     // Store checkout state before closing modals
     const wasInCheckout = app.showCheckout;
     
     app.setIsLoggedIn(true);
     const newUserDetails = {
-      email: app.signInForm.email,
-      fullName: app.signInForm.email.split('@')[0],
-      name: app.signInForm.email.split('@')[0],
-      phone: '',
-      memberSince: new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
+      email: userExists.email,
+      fullName: userExists.fullName || userExists.email.split('@')[0],
+      name: userExists.fullName || userExists.email.split('@')[0],
+      phone: userExists.phone || '',
+      memberSince: userExists.memberSince || new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
     };
     app.setUserDetails(newUserDetails);
     app.setShowSignIn(false);
@@ -796,6 +822,23 @@ export const useAppHandlers = () => {
 
   const handleSignUp = useCallback((e) => {
     e.preventDefault();
+    
+    // Store user account in localStorage
+    const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+    const newUser = {
+      email: app.signUpForm.email,
+      password: app.signUpForm.password,
+      fullName: app.signUpForm.fullName,
+      phone: app.signUpForm.phone,
+      memberSince: new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
+    };
+    
+    // Check if user already exists
+    const userExists = registeredUsers.find(user => user.email === app.signUpForm.email);
+    if (!userExists) {
+      registeredUsers.push(newUser);
+      localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
+    }
     
     // Store checkout state before closing modals
     const wasInCheckout = app.showCheckout;

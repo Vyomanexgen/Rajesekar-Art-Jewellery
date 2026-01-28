@@ -1,0 +1,43 @@
+.ReviewsAndRatingsContainer {
+  min-height: 82vh;
+  max-width: 100%;
+
+  padding: 0vh 2vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 20px;
+  padding-top: 2vh;
+  background-color: #e4e8e9;
+
+  overflow-y: auto;
+}
+
+/* Summary Card */
+
+.ReviewSummaryCardContainers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  width: 100%;
+}
+
+.ReviewsAndRatingsDataContainer {
+  width: 100%;
+  margin: auto;
+}
+
+/* Responsive layout container */
+.review-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  .review-stat-grid {
+    grid-template-columns: 1fr;
+  }
+}

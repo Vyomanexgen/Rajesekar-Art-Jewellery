@@ -1,0 +1,317 @@
+.invoices-stats-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  width: 100%;
+
+  /* margin: 20px 0; */
+}
+
+.invoice-stat-card {
+  background: #fff;
+  padding: 18px;
+  border-radius: 14px;
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 3px 10px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  /* justify-content: space-between; */
+}
+
+.invoice-stat-card:hover {
+  transform: translateY(-4px);
+}
+
+.invoice-stat-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-size: 22px;
+}
+
+.invoice-stat-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.invoice-stat-title {
+  margin: 0;
+  font-size: 13px;
+  color: #5f6b7a;
+  font-weight: 500;
+}
+
+.invoice-stat-value {
+  margin: 2px 0 0 0;
+  font-size: 24px;
+  color: #111827;
+  font-weight: 700;
+}
+
+/* 📱 RESPONSIVE DESIGN */
+
+@media (max-width: 1024px) {
+  .invoices-stats-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .invoices-stats-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/*--------------------------------
+------ Invoice Card --------------
+--------------------------------*/
+
+.invoice-card {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  align-items: center;
+  gap: 20px;
+
+  background-color: white;
+}
+
+.invoice-card h4 {
+  margin: 0;
+  font-weight: 600;
+}
+
+.customer {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.sub-info,
+.pricing span {
+  font-size: 13px;
+  color: #666;
+  display: block;
+}
+
+.badge {
+  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 5px;
+  margin: 3px 0;
+}
+
+.badge.paid {
+  background: #e8ffee;
+  color: #00a86b;
+}
+
+.badge.pending {
+  background: #fff9e0;
+  color: #ffb100;
+}
+
+.badge.overdue {
+  background: #ffe8e8;
+  color: #d00000;
+}
+
+.invoice-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+
+.preview-btn,
+.download-btn {
+  display: block;
+  margin-top: 6px;
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.preview-btn {
+  background: #fff;
+  border: 1px solid #ccc;
+}
+
+.download-btn {
+  background: #eac45c;
+  border: none;
+}
+
+/* -------- MODAL -------- */
+/* .invoice-modal {
+  position: fixed;
+  width: 50%;
+  height: 80%;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  overflow-y: auto;
+  padding: 20px;
+  background-color: white;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  width: 800px;
+  border-radius: 8px;
+}
+
+.close-btn {
+  background: #ddd;
+  padding: 8px 14px;
+  margin-right: 10px;
+} */
+
+/* Responsive */
+/* @media (max-width: 768px) {
+  .invoice-card {
+    flex-direction: column;
+    align-items: start;
+  }
+} */
+
+/* ---- Overlay ---- */
+.invoice-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  backdrop-filter: blur(2px);
+}
+
+/* ---- Modal Box ---- */
+.modal-content {
+  background: white !important; /* solid white background */
+  z-index: 10000;
+  width: 50%;
+  /* height: 60%;  Remove this so content fits naturally */
+  max-width: 700px;
+  border-radius: 10px;
+  padding: 25px 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  animation: popupFade 0.25s ease-out;
+  text-align: left;
+}
+
+/* Headings */
+.modal-content h2 {
+  margin: 0 0 5px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Address / Text formatting */
+.modal-content p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #444;
+}
+
+/* Table Styling */
+.modal-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 15px 0;
+  background: #f9fafb;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.modal-content th {
+  background: #e9eef5;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.modal-content td {
+  padding: 10px;
+  text-align: center;
+  background: white;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Buttons */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.close-btn {
+  background: #d3d3d3;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  font-size: 14px;
+}
+
+.download-btn {
+  background: #eac45c;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  font-size: 14px;
+}
+
+/* Animation */
+@keyframes popupFade {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Mobile Fix */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 90%;
+    max-height: 50%;
+    overflow-y: auto;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .invoice-card {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.pdf-hidden {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+  width: 794px; /* A4 width */
+  background: white;
+}
+
+.invoice-preview {
+  padding: 24px;
+  font-family: Arial, sans-serif;
+}

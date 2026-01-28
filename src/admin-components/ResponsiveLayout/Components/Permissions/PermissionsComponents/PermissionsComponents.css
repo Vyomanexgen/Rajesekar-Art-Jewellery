@@ -1,0 +1,486 @@
+.permissions-stats-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  width: 100%;
+  /* margin: 20px 0; */
+}
+
+.permission-stat-card {
+  background: #fff;
+  padding: 18px;
+  border-radius: 14px;
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 3px 10px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  /* justify-content: space-between; */
+}
+
+.permission-stat-card:hover {
+  transform: translateY(-4px);
+}
+
+.permission-stat-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-size: 22px;
+}
+
+.permission-stat-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.permission-stat-title {
+  margin: 0;
+  font-size: 13px;
+  color: #5f6b7a;
+  font-weight: 500;
+}
+
+.permission-stat-value {
+  margin: 2px 0 0 0;
+  font-size: 24px;
+  color: #111827;
+  font-weight: 700;
+}
+
+/* 📱 RESPONSIVE DESIGN */
+
+@media (max-width: 1024px) {
+  .permissions-stats-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .permissions-stats-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/*-----------------------------
+----- Permission Card ---------
+-----------------------------*/
+
+/* --- Grid of cards --- */
+.roles-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+  align-items: stretch;
+}
+
+/* --- Card --- */
+.permission-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 1px 6px rgba(10, 10, 10, 0.06);
+  display: flex;
+  flex-direction: column;
+  min-height: 160px;
+}
+
+.permission-top {
+  display: flex;
+  gap: 12px;
+}
+
+.role-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.role-icon.large {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+}
+
+.role-info {
+  flex: 1;
+}
+
+.role-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.role-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.card-edit-btn {
+  /* border: none; */
+  background: transparent;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 6px;
+  border-radius: 6px;
+  border-width: 0px;
+  box-shadow: 0px 0px 1px black;
+  padding: 10px 12px;
+}
+
+.card-edit-btn:hover {
+  background: #f3f3f3;
+}
+
+.users-count {
+  color: #666;
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+.role-desc {
+  color: #444;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.quick-summary {
+  margin-top: 12px;
+  font-size: 13px;
+  color: #333;
+}
+
+.summary-values {
+  display: flex;
+  gap: 12px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+
+.card-actions {
+  margin-top: auto;
+  display: flex;
+  gap: 10px;
+}
+
+.view-btn {
+  width: 80%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #d0d0d0;
+  background: white;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.view-btn:hover {
+  background: #fafafa;
+}
+
+/* --- Overlay + Popup --- */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(18, 24, 33, 0.48);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+/* popup container */
+.popup {
+  background: #fff;
+  border-radius: 12px;
+  width: 100%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  /* New Change */
+  max-width: 800px; /* default desktop width */
+  max-height: 90vh;
+}
+
+/* New Change */
+/* wrapper to ensure the table can scroll horizontally on narrow screens */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* header */
+.popup-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  border-bottom: 1px solid #eee;
+}
+
+/* scroll area for the table to fit inside maxHeight */
+.permissions-scroll {
+  overflow: auto;
+  padding: 12px 18px;
+  flex: 1 1 auto;
+}
+
+/* table */
+.permissions-table {
+  width: 100%;
+  border-collapse: collapse;
+  /* min-width: 700px; New Change */
+  min-width: 520px; /* lowered from 700 */
+}
+
+.permissions-table thead th {
+  text-align: left;
+  padding: 10px 12px;
+  font-weight: 700;
+  color: #222;
+  border-bottom: 1px solid #eee;
+}
+
+.permissions-table tbody td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #f0f0f0;
+  vertical-align: middle;
+  font-size: 14px;
+  color: #333;
+}
+
+/* center cell used for ticks or select */
+.center-cell {
+  text-align: center;
+  width: 110px;
+}
+
+/* tick style */
+.tick {
+  color: #16a34a;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+/* select box for edit mode */
+.perm-select {
+  width: 110px;
+  height: 88px;
+  box-sizing: border-box;
+}
+
+/* footer */
+.popup-footer {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  padding: 12px 18px;
+  border-top: 1px solid #eee;
+  background: #fff;
+}
+
+.close-btn {
+  background: #fff;
+  color: #333;
+  border: 1px solid #d0d0d0;
+  padding: 8px 12px;
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+.edit-btn {
+  background: #d4af37; /* gold-ish seen in screenshot */
+  color: #111;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 9px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+/* responsive constraints:
+   - ensure popup does not exceed 60% width/height on larger screens
+   - on small screens make it near-fullscreen but still centered */
+@media (min-width: 900px) {
+  .popup {
+    width: 60vw;
+    height: 60vh;
+  }
+}
+
+@media (max-width: 899px) {
+  .popup {
+    width: 96vw;
+    height: 86vh;
+    border-radius: 10px;
+  }
+  .permissions-table {
+    min-width: 560px;
+  }
+}
+
+/* make sure selects look ok on mobile */
+@media (max-width: 520px) {
+  .perm-select {
+    width: 90px;
+    height: 80px;
+  }
+  .center-cell {
+    width: 80px;
+  }
+}
+
+@media (max-width: 600px) {
+  .popup-container {
+    width: 90% !important;
+    height: 60% !important;
+    overflow-y: auto;
+  }
+}
+
+/* -----------------------
+   Popup responsiveness + wrapper table improvements
+   ----------------------- */
+
+/* smaller paddings on mobile */
+@media (max-width: 760px) {
+  .popup {
+    width: 92vw;
+    height: auto;
+    max-height: 94vh;
+    border-radius: 10px;
+  }
+
+  .permissions-scroll {
+    padding: 10px 12px;
+  }
+
+  .permissions-table thead th,
+  .permissions-table tbody td {
+    padding: 8px 10px;
+  }
+
+  .role-title {
+    font-size: 16px;
+  }
+}
+
+/* very small screens: make popup near fullscreen */
+@media (max-width: 420px) {
+  .popup {
+    width: 98vw;
+    height: 96vh;
+    border-radius: 8px;
+  }
+
+  .permissions-table {
+    min-width: 480px;
+  }
+
+  .perm-select {
+    width: 80px;
+    height: 70px;
+  }
+}
+
+/* Add-module row (input + add button) */
+.add-module-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 6px 0 12px 0;
+}
+
+.add-module-input {
+  flex: 1;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.add-module-btn {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #d0d0d0;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* checkbox styling inside table */
+.perm-checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 6px;
+}
+
+.perm-checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+}
+
+/* remove module button (small X) */
+.remove-module-btn {
+  background: transparent;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+/* make tick icon align nicely */
+.tick {
+  color: #16a34a;
+  font-weight: 700;
+  font-size: 18px;
+  display: inline-block;
+}
+
+/* popup-footer spacing adjustments for mobile */
+.popup-footer {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  padding: 10px 14px;
+  border-top: 1px solid #eee;
+  background: #fff;
+}
+
+/* keep existing edit button color but slightly bolder on small screens */
+.edit-btn {
+  background: #d4af37;
+  color: #111;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 9px;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+/* ensure overlay keeps scroll of underlying page hidden (you might already have this via body styles) */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(18, 24, 33, 0.48);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+  overflow: auto;
+}

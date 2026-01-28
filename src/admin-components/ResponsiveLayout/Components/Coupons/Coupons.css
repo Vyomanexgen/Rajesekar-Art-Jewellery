@@ -1,0 +1,153 @@
+/* Coupons Container */
+
+.CouponsContainer {
+  min-height: 82vh;
+  max-width: 100%;
+
+  padding: 0vh 2vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 20px;
+  padding-top: 2vh;
+  background-color: #e4e8e9;
+
+  overflow-y: auto;
+}
+
+/* Coupons Stats Container */
+
+.coupon-stat-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  width: 100%;
+}
+
+/* Search Bar */
+
+.CouponSearchBarContainer {
+  height: 6vh;
+  width: 50%;
+}
+
+.CouponSearchBar {
+  height: 5vh;
+  width: 100%;
+  border-radius: 6px;
+  border-width: 0px;
+  box-shadow: 0px 0px 1px black;
+
+  font-size: 0.9em;
+}
+
+/* Coupon Table Container */
+
+.CouponTableContainer {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 5vh;
+  overflow-x: auto; /* KEY FOR RESPONSIVE SCROLL */
+
+  border-collapse: collapse !important;
+  padding: 2vh;
+}
+
+.CouponTable {
+  width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.CouponTable th {
+  background: #f3f3f3;
+  padding: 16px 12px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.CouponTable td {
+  padding: 16px 12px;
+  border-bottom: 1px solid #e3e3e3;
+}
+
+.CouponTable tr:hover {
+  background: #fafafa;
+}
+
+.coupon-code {
+  font-weight: bold;
+  color: #0057ff;
+  cursor: pointer;
+}
+
+.highlight {
+  color: #0057ff;
+  font-weight: bold;
+}
+
+.conditions p {
+  margin: 2px 0;
+  color: #555;
+}
+
+.usage {
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.status {
+  padding: 4px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+  text-transform: capitalize;
+  font-weight: 500;
+}
+
+.status.active {
+  background-color: #d1fad7;
+  color: #16a34a;
+}
+
+.status.expired {
+  background-color: #ffe1df;
+  color: #e11d48;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .coupon-stat-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* @media (max-width: 600px) {
+  .coupon-stat-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+} */
+
+/* Phones - Show 2 cards per row */
+@media (max-width: 601px) {
+  .coupon-stat-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .CouponSearchBarContainer {
+    width: 70%;
+  }
+}
+
+/* Very small screens (optional fallback to 1 card) */
+@media (max-width: 380px) {
+  .coupon-stat-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .CouponSearchBarContainer {
+    width: 100%;
+  }
+}

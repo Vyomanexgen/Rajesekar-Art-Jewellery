@@ -1,0 +1,378 @@
+/* Auth Container */
+.AuthContainer {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Animated Background Elements */
+.AuthContainer::before {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    top: -250px;
+    right: -250px;
+    animation: float 6s ease-in-out infinite;
+}
+
+.AuthContainer::after {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    bottom: -150px;
+    left: -150px;
+    animation: float 8s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Auth Card */
+.AuthCard {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 50px 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 450px;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Header Section */
+.AuthHeader {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.AuthLogo {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 20px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: white;
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+}
+
+.AuthTitle {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 10px;
+}
+
+.AuthSubtitle {
+    font-size: 1rem;
+    color: #718096;
+    font-weight: 400;
+}
+
+/* Form Section */
+.AuthForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.FormGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.FormLabel {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #4a5568;
+    margin-left: 4px;
+}
+
+.FormInput {
+    width: 100%;
+    padding: 14px 18px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1rem;
+    color: #2d3748;
+    background-color: #f7fafc;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.FormInput:focus {
+    border-color: #667eea;
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.FormInput::placeholder {
+    color: #a0aec0;
+}
+
+/* Password Toggle */
+.PasswordInputWrapper {
+    position: relative;
+}
+
+.PasswordToggle {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #718096;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 5px;
+    transition: color 0.3s ease;
+}
+
+.PasswordToggle:hover {
+    color: #667eea;
+}
+
+/* Remember & Forgot Section */
+.FormOptions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: -5px;
+}
+
+.RememberMe {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: #4a5568;
+    cursor: pointer;
+}
+
+.RememberMe input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #667eea;
+}
+
+.ForgotPassword {
+    font-size: 0.9rem;
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.ForgotPassword:hover {
+    color: #764ba2;
+    text-decoration: underline;
+}
+
+/* Submit Button */
+.SubmitButton {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    margin-top: 10px;
+}
+
+.SubmitButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+}
+
+.SubmitButton:active {
+    transform: translateY(0);
+}
+
+/* Divider */
+.AuthDivider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 30px 0;
+    color: #a0aec0;
+    font-size: 0.9rem;
+}
+
+.AuthDivider::before,
+.AuthDivider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.AuthDivider span {
+    padding: 0 15px;
+    font-weight: 500;
+}
+
+/* Google Sign In Button */
+.GoogleButton {
+    width: 100%;
+    padding: 16px;
+    background: white;
+    color: #2d3748;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.GoogleButton:hover {
+    border-color: #667eea;
+    background-color: #f7fafc;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.GoogleIcon {
+    width: 24px;
+    height: 24px;
+}
+
+/* Footer Links */
+.AuthFooter {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 0.95rem;
+    color: #718096;
+}
+
+.AuthFooter a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 5px;
+    transition: color 0.3s ease;
+}
+
+.AuthFooter a:hover {
+    color: #764ba2;
+    text-decoration: underline;
+}
+
+/* Back to Home Link */
+.BackToHome {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.BackToHome:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateX(-5px);
+    color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .AuthCard {
+        padding: 40px 30px;
+        margin: 20px;
+    }
+
+    .AuthTitle {
+        font-size: 1.75rem;
+    }
+
+    .BackToHome {
+        top: 20px;
+        left: 20px;
+        font-size: 0.9rem;
+        padding: 8px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .AuthCard {
+        padding: 30px 20px;
+    }
+
+    .AuthTitle {
+        font-size: 1.5rem;
+    }
+
+    .AuthLogo {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+    }
+
+    .FormInput {
+        padding: 12px 16px;
+    }
+
+    .SubmitButton {
+        padding: 14px;
+        font-size: 1rem;
+    }
+}

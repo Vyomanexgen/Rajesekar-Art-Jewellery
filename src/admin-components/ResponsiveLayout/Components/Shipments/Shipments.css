@@ -1,0 +1,94 @@
+.ShipmentsContainer {
+  min-height: 80vh;
+  max-width: 100%;
+
+  padding: 0vh 2vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 20px;
+  padding-top: 2vh;
+  background-color: #e4e8e9;
+
+  overflow-y: auto;
+}
+
+/* -----------------------------------
+----------- Toggle Container ---------
+------------------------------------*/
+
+.toggle-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.toggle-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f1f5f9;
+  padding: 6px;
+  border-radius: 30px;
+  width: fit-content;
+}
+
+.toggle-btn {
+  padding: 8px 20px;
+  border-radius: 25px;
+  background: transparent;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  color: #475569;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.toggle-btn:hover {
+  background: #e2e8f0;
+}
+
+.active-toggle {
+  background: #0057ff;
+  color: #fff !important;
+  font-weight: 600;
+}
+
+.toggle-content {
+  width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .toggle-btn {
+    padding: 6px 14px;
+    font-size: 14px;
+  }
+}
+
+/* Transition */
+
+.fadeZoom-enter {
+  opacity: 0;
+  transform: scale(0.97);
+}
+
+.fadeZoom-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+
+.fadeZoom-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.fadeZoom-exit-active {
+  opacity: 0;
+  transform: scale(0.97);
+  transition: opacity 300ms ease, transform 300ms ease;
+}

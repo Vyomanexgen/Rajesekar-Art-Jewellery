@@ -5,6 +5,9 @@ import Home from './components/Home';
 import Cart from './components/cart';
 import Wishlist from './components/wishlist';
 import Order from './components/order';
+import TrackOrder from './components/TrackOrder';
+import AdminLogin from './components/AdminLogin';
+import AdminDashboard from './components/AdminDashboard';
 import About from './components/About';
 import Contact from './components/contact';
 import Arrivals from './components/arrivals';
@@ -35,6 +38,8 @@ const AppRouter = () => {
     showAboutPage,
     showContactPage,
     showOrdersPage,
+    showTrackOrderPage,
+    selectedOrderId,
     showWishlist,
     showAccountPage,
     currentCategory,
@@ -54,6 +59,8 @@ const AppRouter = () => {
     showSuccessAnimation,
     setShowSuccessAnimation,
     successAnimationMessage,
+    isAdminAuthenticated,
+    setIsAdminAuthenticated,
   } = useApp();
 
   const handlers = useAppHandlers();
@@ -61,6 +68,11 @@ const AppRouter = () => {
   // Initialize page state based on URL
   useEffect(() => {
     const path = window.location.pathname;
+    
+    // Don't interfere with admin routes - let BrowserRouter handle them
+    if (path === '/admin' || path.startsWith('/admin/')) {
+      return;
+    }
     
     // Don't interfere if we're in checkout mode
     if (showCheckout && (path === '/checkout' || path === '/signin')) {
@@ -188,6 +200,10 @@ const AppRouter = () => {
         handlers.setShowNotFound(true);
         handlers.closeAllPages();
       }
+    } else if (path === '/admin' || path.startsWith('/admin/')) {
+      // Admin route - handled separately, don't show 404
+      handlers.closeAllPages();
+      handlers.setShowNotFound(false);
     } else if (path !== '/' && path !== '/signin' && path !== '/checkout') {
       handlers.setShowNotFound(true);
       handlers.closeAllPages();
@@ -205,9 +221,18 @@ const AppRouter = () => {
 
   const currentPath = typeof window !== 'undefined' ? window.location.pathname : '/';
   const isOnSignInRoute = currentPath === '/signin';
+  const isAdminRoute = currentPath === '/admin' || currentPath.startsWith('/admin/');
 
   return (
     <div className="page-wrapper">
+      {isAdminRoute ? (
+        isAdminAuthenticated ? (
+          <AdminDashboard setIsAdminAuthenticated={setIsAdminAuthenticated} />
+        ) : (
+          <AdminLogin onLoginSuccess={() => setIsAdminAuthenticated(true)} />
+        )
+      ) : (
+        <>
       <Offer
         showOfferPopup={showOfferPopup}
         setShowOfferPopup={handlers.setShowOfferPopup}
@@ -455,6 +480,20 @@ const AppRouter = () => {
           closeAllPages={handlers.closeAllPages}
           setShowSignIn={handlers.setShowSignIn}
         />
+      ) : showTrackOrderPage ? (
+        <TrackOrder
+          selectedOrderId={selectedOrderId}
+          userOrders={handlers.userOrders}
+          getProductImage={handlers.getProductImage}
+          navigateToHome={handlers.navigateToHome}
+          navigateToShop={handlers.navigateToShop}
+          navigateToAbout={handlers.navigateToAbout}
+          navigateToContact={handlers.navigateToContact}
+          navigateToAccount={handlers.navigateToAccount}
+          navigateToOrders={handlers.navigateToOrders}
+          handleCategoryClick={handlers.handleCategoryClick}
+          setShowTrackOrderPage={handlers.setShowTrackOrderPage}
+        />
       ) : showOrdersPage ? (
         <Order
           userOrders={handlers.userOrders}
@@ -469,6 +508,8 @@ const AppRouter = () => {
           navigateToAccount={handlers.navigateToAccount}
           navigateToOrders={handlers.navigateToOrders}
           handleCategoryClick={handlers.handleCategoryClick}
+          setShowTrackOrderPage={handlers.setShowTrackOrderPage}
+          setSelectedOrderId={handlers.setSelectedOrderId}
         />
       ) : showWishlist ? (
         <Wishlist
@@ -653,6 +694,8 @@ const AppRouter = () => {
           message={successAnimationMessage}
           onComplete={() => setShowSuccessAnimation(false)}
         />
+      )}
+        </>
       )}
     </div>
   );

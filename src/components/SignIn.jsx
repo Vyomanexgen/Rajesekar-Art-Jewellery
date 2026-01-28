@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const SignIn = ({
   signInForm,
@@ -11,10 +11,35 @@ const SignIn = ({
   setCheckoutStep,
   setShowTermsPrivacyPopup
 }) => {
+  // Reset form to empty values whenever the component is shown
+  useEffect(() => {
+    // Clear any pre-filled values immediately
+    setSignInForm({
+      email: '',
+      password: '',
+      showPassword: false,
+      rememberDevice: false,
+      termsAgreed: false
+    });
+    
+    // Also clear after a short delay to catch any browser autofill
+    const timeoutId = setTimeout(() => {
+      setSignInForm({
+        email: '',
+        password: '',
+        showPassword: false,
+        rememberDevice: false,
+        termsAgreed: false
+      });
+    }, 100);
+    
+    return () => clearTimeout(timeoutId);
+  }, []); // Run only once on mount
+
   return (
     <div className="auth-page-wrapper show-sign-in">
       <div className="auth-container">
-        <form className="auth-form" onSubmit={handleSignIn}>
+        <form className="auth-form" onSubmit={handleSignIn} autoComplete="off">
           <h2 className="auth-title">Sign In</h2>
           
           <div className="auth-field">
@@ -25,6 +50,10 @@ const SignIn = ({
               placeholder="you@email.com"
               value={signInForm.email}
               onChange={(e) => setSignInForm({ ...signInForm, email: e.target.value })}
+              autoComplete="off"
+              autoFocus={false}
+              name="email-signin"
+              id="email-signin"
               required
             />
           </div>
@@ -38,6 +67,10 @@ const SignIn = ({
                 placeholder="Enter your password"
                 value={signInForm.password}
                 onChange={(e) => setSignInForm({ ...signInForm, password: e.target.value })}
+                autoComplete="new-password"
+                autoFocus={false}
+                name="password-signin"
+                id="password-signin"
                 required
               />
               <button
