@@ -4,6 +4,7 @@ import productsData from '../../db.json';
 const AppContext = createContext();
 
 // Import products from db.json with validation
+// Vite handles JSON imports and bundles them at build time
 const products = (productsData && Array.isArray(productsData.products)) 
   ? productsData.products 
   : (Array.isArray(productsData) ? productsData : []);
