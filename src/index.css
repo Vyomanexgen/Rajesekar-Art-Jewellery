@@ -263,6 +263,9 @@ button {
   flex: 1;
   min-width: 0;
   height: 100%; /* Ensure full height for proper centering */
+  position: relative;
+  z-index: 1001;
+  overflow: visible;
 }
 
 /* Desktop: Increase search box size and ensure equal spacing */
@@ -273,14 +276,16 @@ button {
     flex: 1;
     align-items: center;
     min-width: 0;
-    overflow: hidden;
+    overflow: visible;
   }
 
   .nav-links {
     gap: 20px;
     flex-shrink: 0;
     margin-right: 0;
-    
+    overflow: visible;
+    position: relative;
+    z-index: 10001;
   }
 
   .search-box-wrapper {
@@ -343,7 +348,10 @@ button {
   font-weight: 500;
   align-items: center;
   flex-shrink: 0;
- margin-left: 44px;
+  margin-left: 44px;
+  position: relative;
+  z-index: 1001;
+  overflow: visible;
 }
 
 .nav-links a {
@@ -3282,6 +3290,7 @@ form.search-box {
 /* Shop Dropdown Menu */
 .nav-dropdown-wrapper {
   position: relative;
+  z-index: 10002;
 }
 
 .nav-dropdown-wrapper > a.active {
@@ -3298,9 +3307,13 @@ form.search-box {
   min-width: 200px;
   padding: 8px 0;
   margin-top: 8px;
-  z-index: 1000;
-  display: flex;
+  z-index: 10002;
+  display: flex !important;
   flex-direction: column;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  overflow: visible !important;
 }
 
 .shop-dropdown a {
