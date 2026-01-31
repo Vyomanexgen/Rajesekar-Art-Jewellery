@@ -24,6 +24,7 @@ import ProductModal from './components/ProductModal';
 import Account from './components/account';
 import Shop from './components/Shop';
 import SuccessAnimation from './components/SuccessAnimation';
+import WhatsAppButton from './components/WhatsAppButton';
 import { useAppHandlers } from './hooks/useAppHandlers';
 
 const AppRouter = () => {
@@ -695,6 +696,9 @@ const AppRouter = () => {
           onComplete={() => setShowSuccessAnimation(false)}
         />
       )}
+
+      {/* WhatsApp Floating Button - Only show on non-admin pages */}
+      <WhatsAppButton />
         </>
       )}
     </div>

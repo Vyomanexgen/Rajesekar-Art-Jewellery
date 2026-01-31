@@ -112,18 +112,6 @@ const Navigation = ({
 
   return (
     <>
-      {/* Top Bar - Address and Contact */}
-      <div className="top-bar">
-        <div className="top-bar-content">
-          <div className="top-info">
-            <span>📍 Opposite R9000, Trunk Road, Nellore 524001</span>
-          </div>
-          <div className="top-contact">
-            <span>📞 Contact: +91 1234567890</span>
-          </div>
-        </div>
-      </div>
-
       {/* Main Header - Navigation Bar */}
       <header className="main-header">
         <div className="content-width main-header-inner">
@@ -365,7 +353,7 @@ const Navigation = ({
             </div>
           </div>
 
-          {/* Mobile: Search, Wishlist and Cart icons before hamburger */}
+          {/* Mobile: Search, Wishlist, Cart, and Hamburger icons - all in one row on the left */}
           <div className="header-icons-mobile">
             <div className="icon-item mobile-search-icon">
               <button 
@@ -396,6 +384,25 @@ const Navigation = ({
                 🛒
               </button>
             </div>
+            <button 
+              ref={hamburgerRef}
+              className="hamburger mobile-hamburger" 
+              onClick={() => {
+                console.log('=== HAMBURGER CLICKED ===');
+                console.log('Current menuOpen state:', menuOpen);
+                // Toggle menu: if closed → open, if open → close
+                setMenuOpen((prev) => {
+                  const next = !prev;
+                  console.log('Toggling menuOpen to:', next);
+                  return next;
+                });
+              }}
+              aria-label="Open menu"
+              type="button"
+              data-testid="hamburger-button"
+            >
+              ☰
+            </button>
           </div>
 
           {/* Desktop: Header icons */}
@@ -423,7 +430,7 @@ const Navigation = ({
             </div>
             <div className="icon-item account-dropdown-wrapper">
               <button onClick={(e) => navigateToAccount(e)}>
-                👤
+                <span className="account-icon">👤</span>
               </button>
               <span>Account</span>
               {isLoggedIn && showAccountDropdown && (
@@ -467,9 +474,10 @@ const Navigation = ({
             </div>
           </div>
 
+          {/* Desktop hamburger - hidden on mobile */}
           <button 
             ref={hamburgerRef}
-            className="hamburger" 
+            className="hamburger desktop-hamburger" 
             onClick={() => {
               console.log('=== HAMBURGER CLICKED ===');
               console.log('Current menuOpen state:', menuOpen);

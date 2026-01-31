@@ -54,6 +54,11 @@ const Home = ({
 }) => {
   // State for hovered category
   const [hoveredCategory, setHoveredCategory] = useState(null);
+  
+  // Newsletter subscription states
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   // Category descriptions
   const categoryDescriptions = {
@@ -103,6 +108,40 @@ const Home = ({
     return () => clearTimeout(timer);
   }, []);
 
+  // Email validation function
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  // Handle newsletter subscription
+  const handleNewsletterSubmit = (e) => {
+    e.preventDefault();
+    
+    // Reset error
+    setEmailError('');
+    
+    // Validate email
+    if (!newsletterEmail.trim()) {
+      setEmailError('Please enter a correct email');
+      return;
+    }
+    
+    if (!validateEmail(newsletterEmail)) {
+      setEmailError('Please enter a correct email');
+      return;
+    }
+    
+    // If validation passes, show confirmation
+    setShowConfirmation(true);
+    setNewsletterEmail(''); // Clear the input
+    
+    // Hide confirmation after 3 seconds
+    setTimeout(() => {
+      setShowConfirmation(false);
+    }, 3000);
+  };
+
   return (
     <>
       {/* Main Content */}
@@ -133,6 +172,7 @@ const Home = ({
                 </button>
               </div>
 
+              {/* Pagination dots at the bottom of the sliding image */}
               <div className="hero-dots">
                 {slides.map((_, index) => (
                   <button
@@ -164,7 +204,6 @@ const Home = ({
               <div className="category-image-wrapper">
                 <img src="/Necklaces.jpg" alt="Necklaces" className="category-image" />
                 <div className="category-content">
-                  <span className="category-emoji">📿</span>
                   <div className="category-label">Necklaces</div>
                   {(hoveredCategory === 'Necklaces') && (
                     <div className="category-overlay-content">
@@ -182,9 +221,6 @@ const Home = ({
                     </div>
                   )}
                 </div>
-                <div className="category-arrow-icon">
-                  <span>→</span>
-                </div>
               </div>
             </div>
             <div 
@@ -196,7 +232,6 @@ const Home = ({
               <div className="category-image-wrapper">
                 <img src="/Earings.jpg" alt="Earrings" className="category-image" />
                 <div className="category-content">
-                  <span className="category-emoji">💎</span>
                   <div className="category-label">Earrings</div>
                   {(hoveredCategory === 'Earrings') && (
                     <div className="category-overlay-content">
@@ -214,9 +249,6 @@ const Home = ({
                     </div>
                   )}
                 </div>
-                <div className="category-arrow-icon">
-                  <span>→</span>
-                </div>
               </div>
             </div>
             <div 
@@ -228,7 +260,6 @@ const Home = ({
               <div className="category-image-wrapper">
                 <img src="/Bangles.jpg" alt="Bangles" className="category-image" />
                 <div className="category-content">
-                  <span className="category-emoji">⭕</span>
                   <div className="category-label">Bangles</div>
                   {(hoveredCategory === 'Bangles') && (
                     <div className="category-overlay-content">
@@ -246,9 +277,6 @@ const Home = ({
                     </div>
                   )}
                 </div>
-                <div className="category-arrow-icon">
-                  <span>→</span>
-                </div>
               </div>
             </div>
             <div 
@@ -260,7 +288,6 @@ const Home = ({
               <div className="category-image-wrapper">
                 <img src="/Rings.jpg" alt="Rings" className="category-image" />
                 <div className="category-content">
-                  <span className="category-emoji">💍</span>
                   <div className="category-label">Rings</div>
                   {(hoveredCategory === 'Rings') && (
                     <div className="category-overlay-content">
@@ -278,9 +305,6 @@ const Home = ({
                     </div>
                   )}
                 </div>
-                <div className="category-arrow-icon">
-                  <span>→</span>
-                </div>
               </div>
             </div>
             <div 
@@ -292,7 +316,6 @@ const Home = ({
               <div className="category-image-wrapper">
                 <img src="/Bridal_set.jpg" alt="Bridal Sets" className="category-image" />
                 <div className="category-content">
-                  <span className="category-emoji">👰</span>
                   <div className="category-label">Bridal Sets</div>
                   {(hoveredCategory === 'Bridal Sets') && (
                     <div className="category-overlay-content">
@@ -310,9 +333,6 @@ const Home = ({
                     </div>
                   )}
                 </div>
-                <div className="category-arrow-icon">
-                  <span>→</span>
-                </div>
               </div>
             </div>
             <div 
@@ -324,7 +344,6 @@ const Home = ({
               <div className="category-image-wrapper">
                 <img src="/Temple_Jewellery.jpg" alt="Temple Jewellery" className="category-image" />
                 <div className="category-content">
-                  <span className="category-emoji">🛕</span>
                   <div className="category-label">Temple Jewellery</div>
                   {(hoveredCategory === 'Temple Jewellery') && (
                     <div className="category-overlay-content">
@@ -342,9 +361,6 @@ const Home = ({
                     </div>
                   )}
                 </div>
-                <div className="category-arrow-icon">
-                  <span>→</span>
-                </div>
               </div>
             </div>
           </div>
@@ -356,7 +372,6 @@ const Home = ({
           <div className="promo-banner">
             <div className="promo-header">
               <h2 className="promo-title">Designer Drop Event!</h2>
-              <span className="diamond-icon">💎</span>
             </div>
             <p className="promo-subtitle">Limited Edition Collection - Up to 40% OFF</p>
             <div className="countdown-container">
@@ -546,17 +561,35 @@ const Home = ({
           <div className="newsletter-banner">
             <h2 className="newsletter-title">Subscribe to Our Newsletter</h2>
             <p className="newsletter-subtitle">Get exclusive offers and updates on new arrivals</p>
-            <div className="newsletter-form">
+            <form className="newsletter-form" onSubmit={handleNewsletterSubmit}>
               <input 
                 type="email" 
-                className="newsletter-input" 
+                className={`newsletter-input ${emailError ? 'newsletter-input-error' : ''}`}
                 placeholder="Enter your email"
+                value={newsletterEmail}
+                onChange={(e) => {
+                  setNewsletterEmail(e.target.value);
+                  setEmailError(''); // Clear error when user types
+                }}
               />
-              <button className="newsletter-subscribe-btn">Subscribe</button>
-            </div>
+              <button type="submit" className="newsletter-subscribe-btn">Subscribe</button>
+            </form>
+            {emailError && (
+              <div className="newsletter-error-message">{emailError}</div>
+            )}
           </div>
         </div>
       </section>
+
+      {/* Confirmation Popup */}
+      {showConfirmation && (
+        <div className="newsletter-confirmation-popup">
+          <div className="newsletter-confirmation-content">
+            <div className="newsletter-confirmation-icon">✓</div>
+            <p className="newsletter-confirmation-message">Thank you for the subscription.</p>
+          </div>
+        </div>
+      )}
 
       <Footer 
         navigateToHome={navigateToHome}
