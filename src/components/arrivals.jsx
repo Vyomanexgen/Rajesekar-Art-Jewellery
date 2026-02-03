@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Footer from './Footer';
 
 const Arrivals = ({
@@ -20,11 +20,54 @@ const Arrivals = ({
   navigateToOrders,
   handleCategoryClick
 }) => {
+  // Get the background video based on the last product in new arrivals
+  const backgroundVideo = useMemo(() => {
+    const products = getFilteredNewArrivalsProducts();
+    if (products.length === 0) return null;
+    
+    // Get the last product
+    const lastProduct = products[products.length - 1];
+    const productName = lastProduct.name.toLowerCase();
+    
+    // Determine video based on product type
+    if (productName.includes('bangle')) {
+      return '/Bangle_video.mp4';
+    } else if (productName.includes('necklace')) {
+      return '/Necklace_video.mp4';
+    } else if (productName.includes('ring')) {
+      return '/Ring_video.mp4';
+    } else if (productName.includes('earring') || productName.includes('earing')) {
+      return '/Earing_video.mp4';
+    } else if (productName.includes('bridal')) {
+      return '/Bridal_set_video.mp4';
+    } else if (productName.includes('temple')) {
+      return '/Temple_jewellery_video.mp4';
+    }
+    
+    // Default fallback
+    return null;
+  }, [getFilteredNewArrivalsProducts, selectedNewArrivalsCategory]);
+
   return (
     <>
       {/* New Arrivals Section */}
       <section className="new-arrivals-section">
-        <div className="content-width">
+        {/* Background Video */}
+        {backgroundVideo && (
+          <div className="new-arrivals-background-video">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="new-arrivals-video"
+            >
+              <source src={backgroundVideo} type="video/mp4" />
+            </video>
+            <div className="new-arrivals-video-overlay"></div>
+          </div>
+        )}
+        <div className="content-width new-arrivals-content">
           <div className="new-arrivals-header">
             <h1 className="new-arrivals-title">New Arrivals</h1>
             <p className="new-arrivals-subtitle">Discover our latest collection of exquisite jewellery</p>

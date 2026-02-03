@@ -11,7 +11,7 @@ window.addEventListener('error', (event) => {
     console.error('Unhandled error:', event.error);
   }
   // Don't prevent default in production to allow error boundaries to catch errors
-  if (process.env.NODE_ENV === 'development') {
+  if (import.meta.env.DEV) {
     event.preventDefault();
     return false;
   }
@@ -23,7 +23,7 @@ window.addEventListener('unhandledrejection', (event) => {
     console.error('Unhandled promise rejection:', event.reason);
   }
   // Don't prevent default in production to allow error boundaries to catch errors
-  if (process.env.NODE_ENV === 'development') {
+  if (import.meta.env.DEV) {
     event.preventDefault();
     return false;
   }

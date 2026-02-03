@@ -264,7 +264,7 @@ button {
   min-width: 0;
   height: 100%; /* Ensure full height for proper centering */
   position: relative;
-  z-index: 1001;
+  z-index: 10001;
   overflow: visible;
 }
 
@@ -350,7 +350,7 @@ button {
   flex-shrink: 0;
   margin-left: 44px;
   position: relative;
-  z-index: 1001;
+  z-index: 10001;
   overflow: visible;
 }
 
@@ -653,6 +653,41 @@ form.search-box {
 .new-arrivals-section {
   padding: 40px 0;
   min-height: 60vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.new-arrivals-background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.new-arrivals-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.new-arrivals-video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+.new-arrivals-content {
+  position: relative;
+  z-index: 2;
 }
 
 .new-arrivals-header {
@@ -663,15 +698,17 @@ form.search-box {
 .new-arrivals-title {
   font-size: 42px;
   font-weight: 700;
-  color: #2c2c2c;
+  color: #ffffff;
   margin-bottom: 12px;
   font-family: 'Georgia', 'Times New Roman', serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .new-arrivals-subtitle {
   font-size: 18px;
-  color: #666;
+  color: #f0f0f0;
   font-family: 'Poppins', 'Segoe UI', sans-serif;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 /* Contact Page Section */
