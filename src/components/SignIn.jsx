@@ -18,7 +18,6 @@ const SignIn = ({
       email: '',
       password: '',
       showPassword: false,
-      rememberDevice: false,
       termsAgreed: false
     });
     
@@ -28,7 +27,6 @@ const SignIn = ({
         email: '',
         password: '',
         showPassword: false,
-        rememberDevice: false,
         termsAgreed: false
       });
     }, 100);
@@ -86,41 +84,11 @@ const SignIn = ({
             </div>
           </div>
 
+          <button type="submit" className="auth-submit-btn">Sign In</button>
+
           <div className="auth-options">
-            <label className="auth-checkbox-label">
-              <input
-                type="checkbox"
-                checked={signInForm.rememberDevice}
-                onChange={(e) => setSignInForm({ ...signInForm, rememberDevice: e.target.checked })}
-              />
-              <span>Remember this device</span>
-            </label>
             <a href="#" className="auth-link">Forgot password?</a>
           </div>
-
-          <div className="auth-checkboxes">
-            <label className="auth-checkbox-label">
-              <input
-                type="checkbox"
-                checked={signInForm.termsAgreed}
-                onChange={(e) => setSignInForm({ ...signInForm, termsAgreed: e.target.checked })}
-                required
-              />
-              <span 
-                className="auth-terms-full-link"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setShowTermsPrivacyPopup(true);
-                }}
-              >
-                I agree to the Terms and Privacy Policies
-              </span>
-            </label>
-          </div>
-
-          <button type="button" className="auth-continue-link" onClick={() => { setShowSignIn(false); setShowCheckout(true); setCheckoutStep('address'); }}>
-            Continue without account
-          </button>
 
           <div className="auth-separator">
             <span>or</span>
@@ -141,8 +109,6 @@ const SignIn = ({
           <p className="auth-switch-text">
             Don't have an account? <a href="#" className="auth-switch-link" onClick={(e) => { e.preventDefault(); setShowSignIn(false); setShowSignUp(true); }}>Sign up</a>
           </p>
-
-          <button type="submit" className={`auth-submit-btn ${!signInForm.termsAgreed ? 'disabled' : ''}`} disabled={!signInForm.termsAgreed}>Sign In</button>
         </form>
       </div>
     </div>

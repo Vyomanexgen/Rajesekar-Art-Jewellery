@@ -15,8 +15,51 @@ const Order = ({
   navigateToOrders,
   handleCategoryClick,
   setShowTrackOrderPage,
-  setSelectedOrderId
+  setSelectedOrderId,
+  setShowSignIn,
+  setRedirectToOrdersAfterAuth
 }) => {
+  // If user is not logged in, show login message
+  if (!isLoggedIn) {
+    return (
+      <div className="orders-page-wrapper">
+        <div className="content-width">
+          <div className="orders-page-header">
+            <h1 className="orders-page-title">My Orders</h1>
+          </div>
+          <div className="orders-empty">
+            <div className="orders-empty-icon">🔒</div>
+            <h3 className="orders-empty-title">You didn't log in yet! Please sign in.</h3>
+            <p className="orders-empty-text">Sign in to view your order history</p>
+            <button 
+              className="orders-continue-shopping-btn" 
+              onClick={(e) => {
+                e.preventDefault();
+                if (setRedirectToOrdersAfterAuth) setRedirectToOrdersAfterAuth(true);
+                if (setShowSignIn) setShowSignIn(true);
+                if (window?.history?.pushState) {
+                  window.history.pushState({}, '', '/signin');
+                }
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            >
+              Login
+            </button>
+          </div>
+        </div>
+        <Footer 
+          navigateToHome={navigateToHome}
+          navigateToShop={navigateToShop}
+          navigateToAbout={navigateToAbout}
+          navigateToContact={navigateToContact}
+          navigateToAccount={navigateToAccount}
+          navigateToOrders={navigateToOrders}
+          handleCategoryClick={handleCategoryClick}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="orders-page-wrapper">
       <div className="content-width">

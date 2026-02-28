@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import Footer from './Footer';
 
 const Arrivals = ({
@@ -20,53 +20,10 @@ const Arrivals = ({
   navigateToOrders,
   handleCategoryClick
 }) => {
-  // Get the background video based on the last product in new arrivals
-  const backgroundVideo = useMemo(() => {
-    const products = getFilteredNewArrivalsProducts();
-    if (products.length === 0) return null;
-    
-    // Get the last product
-    const lastProduct = products[products.length - 1];
-    const productName = lastProduct.name.toLowerCase();
-    
-    // Determine video based on product type
-    if (productName.includes('bangle')) {
-      return '/Bangle_video.mp4';
-    } else if (productName.includes('necklace')) {
-      return '/Necklace_video.mp4';
-    } else if (productName.includes('ring')) {
-      return '/Ring_video.mp4';
-    } else if (productName.includes('earring') || productName.includes('earing')) {
-      return '/Earing_video.mp4';
-    } else if (productName.includes('bridal')) {
-      return '/Bridal_set_video.mp4';
-    } else if (productName.includes('temple')) {
-      return '/Temple_jewellery_video.mp4';
-    }
-    
-    // Default fallback
-    return null;
-  }, [getFilteredNewArrivalsProducts, selectedNewArrivalsCategory]);
-
   return (
     <>
       {/* New Arrivals Section */}
       <section className="new-arrivals-section">
-        {/* Background Video */}
-        {backgroundVideo && (
-          <div className="new-arrivals-background-video">
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="new-arrivals-video"
-            >
-              <source src={backgroundVideo} type="video/mp4" />
-            </video>
-            <div className="new-arrivals-video-overlay"></div>
-          </div>
-        )}
         <div className="content-width new-arrivals-content">
           <div className="new-arrivals-header">
             <h1 className="new-arrivals-title">New Arrivals</h1>
@@ -137,7 +94,7 @@ const Arrivals = ({
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
               >
-                ← Back
+                Back
               </button>
             </div>
           )}
@@ -191,7 +148,7 @@ const Arrivals = ({
             ))}
           </div>
 
-          {/* All Products Button */}
+          {/* Back Button - navigate to shop */}
           <div className="new-arrivals-all-products-container">
             <button 
               className="new-arrivals-all-products-btn"
@@ -200,7 +157,7 @@ const Arrivals = ({
                 navigateToShop(e);
               }}
             >
-              All Products
+              Back
             </button>
           </div>
         </div>

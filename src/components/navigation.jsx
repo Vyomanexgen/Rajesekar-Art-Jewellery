@@ -94,18 +94,19 @@ const Navigation = ({
     };
   }, []);
   
-  // Determine active page from URL instead of props
+  // Determine active page from URL – Home only when path is exactly /
   const getActivePage = () => {
-    const path = currentPath;
+    const path = (currentPath || '').replace(/\/$/, '') || '/';
     if (path === '/shop' || path.startsWith('/shop/')) return 'shop';
     if (path === '/new-arrivals') return 'new-arrivals';
     if (path === '/about') return 'about';
     if (path === '/contact') return 'contact';
-    if (path === '/account') return 'account';
+    if (path === '/account' || path === '/signin') return 'account'; /* sign-in = account flow, highlight Account */
     if (path === '/orders') return 'orders';
     if (path === '/wishlist') return 'wishlist';
     if (path === '/cart') return 'cart';
-    return 'home';
+    if (path === '/' || path === '') return 'home';
+    return null; /* checkout, etc. – no nav item active */
   };
   
   const activePage = getActivePage();
@@ -154,7 +155,7 @@ const Navigation = ({
                         if (navigateToShop) navigateToShop(e);
                       }}
                     >
-                      All Products
+                      All product
                     </a>
                     <a 
                       href="/shop/necklace" 
@@ -407,28 +408,28 @@ const Navigation = ({
 
           {/* Desktop: Header icons */}
           <div className="header-icons">
-            <div className="icon-item">
+            <div className={`icon-item${activePage === 'orders' ? ' active' : ''}`}>
               <button onClick={(e) => navigateToOrders(e)}>
                 {isLoggedIn && userOrders.length > 0 && <span className="wishlist-badge">{userOrders.length}</span>}
                 📦
               </button>
               <span>Order</span>
             </div>
-            <div className="icon-item">
+            <div className={`icon-item${activePage === 'wishlist' ? ' active' : ''}`}>
               <button onClick={(e) => navigateToWishlist(e)}>
                 {wishlistItems.size > 0 && <span className="wishlist-badge">{wishlistItems.size}</span>}
                 <span className="wishlist-heart">🤍</span>
               </button>
               <span>Wishlist</span>
             </div>
-            <div className="icon-item">
+            <div className={`icon-item${activePage === 'cart' ? ' active' : ''}`}>
               <button onClick={(e) => navigateToCart(e)}>
                 {getCartCount() > 0 && <span className="wishlist-badge">{getCartCount()}</span>}
                 🛒
               </button>
               <span>Cart</span>
             </div>
-            <div className="icon-item account-dropdown-wrapper">
+            <div className={`icon-item account-dropdown-wrapper${activePage === 'account' ? ' active' : ''}`}>
               <button onClick={(e) => navigateToAccount(e)}>
                 <span className="account-icon">👤</span>
               </button>
@@ -689,7 +690,7 @@ const Navigation = ({
                     if (navigateToShop) navigateToShop(e);
                   }}
                 >
-                  All Products
+                  All product
                 </a>
                 <a 
                   href="/shop/necklace" 

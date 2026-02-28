@@ -97,15 +97,8 @@ export const useAppHandlers = () => {
       e.stopPropagation();
     }
     app.closeAllPages();
-    if (!app.isLoggedIn) {
-      app.setShowSignIn(true);
-      if (window?.history?.pushState) {
-        window.history.pushState({}, '', '/signin');
-      }
-      window.scrollTo({ top: 0, behavior: 'instant' });
-      return;
-    }
     app.setShowOrdersPage(true);
+    app.setShowSignIn(false);
     if (window?.history?.pushState) {
       window.history.pushState({}, '', '/orders');
     }
@@ -645,6 +638,9 @@ export const useAppHandlers = () => {
         app.setShowOrderConfirmation(true);
         app.setShowCheckout(false);
         app.setOrderTriggered(false);
+        if (window?.history?.replaceState) {
+          window.history.replaceState({}, '', '/order-confirmation');
+        }
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }, 6000);
     }
@@ -694,8 +690,13 @@ export const useAppHandlers = () => {
   }, [app]);
 
   const handleSaveAddress = useCallback(() => {
-    if (!app.newAddress.name || !app.newAddress.phone || !app.newAddress.pincode || !app.newAddress.address || !app.newAddress.city || !app.newAddress.state) {
-      alert('Please fill in all fields');
+    const isFirstAddress = app.addresses.length === 0;
+    if (!app.newAddress.pincode || !app.newAddress.address || !app.newAddress.city || !app.newAddress.state) {
+      alert('Please fill in pincode, address, city and state');
+      return;
+    }
+    if (!isFirstAddress && (!app.newAddress.name || !app.newAddress.phone)) {
+      alert('Please fill in name and phone number for the additional address');
       return;
     }
     const addressParts = app.newAddress.address.split(',');
@@ -703,17 +704,17 @@ export const useAppHandlers = () => {
     const addressLine2 = addressParts.slice(1).join(',') || `${app.newAddress.city}, ${app.newAddress.state} - ${app.newAddress.pincode}`;
     const newAddressObj = {
       id: app.addresses.length + 1,
-      name: app.newAddress.name,
-      phone: app.newAddress.phone,
+      name: isFirstAddress ? 'Default address' : (app.newAddress.name || ''),
+      phone: isFirstAddress ? '' : (app.newAddress.phone || ''),
       addressLine1: addressLine1.trim(),
       addressLine2: addressLine2.trim() || `${app.newAddress.city}, ${app.newAddress.state} - ${app.newAddress.pincode}`,
       pincode: app.newAddress.pincode,
       city: app.newAddress.city,
       state: app.newAddress.state,
-      isDefault: app.addresses.length === 0
+      isDefault: isFirstAddress
     };
     app.setAddresses([...app.addresses, newAddressObj]);
-    if (app.addresses.length === 0) {
+    if (isFirstAddress) {
       app.setSelectedAddressId(newAddressObj.id);
     }
     app.setShowAddAddressForm(false);
@@ -730,23 +731,20 @@ export const useAppHandlers = () => {
   // Sign in/up handlers
   const handleSignIn = useCallback((e) => {
     e.preventDefault();
-    if (!app.signInForm.termsAgreed) {
-      alert('Please agree to the Terms and Services before signing in.');
-      return;
-    }
-    
+    // Terms acceptance is required only on Sign-Up, not on Sign-In
     // Check if user has an account
     const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
     const userExists = registeredUsers.find(user => user.email === app.signInForm.email);
     
     if (!userExists) {
-      // Show popup message if user doesn't have an account
-      alert('Sign-in failed. Please create an account.');
+      alert('You don\'t have an account yet. Please create an account.');
       return;
     }
     
     // Store checkout state before closing modals
     const wasInCheckout = app.showCheckout;
+    const returnToOrders = app.redirectToOrdersAfterAuth;
+    if (returnToOrders) app.setRedirectToOrdersAfterAuth(false);
     
     app.setIsLoggedIn(true);
     const newUserDetails = {
@@ -769,6 +767,23 @@ export const useAppHandlers = () => {
     // Show success animation
     app.setSuccessAnimationMessage('Welcome Back!');
     app.setShowSuccessAnimation(true);
+    
+    // If user came from Order page (not logged in), redirect back to orders
+    if (returnToOrders) {
+      if (window?.history?.replaceState) {
+        window.history.replaceState({}, '', '/orders');
+      } else if (window?.history?.pushState) {
+        window.history.pushState({}, '', '/orders');
+      }
+      app.setShowOrdersPage(true);
+      app.setShowAccountPage(false);
+      app.setShowNotFound(false);
+      app.setToastMessage('Signed in successfully.');
+      app.setShowToast(true);
+      setTimeout(() => app.setShowToast(false), 3000);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
     
     // If user was in checkout flow, redirect to checkout address step
     if (wasInCheckout) {
@@ -864,6 +879,9 @@ export const useAppHandlers = () => {
         app.setSelectedAddressId(newAddressObj.id);
       }
     }
+    const returnToOrders = app.redirectToOrdersAfterAuth;
+    if (returnToOrders) app.setRedirectToOrdersAfterAuth(false);
+    
     const newUserDetails = {
       fullName: app.signUpForm.fullName,
       email: app.signUpForm.email,
@@ -888,6 +906,23 @@ export const useAppHandlers = () => {
     app.setShowShopPage(false);
     app.setShowNewArrivals(false);
     app.setIsSearching(false);
+    
+    // If user came from Order page (not logged in), redirect back to orders
+    if (returnToOrders) {
+      if (window?.history?.replaceState) {
+        window.history.replaceState({}, '', '/orders');
+      } else if (window?.history?.pushState) {
+        window.history.pushState({}, '', '/orders');
+      }
+      app.setShowOrdersPage(true);
+      app.setShowAccountPage(false);
+      app.setShowNotFound(false);
+      app.setToastMessage('Account created successfully.');
+      app.setShowToast(true);
+      setTimeout(() => app.setShowToast(false), 3000);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
     
     // If user was in checkout flow, redirect to checkout address step
     if (wasInCheckout) {
@@ -956,6 +991,8 @@ export const useAppHandlers = () => {
   const handleSelectGoogleAccount = useCallback((account) => {
     // Store checkout state before closing modals
     const wasInCheckout = app.showCheckout;
+    const returnToOrders = app.redirectToOrdersAfterAuth;
+    if (returnToOrders) app.setRedirectToOrdersAfterAuth(false);
     
     app.setIsLoggedIn(true);
     app.setUserDetails({
@@ -977,6 +1014,23 @@ export const useAppHandlers = () => {
     // Show success animation
     app.setSuccessAnimationMessage('Welcome!');
     app.setShowSuccessAnimation(true);
+    
+    // If user came from Order page (not logged in), redirect back to orders
+    if (returnToOrders) {
+      if (window?.history?.replaceState) {
+        window.history.replaceState({}, '', '/orders');
+      } else if (window?.history?.pushState) {
+        window.history.pushState({}, '', '/orders');
+      }
+      app.setShowOrdersPage(true);
+      app.setShowAccountPage(false);
+      app.setShowNotFound(false);
+      app.setToastMessage('Signed in successfully.');
+      app.setShowToast(true);
+      setTimeout(() => app.setShowToast(false), 3000);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
     
     // If user was in checkout flow, redirect to checkout address step
     if (wasInCheckout) {
@@ -1416,21 +1470,56 @@ export const useAppHandlers = () => {
     if (!app.selectedNewArrivalsCategory) {
       return allNewArrivals;
     }
-    return allNewArrivals.filter(product => {
+    
+    // Filter new arrivals by selected category
+    const categoryFiltered = allNewArrivals.filter(product => {
       const name = product.name.toLowerCase();
       switch (app.selectedNewArrivalsCategory) {
         case 'Necklaces':
           return name.includes('necklace');
         case 'Rings':
-          return name.includes('ring');
+          return name.includes('ring') && !name.includes('earring') && !name.includes('earing');
         case 'Earrings':
-          return name.includes('earring');
+          return name.includes('earring') || name.includes('earing');
         case 'Bangles':
           return name.includes('bangle');
+        case 'Bridal Sets':
+          return name.includes('bridal') || (name.includes('set') && !name.includes('temple'));
+        case 'Temple Jewellery':
+          return name.includes('temple');
         default:
           return true;
       }
     });
+    
+    // If category has no products in new arrivals, get at least 2 products from that category from all products
+    if (categoryFiltered.length === 0) {
+      // Get products from the category without price filters for fallback
+      const categoryProducts = products.filter(product => {
+        if (!product || !product.name) return false;
+        const name = product.name.toLowerCase();
+        switch (app.selectedNewArrivalsCategory) {
+          case 'Necklaces':
+            return name.includes('necklace');
+          case 'Earrings':
+            return name.includes('earring') || name.includes('earing');
+          case 'Bangles':
+            return name.includes('bangle');
+          case 'Rings':
+            return name.includes('ring') && !name.includes('earring') && !name.includes('earing');
+          case 'Bridal Sets':
+            return name.includes('bridal') || (name.includes('set') && !name.includes('temple'));
+          case 'Temple Jewellery':
+            return name.includes('temple');
+          default:
+            return false;
+        }
+      });
+      // Return at least 2 products from the category (or all if less than 2)
+      return categoryProducts.slice(0, Math.max(2, categoryProducts.length));
+    }
+    
+    return categoryFiltered;
   }, [getNewArrivalsProducts, app.selectedNewArrivalsCategory]);
 
   // Wishlist handlers

@@ -209,24 +209,45 @@ const Shop = ({ handlers }) => {
     return allProductsCategories.find(cat => cat.name === categoryName) || allProductsCategories[1]; // Default to Necklaces
   };
 
-  // Get video file for category - each category uses only its specific video
-  const getCategoryVideo = (category) => {
-    const videoMap = {
-      'Necklaces': '/Necklace_video.mp4',           // Necklace page only
-      'Rings': '/Ring_video.mp4',                   // Rings page only
-      'Earrings': '/Earing_video.mp4',              // Earrings page only
-      'Bridal Sets': '/Bridal_set_video.mp4',       // Bridal Sets page only
-      'Temple Jewellery': '/Temple_jewellery_video.mp4', // Temple Jewellery page only
-      'Bangles': '/Bangle_video.mp4'                 // Bangles page only
-    };
-    // Return only the specific video for the category, or null if category not found
-    return videoMap[category] || null;
-  };
-
-  // Get related products (all products from same category as center product)
+  // Get related products (always 5 products: same category first, then fill from other categories)
   const relatedProducts = useMemo(() => {
     if (!centerProduct) return [];
-    return (products || []).filter(p => p.category === centerProduct.category && p.id !== centerProduct.id);
+    
+    const allProducts = products || [];
+    const currentCategory = centerProduct.category;
+    const targetCount = 5;
+    
+    // Step 1: Get products from same category (excluding center product)
+    let related = allProducts.filter(p => 
+      p.category === currentCategory && p.id !== centerProduct.id
+    );
+    
+    // Step 2: If we have fewer than 5, add products from other categories
+    if (related.length < targetCount) {
+      const usedIds = new Set([centerProduct.id, ...related.map(p => p.id)]);
+      const allCategories = ['Earrings', 'Bangles', 'Rings', 'Necklaces', 'Temple Jewellery', 'Bridal Sets'];
+      const otherCategories = allCategories.filter(cat => cat !== currentCategory);
+      
+      // Get products from other categories, excluding already used ones
+      const additionalProducts = [];
+      for (const category of otherCategories) {
+        if (related.length >= targetCount) break;
+        
+        const categoryProducts = allProducts.filter(p => 
+          p.category === category && !usedIds.has(p.id)
+        );
+        
+        // Add products from this category until we reach 5 total
+        for (const product of categoryProducts) {
+          if (related.length >= targetCount) break;
+          related.push(product);
+          usedIds.add(product.id);
+        }
+      }
+    }
+    
+    // Step 3: Limit to exactly 5 products
+    return related.slice(0, targetCount);
   }, [centerProduct, products]);
 
   // Get recommended products (one product from each category except current product's category)
@@ -258,11 +279,19 @@ const Shop = ({ handlers }) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Handle category click in All Products view
-  const handleAllProductsCategoryClick = (categoryName) => {
-    setSelectedAllProductsCategory(categoryName);
-    setSelectedProductId(null); // Reset selected product to show first from category
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Handle category click in All Products view: redirect to the respective category page
+  const handleAllProductsCategoryClick = (categoryName, e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    if (handleCategoryClick) {
+      handleCategoryClick(categoryName);
+    } else {
+      setSelectedAllProductsCategory(categoryName);
+      setSelectedProductId(null);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   return (
@@ -289,41 +318,19 @@ const Shop = ({ handlers }) => {
                 </div>
               </div>
 
-              {/* Main Content Area with Video Background */}
-              <div className="category-main-content-wrapper" style={{ position: 'relative', width: '100%', overflow: 'hidden', paddingBottom: '400px', marginTop: 0, marginBottom: 0 }}>
-                {/* Video Background */}
-                {getCategoryVideo(currentCategory) && (
-                  <video
-                    className="category-content-video-background"
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      zIndex: 0,
-                      pointerEvents: 'none'
-                    }}
-                  >
-                    <source src={getCategoryVideo(currentCategory)} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                )}
+              {/* Main Content Area with glass-theme overlay on global background image */}
+              <div className="category-main-content-wrapper" style={{ position: 'relative', width: '100%', overflow: 'hidden', padding: '40px 0 80px', marginTop: 0, marginBottom: 0 }}>
                 {/* Glassmorphism Overlay */}
+                {/* No extra overlay - glass theme from .shop-page-section::before only (same as New Arrivals) */}
                 <div className="category-content-glassmorphism-overlay" style={{
                   position: 'absolute',
                   top: 0,
                   left: 0,
                   width: '100%',
                   height: '100%',
-                  background: 'rgba(255, 255, 255, 0.25)',
-                  backdropFilter: 'blur(3px)',
-                  WebkitBackdropFilter: 'blur(3px)',
+                  background: 'transparent',
+                  backdropFilter: 'none',
+                  WebkitBackdropFilter: 'none',
                   zIndex: 1,
                   pointerEvents: 'none'
                 }} />
@@ -332,14 +339,14 @@ const Shop = ({ handlers }) => {
                 <div className="content-width" style={{ maxWidth: '1400px', margin: '0 auto', padding: '40px 16px', position: 'relative', zIndex: 2 }}>
                   {categoryInfo.styles && categoryInfo.styles.length > 0 && (
                     <div className="category-styles-section">
-                      {/* Back Button - Above Popular Styles */}
+                      {/* All product Button - Above Popular Styles (navigate back to all products) */}
                       <button 
                         className="category-back-btn"
                         onClick={() => {
                           handleAllProductsClick();
                         }}
                       >
-                        ← Back
+                        All product
                       </button>
                       <div className="category-styles-content">
                         <h2 className="category-styles-title">Popular {categoryInfo.title || currentCategory} Styles</h2>
@@ -371,14 +378,14 @@ const Shop = ({ handlers }) => {
             </button>
 
             {/* Desktop Filters Sidebar */}
-            <aside className="filter-sidebar desktop-filters" style={{ width: '300px', background: '#fff', border: '1px solid #e5e5e5', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', position: 'sticky', top: '20px' }}>
-              <div className="filter-header" style={{ marginBottom: '24px', paddingBottom: '16px', borderBottom: '1px solid #e5e5e5' }}>
+            <aside className="filter-sidebar desktop-filters" style={{ width: '300px', background: '#fff', border: '1px solid #e5e5e5', borderRadius: '12px', display: 'flex', flexDirection: 'column', position: 'sticky', top: '20px' }}>
+              <div className="filter-header">
                 <h2 style={{ fontFamily: "'Georgia', 'Times New Roman', serif", fontSize: '32px', fontWeight: '700', color: '#1f1230', marginBottom: '4px' }}>Filters</h2>
               </div>
 
-              <div className="filter-content" style={{ flex: '0 1 auto', overflowY: 'visible', marginBottom: '0' }}>
+              <div className="filter-content">
                 {/* Price Range - Always visible, no arrow */}
-                <div className="filter-section" style={{ marginBottom: '20px', borderBottom: '1px solid #f0f0f0', paddingBottom: '16px' }}>
+                <div className="filter-section">
                   <div className="filter-title" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: '500', color: '#1f1230', fontSize: '15px', marginBottom: '12px' }}>
                     <span>Price Range</span>
                   </div>
@@ -417,7 +424,7 @@ const Shop = ({ handlers }) => {
                 </div>
 
                 {/* Material Filter */}
-                <div className="filter-section" style={{ marginBottom: '20px', borderBottom: '1px solid #f0f0f0', paddingBottom: '16px' }}>
+                <div className="filter-section">
                   <div className="filter-title" onClick={() => toggleFilter('material')} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', fontWeight: '500', color: '#1f1230', fontSize: '15px', marginBottom: '12px' }}>
                     <span>Material</span>
                     <span className="filter-arrow" style={{ fontSize: '12px', color: '#6b5b7d', transition: 'transform 0.3s ease', transform: filtersOpen.material ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
@@ -440,7 +447,7 @@ const Shop = ({ handlers }) => {
                 </div>
 
                 {/* Gemstone Type Filter */}
-                <div className="filter-section" style={{ marginBottom: '20px', borderBottom: '1px solid #f0f0f0', paddingBottom: '16px' }}>
+                <div className="filter-section">
                   <div className="filter-title" onClick={() => toggleFilter('gemstone')} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', fontWeight: '500', color: '#1f1230', fontSize: '15px', marginBottom: '12px' }}>
                     <span>Gemstone Type</span>
                     <span className="filter-arrow" style={{ fontSize: '12px', color: '#6b5b7d', transition: 'transform 0.3s ease', transform: filtersOpen.gemstone ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
@@ -463,7 +470,7 @@ const Shop = ({ handlers }) => {
                 </div>
 
                 {/* Design Style Filter */}
-                <div className="filter-section" style={{ marginBottom: '20px', borderBottom: '1px solid #f0f0f0', paddingBottom: '16px' }}>
+                <div className="filter-section">
                   <div className="filter-title" onClick={() => toggleFilter('designStyle')} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', fontWeight: '500', color: '#1f1230', fontSize: '15px', marginBottom: '12px' }}>
                     <span>Design Style</span>
                     <span className="filter-arrow" style={{ fontSize: '12px', color: '#6b5b7d', transition: 'transform 0.3s ease', transform: filtersOpen.designStyle ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
@@ -486,7 +493,7 @@ const Shop = ({ handlers }) => {
                 </div>
 
                 {/* Designer Filter */}
-                <div className="filter-section" style={{ marginBottom: '20px', borderBottom: '1px solid #f0f0f0', paddingBottom: '16px' }}>
+                <div className="filter-section">
                   <div className="filter-title" onClick={() => toggleFilter('designer')} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', fontWeight: '500', color: '#1f1230', fontSize: '15px', marginBottom: '12px' }}>
                     <span>Designer</span>
                     <span className="filter-arrow" style={{ fontSize: '12px', color: '#6b5b7d', transition: 'transform 0.3s ease', transform: filtersOpen.designer ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
@@ -509,7 +516,7 @@ const Shop = ({ handlers }) => {
                 </div>
 
                 {/* Collection Filter */}
-                <div className="filter-section" style={{ marginBottom: '0', borderBottom: 'none', paddingBottom: '0' }}>
+                <div className="filter-section filter-section-last">
                   <div className="filter-title" onClick={() => toggleFilter('collection')} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', fontWeight: '500', color: '#1f1230', fontSize: '15px', marginBottom: '12px' }}>
                     <span>Collection</span>
                     <span className="filter-arrow" style={{ fontSize: '12px', color: '#6b5b7d', transition: 'transform 0.3s ease', transform: filtersOpen.collection ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
@@ -532,7 +539,7 @@ const Shop = ({ handlers }) => {
                 </div>
               </div>
 
-              <div className="filter-buttons" style={{ marginTop: '16px', paddingTop: '16px' }}>
+              <div className="filter-buttons">
                 <button className="clear-all-btn" onClick={clearAllFilters}>
                   Reset All
                 </button>
@@ -758,66 +765,19 @@ const Shop = ({ handlers }) => {
             )
           ) : (
             <>
-              {/* All Products Page - New Design with Dynamic Video Background */}
-              <div className="all-products-page-wrapper" style={{ position: 'relative', width: '100%', overflow: 'hidden', padding: '40px 16px', paddingBottom: '400px', boxSizing: 'border-box', marginTop: 0, marginBottom: 0 }}>
-                {/* Dynamic Video Background based on selected category */}
-                {centerProduct && getCategoryVideo(centerProduct.category) && (
-                  <video
-                    className="all-products-video-background"
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    key={centerProduct.category} // Force re-render when category changes
-                    style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      zIndex: 0,
-                      pointerEvents: 'none'
-                    }}
-                  >
-                    <source src={getCategoryVideo(centerProduct.category)} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                )}
-                {/* Fallback: Use selectedAllProductsCategory if no centerProduct */}
-                {!centerProduct && selectedAllProductsCategory && getCategoryVideo(selectedAllProductsCategory) && (
-                  <video
-                    className="all-products-video-background"
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    key={selectedAllProductsCategory} // Force re-render when category changes
-                    style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      zIndex: 0,
-                      pointerEvents: 'none'
-                    }}
-                  >
-                    <source src={getCategoryVideo(selectedAllProductsCategory)} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                )}
+              {/* All Products Page - glass-theme overlay on global background image */}
+              <div className="all-products-page-wrapper" style={{ position: 'relative', width: '100%', overflow: 'hidden', padding: '40px 16px 80px', boxSizing: 'border-box', marginTop: 0, marginBottom: 0 }}>
                 {/* Glassmorphism Overlay */}
+                {/* No extra overlay - glass theme from section ::before only (same as New Arrivals) */}
                 <div className="all-products-glassmorphism-overlay" style={{
                   position: 'absolute',
                   top: 0,
                   left: 0,
                   width: '100%',
                   height: '100%',
-                  background: 'rgba(255, 255, 255, 0.25)',
-                  backdropFilter: 'blur(3px)',
-                  WebkitBackdropFilter: 'blur(3px)',
+                  background: 'transparent',
+                  backdropFilter: 'none',
+                  WebkitBackdropFilter: 'none',
                   zIndex: 1,
                   pointerEvents: 'none'
                 }} />
@@ -839,7 +799,7 @@ const Shop = ({ handlers }) => {
                       return (
                         <button
                           key={category}
-                          onClick={() => handleAllProductsCategoryClick(category)}
+                          onClick={(e) => handleAllProductsCategoryClick(category, e)}
                           style={{
                             padding: '12px 32px',
                             background: isActive ? '#5f2b7f' : '#fff',
@@ -880,11 +840,11 @@ const Shop = ({ handlers }) => {
                   <h2 className="all-products-title" style={{ 
                     fontSize: '28px', 
                     fontWeight: '700', 
-                    color: '#1f1230', 
+                    color: '#ffffff', 
                     marginBottom: '30px',
                     textAlign: 'left'
                   }}>
-                    All Products
+                    All product
                   </h2>
 
                   {/* Main Layout: Left Categories + Center Product + Right Details */}
@@ -918,7 +878,7 @@ const Shop = ({ handlers }) => {
                             <div
                               key={category.name}
                               className="all-products-category-card"
-                              onClick={() => handleAllProductsCategoryClick(category.name)}
+                              onClick={(e) => handleAllProductsCategoryClick(category.name, e)}
                               style={{
                                 position: 'relative',
                                 borderRadius: '12px',
@@ -1134,13 +1094,12 @@ const Shop = ({ handlers }) => {
                       <div className="selected-product-details" style={{ 
                         width: '400px', 
                         minWidth: '350px',
-                        flexShrink: 0,
-                        background: 'transparent'
+                        flexShrink: 0
                       }}>
                         <h1 style={{ 
                           fontSize: '32px', 
                           fontWeight: '700', 
-                          color: '#1f1230', 
+                          color: '#ffffff', 
                           marginBottom: '12px' 
                         }}>
                           {centerProduct.name}
@@ -1155,37 +1114,37 @@ const Shop = ({ handlers }) => {
                             {Array(centerProduct.rating || 0).fill('★').join('')}
                             {Array(5 - (centerProduct.rating || 0)).fill('☆').join('')}
                           </div>
-                          <span style={{ color: '#666', fontSize: '14px' }}>
+                          <span style={{ color: '#000000', fontSize: '14px' }}>
                             ({centerProduct.reviews || 0} review{centerProduct.reviews !== 1 ? 's' : ''})
                           </span>
                         </div>
                         {/* Product Description */}
                         {getProductDescription && (
-                          <div style={{ marginBottom: '24px', fontSize: '14px', color: '#666', lineHeight: '1.8' }}>
+                          <div style={{ marginBottom: '24px', fontSize: '14px', color: '#000000', lineHeight: '1.8' }}>
                             {getProductDescription(centerProduct)}
                           </div>
                         )}
                         
                         {/* Product Specifications Table */}
                         <div style={{ marginTop: '24px', marginBottom: '24px', background: 'transparent' }}>
-                          <table style={{ width: '100%', fontSize: '14px', borderCollapse: 'collapse', background: 'transparent' }}>
+                          <table style={{ width: '100%', fontSize: '14px', borderCollapse: 'collapse', background: 'transparent', color: '#000000' }}>
                             <tbody style={{ background: 'transparent' }}>
                               {centerProduct.material && (
                                 <tr style={{ borderBottom: '1px solid #e5e5e5', background: 'transparent' }}>
-                                  <td style={{ padding: '8px 0', fontWeight: '600', color: '#333', background: 'transparent' }}>Material:</td>
-                                  <td style={{ padding: '8px 0', color: '#666', background: 'transparent' }}>{centerProduct.material}</td>
+                                  <td style={{ padding: '8px 0', fontWeight: '600', color: '#000000', background: 'transparent' }}>Material:</td>
+                                  <td style={{ padding: '8px 0', color: '#000000', background: 'transparent' }}>{centerProduct.material}</td>
                                 </tr>
                               )}
                               {centerProduct.category && (
                                 <tr style={{ borderBottom: '1px solid #e5e5e5', background: 'transparent' }}>
-                                  <td style={{ padding: '8px 0', fontWeight: '600', color: '#333', background: 'transparent' }}>Category:</td>
-                                  <td style={{ padding: '8px 0', color: '#666', background: 'transparent' }}>{centerProduct.category}</td>
+                                  <td style={{ padding: '8px 0', fontWeight: '600', color: '#000000', background: 'transparent' }}>Category:</td>
+                                  <td style={{ padding: '8px 0', color: '#000000', background: 'transparent' }}>{centerProduct.category}</td>
                                 </tr>
                               )}
                               {centerProduct.inStock !== undefined && (
                                 <tr style={{ borderBottom: '1px solid #e5e5e5', background: 'transparent' }}>
-                                  <td style={{ padding: '8px 0', fontWeight: '600', color: '#333', background: 'transparent' }}>Stock:</td>
-                                  <td style={{ padding: '8px 0', color: '#666', background: 'transparent' }}>
+                                  <td style={{ padding: '8px 0', fontWeight: '600', color: '#000000', background: 'transparent' }}>Stock:</td>
+                                  <td style={{ padding: '8px 0', color: '#000000', background: 'transparent' }}>
                                     {centerProduct.inStock ? `In Stock (${centerProduct.stock || 'Available'})` : 'Out of Stock'}
                                   </td>
                                 </tr>
@@ -1275,13 +1234,13 @@ const Shop = ({ handlers }) => {
                     </div>
                   )}
 
-                  {/* Related Products Section */}
+                  {/* Related Products Section - Always show 5 products */}
                   {centerProduct && relatedProducts.length > 0 && (
                     <div className="related-products-section" style={{ marginTop: '60px', width: '100%', boxSizing: 'border-box' }}>
                       <h2 style={{ 
                         fontSize: '24px', 
                         fontWeight: '700', 
-                        color: '#1f1230', 
+                        color: '#ffffff', 
                         marginBottom: '24px',
                         textAlign: 'left'
                       }}>
@@ -1368,7 +1327,7 @@ const Shop = ({ handlers }) => {
                       <h2 style={{ 
                         fontSize: '24px', 
                         fontWeight: '700',
-                        color: '#1f1230',
+                        color: '#ffffff',
                         marginBottom: '30px',
                         textAlign: 'left'
                       }}>
@@ -1808,7 +1767,7 @@ const Shop = ({ handlers }) => {
         </div>
       )}
 
-      <div style={(currentCategory || showShopPage) ? { position: 'relative', zIndex: 3, marginTop: '-400px' } : {}}>
+      <div>
         <Footer
           navigateToHome={navigateToHome}
           navigateToShop={navigateToShop}

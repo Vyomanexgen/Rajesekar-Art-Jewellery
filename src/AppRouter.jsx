@@ -144,14 +144,15 @@ const AppRouter = () => {
       }
       handlers.setShowNotFound(false);
     } else if (path === '/orders') {
-      if (isLoggedIn) {
-        handlers.setShowOrdersPage(true);
-        handlers.setShowSignIn(false);
-      } else {
-        handlers.setShowSignIn(true);
-        handlers.setShowOrdersPage(false);
-      }
+      handlers.setShowOrdersPage(true);
+      handlers.setShowSignIn(false);
       handlers.closeAllPages();
+      handlers.setShowOrdersPage(true);
+      handlers.setShowNotFound(false);
+    } else if (path === '/order-confirmation') {
+      handlers.setShowOrderConfirmation(true);
+      handlers.setShowCheckout(false);
+      handlers.setShowSignIn(false);
       handlers.setShowNotFound(false);
     } else if (path === '/cart') {
       handlers.setShowCartModal(true);
@@ -205,7 +206,7 @@ const AppRouter = () => {
       // Admin route - handled separately, don't show 404
       handlers.closeAllPages();
       handlers.setShowNotFound(false);
-    } else if (path !== '/' && path !== '/signin' && path !== '/checkout') {
+    } else if (path !== '/' && path !== '/signin' && path !== '/checkout' && path !== '/order-confirmation') {
       handlers.setShowNotFound(true);
       handlers.closeAllPages();
     } else {
@@ -511,6 +512,8 @@ const AppRouter = () => {
           handleCategoryClick={handlers.handleCategoryClick}
           setShowTrackOrderPage={handlers.setShowTrackOrderPage}
           setSelectedOrderId={handlers.setSelectedOrderId}
+          setShowSignIn={handlers.setShowSignIn}
+          setRedirectToOrdersAfterAuth={handlers.setRedirectToOrdersAfterAuth}
         />
       ) : showWishlist ? (
         <Wishlist

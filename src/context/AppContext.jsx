@@ -142,6 +142,7 @@ export const AppProvider = ({ children }) => {
     email: '', 
     phone: '', 
     password: '', 
+    confirmPassword: '',
     showPassword: false,
     rememberDevice: false,
     productUpdates: false,
@@ -161,6 +162,7 @@ export const AppProvider = ({ children }) => {
   // Order states
   const [orderTriggered, setOrderTriggered] = useState(false);
   const [orderId, setOrderId] = useState(null);
+  const [redirectToOrdersAfterAuth, setRedirectToOrdersAfterAuth] = useState(false);
 
   // Auto-slide timer for home page
   useEffect(() => {
@@ -391,6 +393,7 @@ export const AppProvider = ({ children }) => {
     // Order states
     orderTriggered, setOrderTriggered,
     orderId, setOrderId,
+    redirectToOrdersAfterAuth, setRedirectToOrdersAfterAuth,
 
     // Admin states
     isAdminAuthenticated, setIsAdminAuthenticated,

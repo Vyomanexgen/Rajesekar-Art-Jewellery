@@ -351,7 +351,7 @@ const Account = ({
                           </div>
                           <p className="account-address-line">{address.addressLine1}</p>
                           {address.addressLine2 && <p className="account-address-line">{address.addressLine2}</p>}
-                          <p className="account-address-phone">Phone: {address.phone}</p>
+                          {address.phone ? <p className="account-address-phone">Phone: {address.phone}</p> : null}
                         </div>
                       ))}
                     </div>
@@ -365,30 +365,34 @@ const Account = ({
 
                   {showAddAddressForm && (
                     <div className="account-new-address-form">
-                      <h3 className="account-new-address-title">Add New Address</h3>
+                      <h3 className="account-new-address-title">{addresses.length === 0 ? 'Add Default Address' : 'Add New Address'}</h3>
                       <div className="account-address-form-fields">
-                        <div className="account-form-field">
-                          <label className="account-form-label">Full Name *</label>
-                          <input
-                            type="text"
-                            className="account-form-input"
-                            value={newAddress.name}
-                            onChange={(e) => setNewAddress({ ...newAddress, name: e.target.value })}
-                            placeholder="Enter full name"
-                            required
-                          />
-                        </div>
-                        <div className="account-form-field">
-                          <label className="account-form-label">Phone Number *</label>
-                          <input
-                            type="tel"
-                            className="account-form-input"
-                            value={newAddress.phone}
-                            onChange={(e) => setNewAddress({ ...newAddress, phone: e.target.value })}
-                            placeholder="Enter phone number"
-                            required
-                          />
-                        </div>
+                        {addresses.length > 0 && (
+                          <>
+                            <div className="account-form-field">
+                              <label className="account-form-label">Full Name *</label>
+                              <input
+                                type="text"
+                                className="account-form-input"
+                                value={newAddress.name}
+                                onChange={(e) => setNewAddress({ ...newAddress, name: e.target.value })}
+                                placeholder="Enter full name"
+                                required
+                              />
+                            </div>
+                            <div className="account-form-field">
+                              <label className="account-form-label">Phone Number *</label>
+                              <input
+                                type="tel"
+                                className="account-form-input"
+                                value={newAddress.phone}
+                                onChange={(e) => setNewAddress({ ...newAddress, phone: e.target.value })}
+                                placeholder="Enter phone number"
+                                required
+                              />
+                            </div>
+                          </>
+                        )}
                         <div className="account-form-field">
                           <label className="account-form-label">Pincode *</label>
                           <input

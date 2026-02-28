@@ -45,7 +45,7 @@ const Address = ({
                 <div className="address-details">
                   <p>{address.addressLine1}</p>
                   <p>{address.addressLine2}</p>
-                  <p>{address.phone}</p>
+                  {address.phone ? <p>{address.phone}</p> : null}
                 </div>
               </div>
             ))}
@@ -59,29 +59,35 @@ const Address = ({
           </button>
         )}
 
-        {/* New Address Form */}
+        {/* New Address Form - Name & Phone only for additional addresses */}
         {showAddAddressForm && (
           <div className="new-address-form">
-            <h3 className="new-address-title">New Address</h3>
+            <h3 className="new-address-title">{addresses.length === 0 ? 'Add Default Address' : 'New Address'}</h3>
             <div className="address-form-fields">
-              <div className="form-field">
-                <label>Full Name</label>
-                <input
-                  type="text"
-                  value={newAddress.name}
-                  onChange={(e) => setNewAddress({ ...newAddress, name: e.target.value })}
-                  placeholder="Enter full name"
-                />
-              </div>
-              <div className="form-field">
-                <label>Phone Number</label>
-                <input
-                  type="tel"
-                  value={newAddress.phone}
-                  onChange={(e) => setNewAddress({ ...newAddress, phone: e.target.value })}
-                  placeholder="Enter phone number"
-                />
-              </div>
+              {addresses.length > 0 && (
+                <>
+                  <div className="form-field">
+                    <label>Full Name *</label>
+                    <input
+                      type="text"
+                      value={newAddress.name}
+                      onChange={(e) => setNewAddress({ ...newAddress, name: e.target.value })}
+                      placeholder="Enter full name"
+                      required
+                    />
+                  </div>
+                  <div className="form-field">
+                    <label>Phone Number *</label>
+                    <input
+                      type="tel"
+                      value={newAddress.phone}
+                      onChange={(e) => setNewAddress({ ...newAddress, phone: e.target.value })}
+                      placeholder="Enter phone number"
+                      required
+                    />
+                  </div>
+                </>
+              )}
               <div className="form-field">
                 <label>Pincode</label>
                 <input

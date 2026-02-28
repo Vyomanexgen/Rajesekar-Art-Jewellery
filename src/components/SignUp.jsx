@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const SignUp = ({
   signUpForm,
@@ -13,10 +13,35 @@ const SignUp = ({
   setShowSignUp,
   setShowTermsPrivacyPopup
 }) => {
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
+
+  /* Real-time confirm password validation while typing */
+  useEffect(() => {
+    const cp = signUpForm.confirmPassword || '';
+    const p = signUpForm.password || '';
+    if (cp.length === 0) {
+      setConfirmPasswordError('');
+    } else if (p !== cp) {
+      setConfirmPasswordError('Passwords do not match. Please re-enter your password.');
+    } else {
+      setConfirmPasswordError('');
+    }
+  }, [signUpForm.password, signUpForm.confirmPassword]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setConfirmPasswordError('');
+    if (signUpForm.password !== signUpForm.confirmPassword) {
+      setConfirmPasswordError('Passwords do not match. Please re-enter your password.');
+      return;
+    }
+    handleSignUp(e);
+  };
+
   return (
     <div className="auth-page-wrapper">
       <div className="auth-container">
-        <form className="auth-form" onSubmit={handleSignUp}>
+        <form className="auth-form" onSubmit={handleSubmit}>
           <h2 className="auth-title">Create Personal Account</h2>
           <p className="auth-subtitle">Start shopping for your art jewellery needs</p>
           
@@ -46,15 +71,15 @@ const SignUp = ({
           </div>
 
           <div className="auth-field">
-            <label className="auth-label">Phone Number</label>
+            <label className="auth-label">Phone Number *</label>
             <input
               type="tel"
               className="auth-input"
-              placeholder="+1 (555) 000-0000"
+              placeholder="+91 1234567890"
               value={signUpForm.phone}
               onChange={(e) => setSignUpForm({ ...signUpForm, phone: e.target.value })}
+              required
             />
-            <p className="auth-hint">Optional - for delivery updates</p>
           </div>
 
           <div className="auth-field">
@@ -79,6 +104,31 @@ const SignUp = ({
                 </svg>
               </button>
             </div>
+          </div>
+
+          <div className="auth-field">
+            <label className="auth-label">Confirm Password *</label>
+            <div className="auth-input-wrapper">
+              <input
+                type={signUpForm.showPassword ? "text" : "password"}
+                className="auth-input"
+                placeholder="Re-enter your password"
+                value={signUpForm.confirmPassword}
+                onChange={(e) => setSignUpForm({ ...signUpForm, confirmPassword: e.target.value })}
+                required
+              />
+              <button
+                type="button"
+                className="auth-password-toggle"
+                onClick={() => setSignUpForm({ ...signUpForm, showPassword: !signUpForm.showPassword })}
+              >
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10 12.5C11.3807 12.5 12.5 11.3807 12.5 10C12.5 8.61929 11.3807 7.5 10 7.5C8.61929 7.5 7.5 8.61929 7.5 10C7.5 11.3807 8.61929 12.5 10 12.5Z" stroke="#6B7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M10 3.75C6.25 3.75 3.125 6.25 1.875 10C3.125 13.75 6.25 16.25 10 16.25C13.75 16.25 16.875 13.75 18.125 10C16.875 6.25 13.75 3.75 10 3.75Z" stroke="#6B7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+            </div>
+            {confirmPasswordError && <p className="auth-field-error">{confirmPasswordError}</p>}
           </div>
 
           <div className="auth-shipping-address">
