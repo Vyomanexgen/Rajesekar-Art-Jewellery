@@ -1111,8 +1111,8 @@ export const useAppHandlers = () => {
             }
           }, 1000);
         }, 100);
-      } catch (error) {
-        console.error('Error triggering Google account button:', error);
+      } catch (_err) {
+        // Silently ignore to keep console clean
       }
     }
   }, []);
@@ -1128,8 +1128,7 @@ export const useAppHandlers = () => {
         isDefault: true
       };
       handleSelectGoogleAccount(account);
-    } catch (error) {
-      console.error('Error processing Google credential:', error);
+    } catch (_err) {
       triggerGoogleAccountButton();
     }
   }, [handleSelectGoogleAccount, triggerGoogleAccountButton]);
@@ -1167,7 +1166,6 @@ export const useAppHandlers = () => {
           if (window.google && window.google.accounts && window.google.accounts.id) {
             initializeGoogleSignIn();
           } else {
-            console.error('Google Identity Services not available.');
             alert('Google Sign-In is not available. Please check your internet connection and try again.');
           }
         }, 500);
@@ -1615,8 +1613,7 @@ export const useAppHandlers = () => {
           emailSent = true;
         }
       }
-    } catch (error) {
-      console.error('EmailJS Error Details:', error);
+    } catch (_err) {
       emailSent = false;
     }
     if (emailSent) {

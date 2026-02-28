@@ -388,16 +388,7 @@ const Navigation = ({
             <button 
               ref={hamburgerRef}
               className="hamburger mobile-hamburger" 
-              onClick={() => {
-                console.log('=== HAMBURGER CLICKED ===');
-                console.log('Current menuOpen state:', menuOpen);
-                // Toggle menu: if closed → open, if open → close
-                setMenuOpen((prev) => {
-                  const next = !prev;
-                  console.log('Toggling menuOpen to:', next);
-                  return next;
-                });
-              }}
+              onClick={() => setMenuOpen((prev) => !prev)}
               aria-label="Open menu"
               type="button"
               data-testid="hamburger-button"
@@ -479,16 +470,7 @@ const Navigation = ({
           <button 
             ref={hamburgerRef}
             className="hamburger desktop-hamburger" 
-            onClick={() => {
-              console.log('=== HAMBURGER CLICKED ===');
-              console.log('Current menuOpen state:', menuOpen);
-              // Toggle menu: if closed → open, if open → close
-              setMenuOpen((prev) => {
-                const next = !prev;
-                console.log('Toggling menuOpen to:', next);
-                return next;
-              });
-            }}
+            onClick={() => setMenuOpen((prev) => !prev)}
             aria-label="Open menu"
             type="button"
             data-testid="hamburger-button"
@@ -547,7 +529,6 @@ const Navigation = ({
           >
             <button 
               onClick={() => {
-                console.log('Close button clicked');
                 setMenuOpen(false);
                 setShowShopSubmenu(false);
               }}

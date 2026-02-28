@@ -8,7 +8,6 @@ const Shop = ({ handlers }) => {
   const [selectedAllProductsCategory, setSelectedAllProductsCategory] = useState('Necklaces');
   // Add safety checks
   if (!handlers) {
-    console.error('Shop component: handlers prop is missing');
     return <div>Error: Shop component is missing required handlers</div>;
   }
 
@@ -59,11 +58,6 @@ const Shop = ({ handlers }) => {
 
   // Safety check for required functions
   if (!getCategoryProducts || !getFilteredProducts || !getProductImage) {
-    console.error('Shop component: Required functions are missing', {
-      getCategoryProducts: !!getCategoryProducts,
-      getFilteredProducts: !!getFilteredProducts,
-      getProductImage: !!getProductImage
-    });
     return <div>Error: Shop component is missing required functions</div>;
   }
 
@@ -72,10 +66,7 @@ const Shop = ({ handlers }) => {
     try {
       if (currentCategory) {
         // Show products for specific category
-        if (!getCategoryProducts) {
-          console.error('getCategoryProducts function is missing');
-          return [];
-        }
+        if (!getCategoryProducts) return [];
         const categoryProducts = getCategoryProducts(currentCategory);
         return Array.isArray(categoryProducts) ? categoryProducts : [];
       } else if (showShopPage) {
@@ -114,8 +105,7 @@ const Shop = ({ handlers }) => {
         return sortedProducts;
       }
       return [];
-    } catch (error) {
-      console.error('Error in getDisplayProducts:', error);
+    } catch (_err) {
       return [];
     }
   };
@@ -155,8 +145,7 @@ const Shop = ({ handlers }) => {
   let categoryInfo = null;
   try {
     categoryInfo = currentCategory && getCategoryInfo ? getCategoryInfo(currentCategory) : null;
-  } catch (error) {
-    console.error('Error getting category info:', error);
+  } catch (_err) {
     categoryInfo = null;
   }
 

@@ -4,13 +4,8 @@ import './index.css'
 import App from './App.jsx'
 import ErrorBoundary from './components/ErrorBoundary'
 
-// Handle unhandled errors gracefully
+// Handle unhandled errors gracefully (no console output to keep console clean)
 window.addEventListener('error', (event) => {
-  // Log errors for debugging
-  if (event.error) {
-    console.error('Unhandled error:', event.error);
-  }
-  // Don't prevent default in production to allow error boundaries to catch errors
   if (import.meta.env.DEV) {
     event.preventDefault();
     return false;
@@ -18,11 +13,6 @@ window.addEventListener('error', (event) => {
 });
 
 window.addEventListener('unhandledrejection', (event) => {
-  // Log promise rejections for debugging
-  if (event.reason) {
-    console.error('Unhandled promise rejection:', event.reason);
-  }
-  // Don't prevent default in production to allow error boundaries to catch errors
   if (import.meta.env.DEV) {
     event.preventDefault();
     return false;

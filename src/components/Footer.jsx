@@ -16,8 +16,8 @@ const Footer = ({
     if (typeof fn === 'function') {
       try {
         fn(e);
-      } catch (error) {
-        console.error('Navigation error:', error);
+      } catch (_err) {
+        // Silently ignore navigation errors to keep console clean
       }
     }
   };
@@ -28,8 +28,8 @@ const Footer = ({
       try {
         handleCategoryClick(category);
         window.scrollTo({ top: 0, behavior: 'smooth' });
-      } catch (error) {
-        console.error('Category click error:', error);
+      } catch (_err) {
+        // Silently ignore to keep console clean
       }
     }
   };
@@ -97,66 +97,69 @@ const Footer = ({
             </div>
           </div>
 
-          {/* Column 2: Quick Links */}
-          <div className="footer-column">
-            <h4 className="footer-heading">Quick Links</h4>
-            <ul className="footer-links">
-              <li><a href="#" onClick={(e) => safeNavigate(navigateToHome, e)}>Home</a></li>
-              <li><a href="#" onClick={(e) => safeNavigate(navigateToShop, e)}>Shop</a></li>
-              <li><a href="#" onClick={(e) => safeNavigate(navigateToAbout, e)}>About Us</a></li>
-              <li><a href="#" onClick={(e) => safeNavigate(navigateToContact, e)}>Contact</a></li>
-              <li><a href="#" onClick={(e) => safeNavigate(navigateToAccount, e)}>My Account</a></li>
-              <li><a href="#" onClick={(e) => safeNavigate(navigateToOrders, e)}>Track Order</a></li>
-            </ul>
-          </div>
+          {/* Row on mobile: Quick Links | Categories | Contact Us (with horizontal scroll) */}
+          <div className="footer-links-row">
+            {/* Column 2: Quick Links */}
+            <div className="footer-column">
+              <h4 className="footer-heading">Quick Links</h4>
+              <ul className="footer-links">
+                <li><a href="#" onClick={(e) => safeNavigate(navigateToHome, e)}>Home</a></li>
+                <li><a href="#" onClick={(e) => safeNavigate(navigateToShop, e)}>Shop</a></li>
+                <li><a href="#" onClick={(e) => safeNavigate(navigateToAbout, e)}>About Us</a></li>
+                <li><a href="#" onClick={(e) => safeNavigate(navigateToContact, e)}>Contact</a></li>
+                <li><a href="#" onClick={(e) => safeNavigate(navigateToAccount, e)}>My Account</a></li>
+                <li><a href="#" onClick={(e) => safeNavigate(navigateToOrders, e)}>Track Order</a></li>
+              </ul>
+            </div>
 
-          {/* Column 3: Categories */}
-          <div className="footer-column">
-            <h4 className="footer-heading">Categories</h4>
-            <ul className="footer-links">
-              <li><a href="#" onClick={(e) => safeCategoryClick('Necklaces', e)}>Necklaces</a></li>
-              <li><a href="#" onClick={(e) => safeCategoryClick('Earrings', e)}>Earrings</a></li>
-              <li><a href="#" onClick={(e) => safeCategoryClick('Bangles', e)}>Bangles</a></li>
-              <li><a href="#" onClick={(e) => safeCategoryClick('Rings', e)}>Rings</a></li>
-              <li><a href="#" onClick={(e) => safeCategoryClick('Bridal Sets', e)}>Bridal Sets</a></li>
-              <li><a href="#" onClick={(e) => safeCategoryClick('Temple Jewellery', e)}>Temple Jewellery</a></li>
-            </ul>
-          </div>
+            {/* Column 3: Categories */}
+            <div className="footer-column">
+              <h4 className="footer-heading">Categories</h4>
+              <ul className="footer-links">
+                <li><a href="#" onClick={(e) => safeCategoryClick('Necklaces', e)}>Necklaces</a></li>
+                <li><a href="#" onClick={(e) => safeCategoryClick('Earrings', e)}>Earrings</a></li>
+                <li><a href="#" onClick={(e) => safeCategoryClick('Bangles', e)}>Bangles</a></li>
+                <li><a href="#" onClick={(e) => safeCategoryClick('Rings', e)}>Rings</a></li>
+                <li><a href="#" onClick={(e) => safeCategoryClick('Bridal Sets', e)}>Bridal Sets</a></li>
+                <li><a href="#" onClick={(e) => safeCategoryClick('Temple Jewellery', e)}>Temple Jewellery</a></li>
+              </ul>
+            </div>
 
-          {/* Column 4: Contact Us */}
-          <div className="footer-column">
-            <h4 className="footer-heading">Contact Us</h4>
-            <div className="footer-contact">
-              <div className="footer-contact-item">
-                <span className="footer-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 0C7.589 0 4 3.589 4 8c0 4.245 7.273 15.307 7.583 15.702a1 1 0 0 0 .834.298 1 1 0 0 0 .833-.298C13.727 23.307 20 12.245 20 8c0-4.411-3.589-8-8-8zm0 11c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3z"/>
-                  </svg>
-                </span>
-                <a 
-                  href="https://www.google.com/maps/search/?api=1&query=Opposite+R9000,+Trunk+Road,+Nellore+524001,+Andhra+Pradesh" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="footer-contact-link footer-address-link"
-                >
-                  Opposite R9000, Trunk Road, Nellore 524001, Andhra Pradesh
-                </a>
-              </div>
-              <div className="footer-contact-item">
-                <span className="footer-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-                  </svg>
-                </span>
-                <a href="tel:+911234567890" className="footer-contact-link">+91 1234567890</a>
-              </div>
-              <div className="footer-contact-item">
-                <span className="footer-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                  </svg>
-                </span>
-                <a href="mailto:info@rajasekharjewellery.com" className="footer-contact-link">info@rajasekharjewellery.com</a>
+            {/* Column 4: Contact Us */}
+            <div className="footer-column">
+              <h4 className="footer-heading">Contact Us</h4>
+              <div className="footer-contact">
+                <div className="footer-contact-item">
+                  <span className="footer-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 0C7.589 0 4 3.589 4 8c0 4.245 7.273 15.307 7.583 15.702a1 1 0 0 0 .834.298 1 1 0 0 0 .833-.298C13.727 23.307 20 12.245 20 8c0-4.411-3.589-8-8-8zm0 11c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3z"/>
+                    </svg>
+                  </span>
+                  <a 
+                    href="https://www.google.com/maps/search/?api=1&query=Opposite+R9000,+Trunk+Road,+Nellore+524001,+Andhra+Pradesh" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="footer-contact-link footer-address-link"
+                  >
+                    Opposite R9000, Trunk Road, Nellore 524001, Andhra Pradesh
+                  </a>
+                </div>
+                <div className="footer-contact-item">
+                  <span className="footer-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                    </svg>
+                  </span>
+                  <a href="tel:+911234567890" className="footer-contact-link">+91 1234567890</a>
+                </div>
+                <div className="footer-contact-item">
+                  <span className="footer-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                  </span>
+                  <a href="mailto:info@rajasekharjewellery.com" className="footer-contact-link">info@rajasekharjewellery.com</a>
+                </div>
               </div>
             </div>
           </div>

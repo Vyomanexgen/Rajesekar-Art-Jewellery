@@ -8648,6 +8648,15 @@ form.search-box {
   background: rgba(255, 255, 255, 0.5);
 }
 
+/* Wrapper for Quick Links | Categories | Contact - same as 3 columns on desktop */
+.footer-links-row {
+  display: grid;
+  grid-column: span 3;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  min-width: 0;
+}
+
 .footer-column {
   display: flex;
   flex-direction: column;
@@ -8867,7 +8876,7 @@ form.search-box {
 
 @media (max-width: 1024px) {
   .footer-content {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 40px;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -8875,8 +8884,15 @@ form.search-box {
     padding-right: 16px;
   }
 
+  .footer-links-row {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
   .footer-column {
-    min-width: 250px;
+    min-width: 0;
   }
 }
 
@@ -8889,18 +8905,36 @@ form.search-box {
   }
 
   .footer-content {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 32px;
     min-width: 0;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    overflow-x: visible;
     width: 100%;
     padding-right: 16px;
   }
 
-  .footer-column {
-    min-width: 280px;
+  .footer-content > .footer-column {
+    min-width: 0;
     width: 100%;
+  }
+
+  .footer-links-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+    margin: 0 -16px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .footer-links-row > .footer-column {
+    flex: 0 0 auto;
+    min-width: 200px;
+    width: auto;
   }
 
   .footer-bottom-content {
@@ -14683,6 +14717,10 @@ form.search-box {
     gap: 24px;
   }
 
+  .footer-links-row {
+    gap: 24px;
+  }
+
   .footer-column {
     gap: 16px;
   }
@@ -14708,11 +14746,50 @@ form.search-box {
   }
 
   .footer-content {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
     margin-bottom: 30px;
     min-width: 0;
     overflow-x: visible;
+  }
+
+  /* Mobile: Quick Links | Categories | Contact side by side with horizontal scroll */
+  .footer-links-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 28px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+    padding-bottom: 8px;
+    margin: 0 -16px;
+    padding-left: 16px;
+    padding-right: 16px;
+    min-width: 0;
+  }
+
+  .footer-links-row::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .footer-links-row::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+  }
+
+  .footer-links-row::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+  }
+
+  .footer-links-row > .footer-column {
+    flex: 0 0 auto;
+    min-width: 200px;
+    max-width: 220px;
+    gap: 12px;
   }
 
   .footer-column {
@@ -14791,15 +14868,27 @@ form.search-box {
   }
 
   .footer-content {
-    grid-template-columns: 1fr;
-    gap: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
     min-width: 0;
     overflow-x: visible;
   }
 
-  .footer-column {
+  /* First column (Rajasekhar) full width; links row stays horizontal scroll */
+  .footer-content > .footer-column {
     min-width: 0;
     width: 100%;
+  }
+
+  .footer-links-row > .footer-column {
+    min-width: 180px;
+    max-width: 200px;
+    width: auto;
+  }
+
+  .footer-column {
+    min-width: 0;
   }
 
   .footer-company-name {
@@ -14839,6 +14928,11 @@ form.search-box {
 
   .footer-content {
     gap: 24px;
+  }
+
+  .footer-links-row > .footer-column {
+    min-width: 160px;
+    max-width: 180px;
   }
 
   .footer-contact-item {
@@ -19400,14 +19494,29 @@ form.search-box {
   z-index: 0 !important;
 }
 
-/* Mobile optimization for background */
+/* Reduced screen / tablet: light purple gradient instead of global background image */
+@media (max-width: 1024px) {
+  body {
+    background-image: none;
+    background: linear-gradient(180deg, #f5f0ff 0%, #e8dff5 35%, #dfd0ed 70%, #d4c4e8 100%);
+    background-attachment: scroll;
+    background-size: 100% 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
+}
+
+/* Mobile: same light purple gradient for whole page */
 @media (max-width: 768px) {
   body {
+    background-image: none;
+    background: linear-gradient(180deg, #f5f0ff 0%, #e8dff5 35%, #dfd0ed 70%, #d4c4e8 100%);
     background-attachment: scroll;
-    background-size: cover;
+    background-size: 100% 100%;
     background-position: center center;
+    background-repeat: no-repeat;
   }
-  
+
   /* Ensure full coverage on mobile */
   html,
   body,
