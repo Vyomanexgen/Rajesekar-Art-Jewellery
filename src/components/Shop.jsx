@@ -198,20 +198,20 @@ const Shop = ({ handlers }) => {
     return allProductsCategories.find(cat => cat.name === categoryName) || allProductsCategories[1]; // Default to Necklaces
   };
 
-  // Get related products (always 5 products: same category first, then fill from other categories)
+  // Get related products (always 6 products: same category first, then fill from other categories)
   const relatedProducts = useMemo(() => {
     if (!centerProduct) return [];
 
     const allProducts = products || [];
     const currentCategory = centerProduct.category;
-    const targetCount = 5;
+    const targetCount = 6;
 
     // Step 1: Get products from same category (excluding center product)
     let related = allProducts.filter(p =>
       p.category === currentCategory && p.id !== centerProduct.id
     );
 
-    // Step 2: If we have fewer than 5, add products from other categories
+    // Step 2: If we have fewer than targetCount, add products from other categories
     if (related.length < targetCount) {
       const usedIds = new Set([centerProduct.id, ...related.map(p => p.id)]);
       const allCategories = ['Earrings', 'Bangles', 'Rings', 'Necklaces', 'Temple Jewellery', 'Bridal Sets'];
@@ -226,7 +226,7 @@ const Shop = ({ handlers }) => {
           p.category === category && !usedIds.has(p.id)
         );
 
-        // Add products from this category until we reach 5 total
+        // Add products from this category until we reach targetCount total
         for (const product of categoryProducts) {
           if (related.length >= targetCount) break;
           related.push(product);
@@ -235,13 +235,14 @@ const Shop = ({ handlers }) => {
       }
     }
 
-    // Step 3: Limit to exactly 5 products
+    // Step 3: Limit to exactly targetCount products
     return related.slice(0, targetCount);
   }, [centerProduct, products]);
 
-  // Get recommended products (one product from each category except current product's category)
+  // Get recommended products (one product from each category except current product's category, then fill to 6)
   const recommendedProducts = useMemo(() => {
     if (!centerProduct) return [];
+    const targetCount = 6;
     const currentCategory = centerProduct.category;
     const allCategories = ['Earrings', 'Bangles', 'Rings', 'Necklaces', 'Temple Jewellery', 'Bridal Sets'];
     const otherCategories = allCategories.filter(cat => cat !== currentCategory);
@@ -258,7 +259,19 @@ const Shop = ({ handlers }) => {
       }
     });
 
-    return recommended;
+    // If we still have fewer than targetCount, fill from remaining products
+    if (recommended.length < targetCount) {
+      const usedIds = new Set(recommended.map(p => p.id).concat(centerProduct.id));
+      const allProducts = products || [];
+      for (const product of allProducts) {
+        if (recommended.length >= targetCount) break;
+        if (usedIds.has(product.id)) continue;
+        recommended.push(product);
+        usedIds.add(product.id);
+      }
+    }
+
+    return recommended.slice(0, targetCount);
   }, [centerProduct, products]);
 
   // Handle product click in All Products view
@@ -1245,8 +1258,8 @@ const Shop = ({ handlers }) => {
                         display: 'flex',
                         gap: '20px',
                         overflowX: 'auto',
-                        paddingLeft: '16px',
-                        paddingRight: '16px',
+                        paddingLeft: '8px',
+                        paddingRight: '8px',
                         paddingBottom: '20px',
                         scrollbarWidth: 'thin',
                         scrollbarColor: '#5f2b7f #f5f5f5',
@@ -1261,9 +1274,9 @@ const Shop = ({ handlers }) => {
                             className="related-product-card"
                             onClick={() => handleProductSelect(product)}
                             style={{
-                              width: '200px',
-                              minWidth: '200px',
-                              maxWidth: '200px',
+                              width: '220px',
+                              minWidth: '220px',
+                              maxWidth: '220px',
                               cursor: 'pointer',
                               background: '#fff',
                               borderRadius: '8px',
@@ -1332,8 +1345,8 @@ const Shop = ({ handlers }) => {
                         display: 'flex',
                         gap: '20px',
                         overflowX: 'auto',
-                        paddingLeft: '16px',
-                        paddingRight: '16px',
+                        paddingLeft: '8px',
+                        paddingRight: '8px',
                         paddingBottom: '20px',
                         scrollbarWidth: 'thin',
                         scrollbarColor: '#5f2b7f #f5f5f5',
@@ -1348,9 +1361,9 @@ const Shop = ({ handlers }) => {
                             className="recommended-product-card"
                             onClick={() => handleProductSelect(product)}
                             style={{
-                              width: '200px',
-                              minWidth: '200px',
-                              maxWidth: '200px',
+                              width: '220px',
+                              minWidth: '220px',
+                              maxWidth: '220px',
                               cursor: 'pointer',
                               background: '#fff',
                               borderRadius: '8px',

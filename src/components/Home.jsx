@@ -54,7 +54,28 @@ const Home = ({
 }) => {
   // State for hovered category
   const [hoveredCategory, setHoveredCategory] = useState(null);
-  
+
+  // Home Page Category configuration data
+  const categoriesRow1 = [
+    { id: 'Necklaces', name: 'Necklace sets', image: '/Necklaces.jpg' },
+    { id: 'Haram', name: 'Haram', image: '/Haram.jpg' },
+    { id: 'Combo set', name: 'Combo set', image: '/combo_set.jpg' },
+    { id: 'Wedding collection', name: 'Wedding collection', image: '/Wedding_collection.jpg' },
+    { id: 'Earrings', name: 'Earrings', image: '/Earings.jpg' },
+    { id: 'Bangles', name: 'Bangles', image: '/Bangles.jpg' },
+    { id: 'Hip beads', name: 'Hip beads', image: '/Hip_beads.jpg' }
+  ];
+
+  const categoriesRow2 = [
+    { id: 'Accessories', name: 'Accessories', image: '/Accessories.jpg' },
+    { id: 'Gentlemens items', name: "Gentlemen's items", image: '/Gentlemen_items.jpg' },
+    { id: 'Beads', name: 'Beads', image: '/Beads.jpg' },
+    { id: 'Mangalsutra', name: 'Mangalsutra', image: '/Mangalsutra.jpg' },
+    { id: 'Sarudu', name: 'Sarudu', image: '/Sarudu.jpg' },
+    { id: 'Chains', name: 'Chains', image: '/Chains.jpg' },
+    { id: 'Choker sets', name: 'Choker sets', image: '/Choker_sets.jpg' }
+  ];
+
   // Newsletter subscription states
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -117,25 +138,25 @@ const Home = ({
   // Handle newsletter subscription
   const handleNewsletterSubmit = (e) => {
     e.preventDefault();
-    
+
     // Reset error
     setEmailError('');
-    
+
     // Validate email
     if (!newsletterEmail.trim()) {
       setEmailError('Please enter a correct email');
       return;
     }
-    
+
     if (!validateEmail(newsletterEmail)) {
       setEmailError('Please enter a correct email');
       return;
     }
-    
+
     // If validation passes, show confirmation
     setShowConfirmation(true);
     setNewsletterEmail(''); // Clear the input
-    
+
     // Hide confirmation after 3 seconds
     setTimeout(() => {
       setShowConfirmation(false);
@@ -190,184 +211,76 @@ const Home = ({
 
       <section className="shop-category-section fade-in-section">
         <div className="content-width">
+          <div className="category-grid-row">
+            {categoriesRow1.map((cat) => (
+              <div
+                key={cat.id}
+                className="category-card"
+                onMouseEnter={() => setHoveredCategory(cat.id)}
+                onMouseLeave={() => setHoveredCategory(null)}
+                onClick={() => setHoveredCategory(hoveredCategory === cat.id ? null : cat.id)}
+              >
+                <div className="category-image-wrapper">
+                  <img src={cat.image} alt={cat.name} className="category-image" />
+                  <div className="category-content">
+                    <div className="category-label">{cat.name}</div>
+                    {hoveredCategory === cat.id && (
+                      <button
+                        className="category-explore-btn"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleCategoryClick(cat.name);
+                        }}
+                      >
+                        Explore Now
+                        <span className="btn-arrow">→</span>
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
           <div className="category-header">
             <h2 className="category-title">Shop by Category</h2>
             <p className="category-subtitle">Discover our exclusive collections</p>
           </div>
-          <div className="category-grid">
-            <div 
-              className="category-card" 
-              onMouseEnter={() => setHoveredCategory('Necklaces')}
-              onMouseLeave={() => setHoveredCategory(null)}
-              onClick={() => setHoveredCategory(hoveredCategory === 'Necklaces' ? null : 'Necklaces')}
-            >
-              <div className="category-image-wrapper">
-                <img src="/Necklaces.jpg" alt="Necklaces" className="category-image" />
-                <div className="category-content">
-                  <div className="category-label">Necklaces</div>
-                  {(hoveredCategory === 'Necklaces') && (
-                    <div className="category-overlay-content">
-                      <p className="category-description">{categoryDescriptions['Necklaces']}</p>
-                      <button 
+
+          <div className="category-grid-row">
+            {categoriesRow2.map((cat) => (
+              <div
+                key={cat.id}
+                className="category-card"
+                onMouseEnter={() => setHoveredCategory(cat.id)}
+                onMouseLeave={() => setHoveredCategory(null)}
+                onClick={() => setHoveredCategory(hoveredCategory === cat.id ? null : cat.id)}
+              >
+                <div className="category-image-wrapper">
+                  <img src={cat.image} alt={cat.name} className="category-image" />
+                  <div className="category-content">
+                    <div className="category-label">{cat.name}</div>
+                    {hoveredCategory === cat.id && (
+                      <button
                         className="category-explore-btn"
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleCategoryClick('Necklaces');
+                          handleCategoryClick(cat.name);
                         }}
                       >
                         Explore Now
                         <span className="btn-arrow">→</span>
                       </button>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-            <div 
-              className="category-card" 
-              onMouseEnter={() => setHoveredCategory('Earrings')}
-              onMouseLeave={() => setHoveredCategory(null)}
-              onClick={() => setHoveredCategory(hoveredCategory === 'Earrings' ? null : 'Earrings')}
-            >
-              <div className="category-image-wrapper">
-                <img src="/Earings.jpg" alt="Earrings" className="category-image" />
-                <div className="category-content">
-                  <div className="category-label">Earrings</div>
-                  {(hoveredCategory === 'Earrings') && (
-                    <div className="category-overlay-content">
-                      <p className="category-description">{categoryDescriptions['Earrings']}</p>
-                      <button 
-                        className="category-explore-btn"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleCategoryClick('Earrings');
-                        }}
-                      >
-                        Explore Now
-                        <span className="btn-arrow">→</span>
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-            <div 
-              className="category-card" 
-              onMouseEnter={() => setHoveredCategory('Bangles')}
-              onMouseLeave={() => setHoveredCategory(null)}
-              onClick={() => setHoveredCategory(hoveredCategory === 'Bangles' ? null : 'Bangles')}
-            >
-              <div className="category-image-wrapper">
-                <img src="/Bangles.jpg" alt="Bangles" className="category-image" />
-                <div className="category-content">
-                  <div className="category-label">Bangles</div>
-                  {(hoveredCategory === 'Bangles') && (
-                    <div className="category-overlay-content">
-                      <p className="category-description">{categoryDescriptions['Bangles']}</p>
-                      <button 
-                        className="category-explore-btn"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleCategoryClick('Bangles');
-                        }}
-                      >
-                        Explore Now
-                        <span className="btn-arrow">→</span>
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-            <div 
-              className="category-card" 
-              onMouseEnter={() => setHoveredCategory('Rings')}
-              onMouseLeave={() => setHoveredCategory(null)}
-              onClick={() => setHoveredCategory(hoveredCategory === 'Rings' ? null : 'Rings')}
-            >
-              <div className="category-image-wrapper">
-                <img src="/Rings.jpg" alt="Rings" className="category-image" />
-                <div className="category-content">
-                  <div className="category-label">Rings</div>
-                  {(hoveredCategory === 'Rings') && (
-                    <div className="category-overlay-content">
-                      <p className="category-description">{categoryDescriptions['Rings']}</p>
-                      <button 
-                        className="category-explore-btn"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleCategoryClick('Rings');
-                        }}
-                      >
-                        Explore Now
-                        <span className="btn-arrow">→</span>
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-            <div 
-              className="category-card" 
-              onMouseEnter={() => setHoveredCategory('Bridal Sets')}
-              onMouseLeave={() => setHoveredCategory(null)}
-              onClick={() => setHoveredCategory(hoveredCategory === 'Bridal Sets' ? null : 'Bridal Sets')}
-            >
-              <div className="category-image-wrapper">
-                <img src="/Bridal_set.jpg" alt="Bridal Sets" className="category-image" />
-                <div className="category-content">
-                  <div className="category-label">Bridal Sets</div>
-                  {(hoveredCategory === 'Bridal Sets') && (
-                    <div className="category-overlay-content">
-                      <p className="category-description">{categoryDescriptions['Bridal Sets']}</p>
-                      <button 
-                        className="category-explore-btn"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleCategoryClick('Bridal Sets');
-                        }}
-                      >
-                        Explore Now
-                        <span className="btn-arrow">→</span>
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-            <div 
-              className="category-card" 
-              onMouseEnter={() => setHoveredCategory('Temple Jewellery')}
-              onMouseLeave={() => setHoveredCategory(null)}
-              onClick={() => setHoveredCategory(hoveredCategory === 'Temple Jewellery' ? null : 'Temple Jewellery')}
-            >
-              <div className="category-image-wrapper">
-                <img src="/Temple_Jewellery.jpg" alt="Temple Jewellery" className="category-image" />
-                <div className="category-content">
-                  <div className="category-label">Temple Jewellery</div>
-                  {(hoveredCategory === 'Temple Jewellery') && (
-                    <div className="category-overlay-content">
-                      <p className="category-description">{categoryDescriptions['Temple Jewellery']}</p>
-                      <button 
-                        className="category-explore-btn"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleCategoryClick('Temple Jewellery');
-                        }}
-                      >
-                        Explore Now
-                        <span className="btn-arrow">→</span>
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
       {/* Designer Drop Event Banner */}
-      <section className="designer-drop-banner fade-in-section">
+      < section className="designer-drop-banner fade-in-section" >
         <div className="content-width">
           <div className="promo-banner">
             <div className="promo-header">
@@ -391,121 +304,125 @@ const Home = ({
             <button className="shop-now-btn" onClick={navigateToShop}>Shop Now</button>
           </div>
         </div>
-      </section>
+      </section >
 
       {/* Trending Products Section */}
-      {getTrendingProducts().length > 0 && (
-        <section className="trending-section fade-in-section">
-          <div className="content-width">
-            <h2 className="trending-title">Trending Products</h2>
-            <div className="trending-products">
-              {getTrendingProducts().map((product) => (
-                <div key={product.id} className="trending-product-card">
-                  <div className="trending-product-image-wrapper" onClick={() => handleProductClick(product)}>
-                    <img src={getProductImage(product)} alt={product.name} className="trending-product-image" />
-                    <div className="product-hover-icons">
-                      <button 
-                        className={`product-eye-icon trending-eye-icon ${viewedProducts.has(product.id) ? 'viewed' : ''}`}
-                        onClick={(e) => handleEyeIconClick(e, product)}
-                        aria-label="View product"
-                      >
-                        👁
-                      </button>
-                      <button 
-                        className={`product-wishlist-icon trending-wishlist-icon ${wishlistItems.has(product.id) ? 'active' : ''}`}
-                        onClick={(e) => handleWishlistClick(e, product)}
-                        aria-label="Add to wishlist"
-                      >
-                        {wishlistItems.has(product.id) ? '❤️' : '🤍'}
-                      </button>
-                    </div>
-                    {product.badge && (
-                      <span className={`product-badge trending-badge ${product.badge.toLowerCase().replace(" ", "-")}`}>
-                        {product.badge}
-                      </span>
-                    )}
-                    {product.discount && (
-                      <span className="product-discount trending-discount">-{product.discount}%</span>
-                    )}
-                  </div>
-                  <div className="trending-product-info">
-                    <h3 className="trending-product-name">{product.name}</h3>
-                    <div className="trending-product-rating">
-                      {Array(product.rating).fill("★").join("")}{Array(5 - product.rating).fill("☆").join("")} <span className="review-count">({product.reviews})</span>
-                    </div>
-                    <div className="trending-product-price">
-                      <span className="trending-current-price">₹{product.price.toLocaleString()}</span>
-                      {product.originalPrice && (
-                        <span className="trending-original-price">₹{product.originalPrice.toLocaleString()}</span>
+      {
+        getTrendingProducts().length > 0 && (
+          <section className="trending-section fade-in-section">
+            <div className="content-width">
+              <h2 className="trending-title">Trending Products</h2>
+              <div className="trending-products">
+                {getTrendingProducts().map((product) => (
+                  <div key={product.id} className="trending-product-card">
+                    <div className="trending-product-image-wrapper" onClick={() => handleProductClick(product)}>
+                      <img src={getProductImage(product)} alt={product.name} className="trending-product-image" />
+                      <div className="product-hover-icons">
+                        <button
+                          className={`product-eye-icon trending-eye-icon ${viewedProducts.has(product.id) ? 'viewed' : ''}`}
+                          onClick={(e) => handleEyeIconClick(e, product)}
+                          aria-label="View product"
+                        >
+                          👁
+                        </button>
+                        <button
+                          className={`product-wishlist-icon trending-wishlist-icon ${wishlistItems.has(product.id) ? 'active' : ''}`}
+                          onClick={(e) => handleWishlistClick(e, product)}
+                          aria-label="Add to wishlist"
+                        >
+                          {wishlistItems.has(product.id) ? '❤️' : '🤍'}
+                        </button>
+                      </div>
+                      {product.badge && (
+                        <span className={`product-badge trending-badge ${product.badge.toLowerCase().replace(" ", "-")}`}>
+                          {product.badge}
+                        </span>
+                      )}
+                      {product.discount && (
+                        <span className="product-discount trending-discount">-{product.discount}%</span>
                       )}
                     </div>
-                    <button className="trending-add-to-cart-btn" onClick={(e) => handleAddToCart(e, product)}>
-                      Add to Cart
-                    </button>
+                    <div className="trending-product-info">
+                      <h3 className="trending-product-name">{product.name}</h3>
+                      <div className="trending-product-rating">
+                        {Array(product.rating).fill("★").join("")}{Array(5 - product.rating).fill("☆").join("")} <span className="review-count">({product.reviews})</span>
+                      </div>
+                      <div className="trending-product-price">
+                        <span className="trending-current-price">₹{product.price.toLocaleString()}</span>
+                        {product.originalPrice && (
+                          <span className="trending-original-price">₹{product.originalPrice.toLocaleString()}</span>
+                        )}
+                      </div>
+                      <button className="trending-add-to-cart-btn" onClick={(e) => handleAddToCart(e, product)}>
+                        Add to Cart
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
-      )}
+          </section>
+        )
+      }
 
       {/* Because You Liked Section */}
-      {getRecommendedProducts().length > 0 && (
-        <section className="recommended-section fade-in-section">
-          <div className="content-width">
-            <h2 className="recommended-title">Because You Liked...</h2>
-            <div className="recommended-products">
-              {getRecommendedProducts().map((product) => (
-                <div key={product.id} className="recommended-product-card">
-                  <div className="recommended-product-image-wrapper" onClick={() => handleProductClick(product)}>
-                    <img src={getProductImage(product)} alt={product.name} className="recommended-product-image" />
-                    <div className="product-hover-icons">
-                      <button 
-                        className={`product-eye-icon recommended-eye-icon ${viewedProducts.has(product.id) ? 'viewed' : ''}`}
-                        onClick={(e) => handleEyeIconClick(e, product)}
-                        aria-label="View product"
-                      >
-                        👁
-                      </button>
-                      <button 
-                        className={`product-wishlist-icon recommended-wishlist-icon ${wishlistItems.has(product.id) ? 'active' : ''}`}
-                        onClick={(e) => handleWishlistClick(e, product)}
-                        aria-label="Add to wishlist"
-                      >
-                        {wishlistItems.has(product.id) ? '❤️' : '🤍'}
-                      </button>
-                    </div>
-                    {product.badge && (
-                      <span className={`product-badge recommended-badge ${product.badge.toLowerCase().replace(" ", "-")}`}>
-                        {product.badge}
-                      </span>
-                    )}
-                    {product.discount && (
-                      <span className="product-discount recommended-discount">-{product.discount}%</span>
-                    )}
-                  </div>
-                  <div className="recommended-product-info">
-                    <h3 className="recommended-product-name">{product.name}</h3>
-                    <div className="recommended-product-rating">
-                      {Array(product.rating).fill("★").join("")}{Array(5 - product.rating).fill("☆").join("")} <span className="review-count">({product.reviews})</span>
-                    </div>
-                    <div className="recommended-product-price">
-                      <span className="recommended-current-price">₹{product.price.toLocaleString()}</span>
-                      {product.originalPrice && (
-                        <span className="recommended-original-price">₹{product.originalPrice.toLocaleString()}</span>
+      {
+        getRecommendedProducts().length > 0 && (
+          <section className="recommended-section fade-in-section">
+            <div className="content-width">
+              <h2 className="recommended-title">Because You Liked...</h2>
+              <div className="recommended-products">
+                {getRecommendedProducts().map((product) => (
+                  <div key={product.id} className="recommended-product-card">
+                    <div className="recommended-product-image-wrapper" onClick={() => handleProductClick(product)}>
+                      <img src={getProductImage(product)} alt={product.name} className="recommended-product-image" />
+                      <div className="product-hover-icons">
+                        <button
+                          className={`product-eye-icon recommended-eye-icon ${viewedProducts.has(product.id) ? 'viewed' : ''}`}
+                          onClick={(e) => handleEyeIconClick(e, product)}
+                          aria-label="View product"
+                        >
+                          👁
+                        </button>
+                        <button
+                          className={`product-wishlist-icon recommended-wishlist-icon ${wishlistItems.has(product.id) ? 'active' : ''}`}
+                          onClick={(e) => handleWishlistClick(e, product)}
+                          aria-label="Add to wishlist"
+                        >
+                          {wishlistItems.has(product.id) ? '❤️' : '🤍'}
+                        </button>
+                      </div>
+                      {product.badge && (
+                        <span className={`product-badge recommended-badge ${product.badge.toLowerCase().replace(" ", "-")}`}>
+                          {product.badge}
+                        </span>
+                      )}
+                      {product.discount && (
+                        <span className="product-discount recommended-discount">-{product.discount}%</span>
                       )}
                     </div>
-                    <button className="recommended-add-to-cart-btn" onClick={(e) => handleAddToCart(e, product)}>
-                      Add to Cart
-                    </button>
+                    <div className="recommended-product-info">
+                      <h3 className="recommended-product-name">{product.name}</h3>
+                      <div className="recommended-product-rating">
+                        {Array(product.rating).fill("★").join("")}{Array(5 - product.rating).fill("☆").join("")} <span className="review-count">({product.reviews})</span>
+                      </div>
+                      <div className="recommended-product-price">
+                        <span className="recommended-current-price">₹{product.price.toLocaleString()}</span>
+                        {product.originalPrice && (
+                          <span className="recommended-original-price">₹{product.originalPrice.toLocaleString()}</span>
+                        )}
+                      </div>
+                      <button className="recommended-add-to-cart-btn" onClick={(e) => handleAddToCart(e, product)}>
+                        Add to Cart
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
-      )}
+          </section>
+        )
+      }
 
       {/* What Our Customers Say Section */}
       <section className="testimonials-section fade-in-section">
@@ -555,43 +472,8 @@ const Home = ({
         </div>
       </section>
 
-      {/* Subscribe to Newsletter Section */}
-      <section className="newsletter-section fade-in-section">
-        <div className="content-width">
-          <div className="newsletter-banner">
-            <h2 className="newsletter-title">Subscribe to Our Newsletter</h2>
-            <p className="newsletter-subtitle">Get exclusive offers and updates on new arrivals</p>
-            <form className="newsletter-form" onSubmit={handleNewsletterSubmit}>
-              <input 
-                type="email" 
-                className={`newsletter-input ${emailError ? 'newsletter-input-error' : ''}`}
-                placeholder="Enter your email"
-                value={newsletterEmail}
-                onChange={(e) => {
-                  setNewsletterEmail(e.target.value);
-                  setEmailError(''); // Clear error when user types
-                }}
-              />
-              <button type="submit" className="newsletter-subscribe-btn">Subscribe</button>
-            </form>
-            {emailError && (
-              <div className="newsletter-error-message">{emailError}</div>
-            )}
-          </div>
-        </div>
-      </section>
 
-      {/* Confirmation Popup */}
-      {showConfirmation && (
-        <div className="newsletter-confirmation-popup">
-          <div className="newsletter-confirmation-content">
-            <div className="newsletter-confirmation-icon">✓</div>
-            <p className="newsletter-confirmation-message">Thank you for the subscription.</p>
-          </div>
-        </div>
-      )}
-
-      <Footer 
+      <Footer
         navigateToHome={navigateToHome}
         navigateToShop={navigateToShop}
         navigateToAbout={navigateToAbout}

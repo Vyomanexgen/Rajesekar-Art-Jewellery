@@ -187,8 +187,23 @@ const AppRouter = () => {
         'bangle': 'Bangles',
         'ring': 'Rings',
         'bridal-set': 'Bridal Sets',
-        'temple-jewellery': 'Temple Jewellery'
+        'temple-jewellery': 'Temple Jewellery',
+        // New category slugs
+        'haram': 'Haram',
+        'combo-set': 'Combo set',
+        'hip-belts': 'Hip belts',
+        'accessories': 'Accessories',
+        'gentlemens-items': "Gentlemen's items",
+        'beads': 'Beads',
+        'mangalsutra': 'Mangalsutra',
+        'sarudu': 'Sarudu',
+        'chains': 'Chains',
+        'choker-sets': 'Choker sets',
+        // Optional alias slugs
+        'necklace-sets': 'Necklaces',
+        'wedding-collection': 'Bridal Sets'
       };
+
       const category = categoryMap[categorySlug];
       if (category) {
         handlers.setCurrentCategory(category);

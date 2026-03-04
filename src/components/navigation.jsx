@@ -1,5 +1,46 @@
 import React, { useRef, useState, useEffect } from 'react';
 
+const shopCategories = [
+  {
+    name: 'Necklace sets',
+    image: '/Necklaces.jpg',
+    subcategories: ['Temple collection', 'Antique sets', 'Cz Necklace sets', 'Kundan sets', 'Victorian sets', 'Pendent Necklace set', 'Plain Sets', 'Painted sets', 'Silver sets', 'Ganga jamuna', 'Kanti Sets', 'Kasula sets', 'Step Necklace sets', 'Stone Sets']
+  },
+  { name: 'Haram', image: '/Haram.jpg', subcategories: [] },
+  { name: 'Combo set', image: '/combo_set.jpg', subcategories: [] },
+  { name: 'Wedding collection', image: '/Wedding_collection.jpg', subcategories: [] },
+  {
+    name: 'Earrings',
+    image: '/Earings.jpg',
+    subcategories: ['Antique', 'Studs', 'Jhumka', 'Cz Earrings', 'Tops', 'Hanging', 'Chandbali', 'Ear Cuffs', 'Kundan', 'Victorian']
+  },
+  {
+    name: 'Bangles',
+    image: '/Bangles.jpg',
+    subcategories: ['Temple Bangles', 'Antique', 'Cz Bangles', 'Kundan', 'C Bangles', 'Plain Bangles', 'Kada', 'Bracelet']
+  },
+  {
+    name: 'Hip belts',
+    image: '/Hip_beads.jpg',
+    subcategories: ['Temple Hip Belt', 'Antique Hip Belt', 'Pendent Hip Belt', 'Kundan Hip Belt', 'Chain Hip Belt', 'Pearl Hip Belt', 'Ganga Jamuna Hip Belt', 'Silver Hip Belt', 'Victorian Hip Belt']
+  },
+  {
+    name: 'Accessories',
+    image: '/Accessories.jpg',
+    subcategories: ['Hair Accessories (Big Tika)', 'Jada', 'Jada Billalu', 'Tika', 'Chepaswaralu', 'Pendent sets', 'Surya Chandrulu', "God Idol's", 'Kunkumabarina', 'Hair Clips', 'Saree pins', 'Matilu', 'Anklets', 'Nose Pin', 'Nath', 'Lockets', 'Finger Rings', 'Hand panja', 'Hand Chocker', 'Jada Kuchulu']
+  },
+  {
+    name: "Gentlemen's items",
+    image: '/Gentlemen_items.jpg',
+    subcategories: ['Chains', 'Braclets', 'Finger Rings', 'Kada', 'Puligoru']
+  },
+  { name: 'Beads', image: '/Beads.jpg', subcategories: [] },
+  { name: 'Mangalsutra', image: '/Mangalsutra.jpg', subcategories: [] },
+  { name: 'Sarudu', image: '/Sarudu.jpg', subcategories: [] },
+  { name: 'Chains', image: '/Chains.jpg', subcategories: [] },
+  { name: 'Choker sets', image: '/Choker_sets.jpg', subcategories: [] }
+];
+
 const Navigation = ({
   // State
   menuOpen = false,
@@ -54,7 +95,8 @@ const Navigation = ({
   const mobileSearchInputRef = useRef(null);
   const [currentPath, setCurrentPath] = useState(typeof window !== 'undefined' ? window.location.pathname : '');
   const [showMobileSearch, setShowMobileSearch] = useState(false);
-  
+  const [activeMegaCategory, setActiveMegaCategory] = useState(shopCategories[0]);
+
   // Listen to URL changes to update active state
   useEffect(() => {
     const updatePath = () => {
@@ -62,30 +104,30 @@ const Navigation = ({
         setCurrentPath(window.location.pathname);
       }
     };
-    
+
     // Update on initial load
     updatePath();
-    
+
     // Listen to popstate events (back/forward button)
     window.addEventListener('popstate', updatePath);
-    
+
     // Override pushState and replaceState to detect navigation
     const originalPushState = window.history.pushState;
     const originalReplaceState = window.history.replaceState;
-    
-    window.history.pushState = function(...args) {
+
+    window.history.pushState = function (...args) {
       originalPushState.apply(window.history, args);
       setTimeout(updatePath, 0);
     };
-    
-    window.history.replaceState = function(...args) {
+
+    window.history.replaceState = function (...args) {
       originalReplaceState.apply(window.history, args);
       setTimeout(updatePath, 0);
     };
-    
+
     // Also check periodically (fallback for programmatic navigation)
     const interval = setInterval(updatePath, 200);
-    
+
     return () => {
       window.removeEventListener('popstate', updatePath);
       window.history.pushState = originalPushState;
@@ -93,7 +135,7 @@ const Navigation = ({
       clearInterval(interval);
     };
   }, []);
-  
+
   // Determine active page from URL – Home only when path is exactly /
   const getActivePage = () => {
     const path = (currentPath || '').replace(/\/$/, '') || '/';
@@ -108,7 +150,7 @@ const Navigation = ({
     if (path === '/' || path === '') return 'home';
     return null; /* checkout, etc. – no nav item active */
   };
-  
+
   const activePage = getActivePage();
 
   return (
@@ -117,7 +159,7 @@ const Navigation = ({
       <header className="main-header">
         <div className="content-width main-header-inner">
           <div className="logo-area">
-            <div className="logo-icon">★</div>
+            <img src="/logo.jpg.jpeg" alt="Rajasekhar Art Jewellery Logo" className="logo-icon" style={{ objectFit: 'cover', padding: 0 }} />
             <div className="logo-text">
               <h1>Rajasekhar Art Jewellery</h1>
             </div>
@@ -125,121 +167,99 @@ const Navigation = ({
 
           <div className="nav-and-search">
             <nav className="nav-links">
-              <a 
-                href="/" 
+              <a
+                href="/"
                 onClick={(e) => {
                   e.preventDefault();
                   if (navigateToHome) navigateToHome(e);
-                }} 
+                }}
                 className={activePage === 'home' ? 'active' : ''}
               >
                 Home
               </a>
               <div className="nav-dropdown-wrapper">
-                <a 
-                  href="/shop" 
+                <a
+                  href="/shop"
                   onClick={(e) => {
                     e.preventDefault();
                     if (handleShopDropdownToggle) handleShopDropdownToggle(e);
-                  }} 
+                  }}
                   className={activePage === 'shop' || showShopDropdown ? 'active' : ''}
                 >
                   Shop ▾
                 </a>
                 {showShopDropdown && (
-                  <div className="shop-dropdown">
-                    <a 
-                      href="/shop" 
-                      onClick={(e) => {
-                        e.preventDefault();
-                        if (navigateToShop) navigateToShop(e);
-                      }}
-                    >
-                      All product
-                    </a>
-                    <a 
-                      href="/shop/necklace" 
-                      onClick={(e) => {
-                        e.preventDefault();
-                        if (handleCategoryClick) handleCategoryClick('Necklaces');
-                      }}
-                    >
-                      Necklaces
-                    </a>
-                    <a 
-                      href="/shop/earring" 
-                      onClick={(e) => {
-                        e.preventDefault();
-                        if (handleCategoryClick) handleCategoryClick('Earrings');
-                      }}
-                    >
-                      Earrings
-                    </a>
-                    <a 
-                      href="/shop/bangle" 
-                      onClick={(e) => {
-                        e.preventDefault();
-                        if (handleCategoryClick) handleCategoryClick('Bangles');
-                      }}
-                    >
-                      Bangles
-                    </a>
-                    <a 
-                      href="/shop/ring" 
-                      onClick={(e) => {
-                        e.preventDefault();
-                        if (handleCategoryClick) handleCategoryClick('Rings');
-                      }}
-                    >
-                      Rings
-                    </a>
-                    <a 
-                      href="/shop/bridal-set" 
-                      onClick={(e) => {
-                        e.preventDefault();
-                        if (handleCategoryClick) handleCategoryClick('Bridal Sets');
-                      }}
-                    >
-                      Bridal Sets
-                    </a>
-                    <a 
-                      href="/shop/temple-jewellery" 
-                      onClick={(e) => {
-                        e.preventDefault();
-                        if (handleCategoryClick) handleCategoryClick('Temple Jewellery');
-                      }}
-                    >
-                      Temple Jewellery
-                    </a>
+                  <div className="shop-dropdown mega-menu-container">
+                    <div className="mega-menu-top-row">
+                      {shopCategories.map((category) => (
+                        <a
+                          key={category.name}
+                          href={`/shop/${category.name.toLowerCase().replace(/\s+/g, '-')}`}
+                          onMouseEnter={() => setActiveMegaCategory(category)}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            if (handleCategoryClick) handleCategoryClick(category.name);
+                          }}
+                          className={activeMegaCategory?.name === category.name ? 'active-mega-category' : ''}
+                        >
+                          <div className="dropdown-icon">
+                            <img
+                              src={category.image}
+                              alt={category.name}
+                              className="dropdown-image"
+                            />
+                          </div>
+                          <span className="dropdown-text">{category.name}</span>
+                        </a>
+                      ))}
+                    </div>
+
+                    {activeMegaCategory && activeMegaCategory.subcategories && activeMegaCategory.subcategories.length > 0 && (
+                      <div className="mega-menu-bottom-row">
+                        {activeMegaCategory.subcategories.map((sub) => (
+                          <a
+                            key={sub}
+                            href={`/shop/${activeMegaCategory.name.toLowerCase().replace(/\s+/g, '-')}/${sub.toLowerCase().replace(/\s+/g, '-')}`}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              if (handleCategoryClick) handleCategoryClick(sub); // Reusing handleCategoryClick for subcategories
+                            }}
+                            className="subcategory-link"
+                          >
+                            <span className="sub-text">{sub}</span>
+                          </a>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
-              <a 
-                href="/new-arrivals" 
+              <a
+                href="/new-arrivals"
                 onClick={(e) => {
                   e.preventDefault();
                   if (handleNewArrivalsClick) handleNewArrivalsClick(e);
-                }} 
+                }}
                 className={activePage === 'new-arrivals' ? 'active' : ''}
               >
                 New Arrivals
               </a>
-              <a 
-                href="/about" 
+              <a
+                href="/about"
                 onClick={(e) => {
                   e.preventDefault();
                   if (navigateToAbout) navigateToAbout(e);
-                }} 
+                }}
                 className={activePage === 'about' ? 'active' : ''}
               >
                 About
               </a>
-              <a 
-                href="/contact" 
+              <a
+                href="/contact"
                 onClick={(e) => {
                   e.preventDefault();
                   if (navigateToContact) navigateToContact(e);
-                }} 
+                }}
                 className={activePage === 'contact' ? 'active' : ''}
               >
                 Contact
@@ -247,8 +267,8 @@ const Navigation = ({
             </nav>
 
             <div className="search-box-wrapper">
-              <form 
-                className="search-box" 
+              <form
+                className="search-box"
                 onSubmit={(e) => {
                   e.preventDefault();
                   if (handleSearchSubmit) {
@@ -256,17 +276,17 @@ const Navigation = ({
                   }
                 }}
               >
-                <input 
+                <input
                   ref={searchInputRef}
-                  className="search-input" 
-                  placeholder="Search for jewellery, categories, materials..." 
+                  className="search-input"
+                  placeholder="Search for jewellery, categories, materials..."
                   value={searchQuery}
                   onChange={handleSearchChange}
                   onFocus={() => setShowSearchDropdown(true)}
                 />
-                <button 
-                  type="submit" 
-                  className="search-button" 
+                <button
+                  type="submit"
+                  className="search-button"
                   aria-label="Search"
                   onClick={(e) => {
                     // If input is not focused, focus it instead of submitting
@@ -287,7 +307,7 @@ const Navigation = ({
                   }}
                 >
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ pointerEvents: 'none' }}>
-                    <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="#5C3E90" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ pointerEvents: 'none' }}/>
+                    <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="#5C3E90" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ pointerEvents: 'none' }} />
                   </svg>
                 </button>
               </form>
@@ -297,8 +317,8 @@ const Navigation = ({
                     <div className="search-results">
                       {getSearchResults && getSearchResults().length > 0 ? (
                         getSearchResults().slice(0, 5).map((product) => (
-                          <div 
-                            key={product.id} 
+                          <div
+                            key={product.id}
                             className="search-result-item"
                             onClick={() => handleSearchClick && handleSearchClick(product.name)}
                           >
@@ -357,7 +377,7 @@ const Navigation = ({
           {/* Mobile: Search, Wishlist, Cart, and Hamburger icons - all in one row on the left */}
           <div className="header-icons-mobile">
             <div className="icon-item mobile-search-icon">
-              <button 
+              <button
                 onClick={(e) => {
                   e.preventDefault();
                   setShowMobileSearch(true);
@@ -385,9 +405,9 @@ const Navigation = ({
                 🛒
               </button>
             </div>
-            <button 
+            <button
               ref={hamburgerRef}
-              className="hamburger mobile-hamburger" 
+              className="hamburger mobile-hamburger"
               onClick={() => setMenuOpen((prev) => !prev)}
               aria-label="Open menu"
               type="button"
@@ -450,7 +470,7 @@ const Navigation = ({
                     </div>
                   </div>
                   <div className="account-dropdown-divider"></div>
-                  <button 
+                  <button
                     className="account-logout-btn"
                     onClick={() => {
                       setShowAccountDropdown(false);
@@ -467,9 +487,9 @@ const Navigation = ({
           </div>
 
           {/* Desktop hamburger - hidden on mobile */}
-          <button 
+          <button
             ref={hamburgerRef}
-            className="hamburger desktop-hamburger" 
+            className="hamburger desktop-hamburger"
             onClick={() => setMenuOpen((prev) => !prev)}
             aria-label="Open menu"
             type="button"
@@ -491,22 +511,22 @@ const Navigation = ({
 
       {/* Mobile Menu - Always render at root level to ensure it works from any page */}
       {menuOpen ? (
-        <div 
-          className="mobile-menu-overlay" 
+        <div
+          className="mobile-menu-overlay"
           onClick={(e) => {
             if (e.target === e.currentTarget) {
               setMenuOpen(false);
               setShowShopSubmenu(false);
             }
           }}
-          style={{ 
+          style={{
             position: 'fixed',
             zIndex: 999999,
             pointerEvents: 'auto'
           }}
         >
-          <div 
-            className="mobile-menu" 
+          <div
+            className="mobile-menu"
             onClick={(e) => e.stopPropagation()}
             onScroll={(e) => {
               e.stopPropagation();
@@ -520,14 +540,14 @@ const Navigation = ({
               // Allow touch scrolling inside menu, prevent background scroll
               e.stopPropagation();
             }}
-            style={{ 
+            style={{
               pointerEvents: 'auto',
               position: 'relative',
               overflowY: 'auto',
               maxHeight: '100vh'
             }}
           >
-            <button 
+            <button
               onClick={() => {
                 setMenuOpen(false);
                 setShowShopSubmenu(false);
@@ -555,7 +575,7 @@ const Navigation = ({
             </button>
             <div style={{ position: 'relative', borderBottom: "1px solid #f0e5ff", paddingBottom: "12px", marginBottom: "16px", paddingTop: '0' }}>
               <div className="logo-area" style={{ display: 'flex', alignItems: 'center', gap: '12px', paddingLeft: '16px' }}>
-                <div className="logo-icon">★</div>
+                <img src="/logo.jpg.jpeg" alt="Rajasekhar Art Jewellery Logo" className="logo-icon" style={{ objectFit: 'cover', padding: 0 }} />
                 <div className="logo-text">
                   <h1 style={{ fontWeight: 'bold', margin: 0, padding: 0, color: '#5f2b7f' }}>Rajasekhar Art Jewellery</h1>
                 </div>
@@ -564,10 +584,10 @@ const Navigation = ({
 
             {!showShopSubmenu ? (
               <nav>
-                <a 
-                  href="/" 
-                  onClick={(e) => { 
-                    e.preventDefault(); 
+                <a
+                  href="/"
+                  onClick={(e) => {
+                    e.preventDefault();
                     e.stopPropagation();
                     setMenuOpen(false);
                     if (closeAllPages) closeAllPages();
@@ -576,20 +596,20 @@ const Navigation = ({
                 >
                   Home
                 </a>
-                <a 
-                  href="/shop" 
-                  onClick={(e) => { 
-                    e.preventDefault(); 
+                <a
+                  href="/shop"
+                  onClick={(e) => {
+                    e.preventDefault();
                     e.stopPropagation();
                     setShowShopSubmenu(true);
                   }}
                 >
                   Shop →
                 </a>
-                <a 
-                  href="/new-arrivals" 
-                  onClick={(e) => { 
-                    e.preventDefault(); 
+                <a
+                  href="/new-arrivals"
+                  onClick={(e) => {
+                    e.preventDefault();
                     e.stopPropagation();
                     setMenuOpen(false);
                     if (closeAllPages) closeAllPages();
@@ -598,10 +618,10 @@ const Navigation = ({
                 >
                   New Arrivals
                 </a>
-                <a 
-                  href="/about" 
-                  onClick={(e) => { 
-                    e.preventDefault(); 
+                <a
+                  href="/about"
+                  onClick={(e) => {
+                    e.preventDefault();
                     e.stopPropagation();
                     setMenuOpen(false);
                     if (closeAllPages) closeAllPages();
@@ -610,10 +630,10 @@ const Navigation = ({
                 >
                   About
                 </a>
-                <a 
-                  href="/contact" 
-                  onClick={(e) => { 
-                    e.preventDefault(); 
+                <a
+                  href="/contact"
+                  onClick={(e) => {
+                    e.preventDefault();
                     e.stopPropagation();
                     setMenuOpen(false);
                     if (closeAllPages) closeAllPages();
@@ -622,10 +642,10 @@ const Navigation = ({
                 >
                   Contact
                 </a>
-                <a 
-                  href="/orders" 
-                  onClick={(e) => { 
-                    e.preventDefault(); 
+                <a
+                  href="/orders"
+                  onClick={(e) => {
+                    e.preventDefault();
                     e.stopPropagation();
                     setMenuOpen(false);
                     if (closeAllPages) closeAllPages();
@@ -634,10 +654,10 @@ const Navigation = ({
                 >
                   Orders {isLoggedIn && userOrders.length > 0 && <span style={{ marginLeft: '8px', color: '#5f2b7f' }}>({userOrders.length})</span>}
                 </a>
-                <a 
-                  href="/account" 
-                  onClick={(e) => { 
-                    e.preventDefault(); 
+                <a
+                  href="/account"
+                  onClick={(e) => {
+                    e.preventDefault();
                     e.stopPropagation();
                     setMenuOpen(false);
                     if (closeAllPages) closeAllPages();
@@ -649,10 +669,10 @@ const Navigation = ({
               </nav>
             ) : (
               <nav>
-                <a 
-                  href="/shop" 
-                  onClick={(e) => { 
-                    e.preventDefault(); 
+                <a
+                  href="/shop"
+                  onClick={(e) => {
+                    e.preventDefault();
                     e.stopPropagation();
                     setShowShopSubmenu(false);
                   }}
@@ -660,10 +680,10 @@ const Navigation = ({
                 >
                   ← Back
                 </a>
-                <a 
-                  href="/shop" 
-                  onClick={(e) => { 
-                    e.preventDefault(); 
+                <a
+                  href="/shop"
+                  onClick={(e) => {
+                    e.preventDefault();
                     e.stopPropagation();
                     setMenuOpen(false);
                     setShowShopSubmenu(false);
@@ -673,84 +693,44 @@ const Navigation = ({
                 >
                   All product
                 </a>
-                <a 
-                  href="/shop/necklace" 
-                  onClick={(e) => { 
-                    e.preventDefault(); 
-                    e.stopPropagation();
-                    setMenuOpen(false);
-                    setShowShopSubmenu(false);
-                    if (closeAllPages) closeAllPages();
-                    if (handleCategoryClick) handleCategoryClick('Necklaces');
-                  }}
-                >
-                  Necklaces
-                </a>
-                <a 
-                  href="/shop/ring" 
-                  onClick={(e) => { 
-                    e.preventDefault(); 
-                    e.stopPropagation();
-                    setMenuOpen(false);
-                    setShowShopSubmenu(false);
-                    if (closeAllPages) closeAllPages();
-                    if (handleCategoryClick) handleCategoryClick('Rings');
-                  }}
-                >
-                  Rings
-                </a>
-                <a 
-                  href="/shop/earring" 
-                  onClick={(e) => { 
-                    e.preventDefault(); 
-                    e.stopPropagation();
-                    setMenuOpen(false);
-                    setShowShopSubmenu(false);
-                    if (closeAllPages) closeAllPages();
-                    if (handleCategoryClick) handleCategoryClick('Earrings');
-                  }}
-                >
-                  Earrings
-                </a>
-                <a 
-                  href="/shop/bridal-set" 
-                  onClick={(e) => { 
-                    e.preventDefault(); 
-                    e.stopPropagation();
-                    setMenuOpen(false);
-                    setShowShopSubmenu(false);
-                    if (closeAllPages) closeAllPages();
-                    if (handleCategoryClick) handleCategoryClick('Bridal Sets');
-                  }}
-                >
-                  Bridal Sets
-                </a>
-                <a 
-                  href="/shop/bangle" 
-                  onClick={(e) => { 
-                    e.preventDefault(); 
-                    e.stopPropagation();
-                    setMenuOpen(false);
-                    setShowShopSubmenu(false);
-                    if (closeAllPages) closeAllPages();
-                    if (handleCategoryClick) handleCategoryClick('Bangles');
-                  }}
-                >
-                  Bangles
-                </a>
-                <a 
-                  href="/shop/temple-jewellery" 
-                  onClick={(e) => { 
-                    e.preventDefault(); 
-                    e.stopPropagation();
-                    setMenuOpen(false);
-                    setShowShopSubmenu(false);
-                    if (closeAllPages) closeAllPages();
-                    if (handleCategoryClick) handleCategoryClick('Temple Jewellery');
-                  }}
-                >
-                  Temple Jewellery
-                </a>
+                {shopCategories.map((category) => (
+                  <React.Fragment key={category.name}>
+                    <a
+                      href={`/shop/${category.name.toLowerCase().replace(/\s+/g, '-')}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setMenuOpen(false);
+                        setShowShopSubmenu(false);
+                        if (closeAllPages) closeAllPages();
+                        if (handleCategoryClick) handleCategoryClick(category.name);
+                      }}
+                    >
+                      {category.name}
+                    </a>
+                    {category.subcategories && category.subcategories.length > 0 && (
+                      <div className="mobile-subcategories" style={{ paddingLeft: '20px', display: 'flex', flexDirection: 'column' }}>
+                        {category.subcategories.map((sub) => (
+                          <a
+                            key={sub}
+                            href={`/shop/${category.name.toLowerCase().replace(/\s+/g, '-')}/${sub.toLowerCase().replace(/\s+/g, '-')}`}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setMenuOpen(false);
+                              setShowShopSubmenu(false);
+                              if (closeAllPages) closeAllPages();
+                              if (handleCategoryClick) handleCategoryClick(sub);
+                            }}
+                            style={{ fontSize: '14px', padding: '8px 0', color: '#666' }}
+                          >
+                            - {sub}
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                  </React.Fragment>
+                ))}
               </nav>
             )}
 
@@ -764,7 +744,7 @@ const Navigation = ({
 
       {/* Mobile Search Modal */}
       {showMobileSearch && (
-        <div 
+        <div
           className="mobile-search-overlay"
           onClick={(e) => {
             if (e.target === e.currentTarget) {
@@ -773,12 +753,12 @@ const Navigation = ({
             }
           }}
         >
-          <div 
+          <div
             className="mobile-search-modal"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="mobile-search-header">
-              <button 
+              <button
                 className="mobile-search-close"
                 onClick={() => {
                   setShowMobileSearch(false);
@@ -790,8 +770,8 @@ const Navigation = ({
               </button>
             </div>
             <div className="mobile-search-content">
-              <form 
-                className="mobile-search-box" 
+              <form
+                className="mobile-search-box"
                 onSubmit={(e) => {
                   e.preventDefault();
                   if (handleSearchSubmit) {
@@ -800,21 +780,21 @@ const Navigation = ({
                   }
                 }}
               >
-                <input 
+                <input
                   ref={mobileSearchInputRef}
-                  className="mobile-search-input" 
-                  placeholder="Search for jewellery, categories, materials..." 
+                  className="mobile-search-input"
+                  placeholder="Search for jewellery, categories, materials..."
                   value={searchQuery}
                   onChange={handleSearchChange}
                   onFocus={() => setShowSearchDropdown(true)}
                 />
-                <button 
-                  type="submit" 
-                  className="mobile-search-button" 
+                <button
+                  type="submit"
+                  className="mobile-search-button"
                   aria-label="Search"
                 >
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </button>
               </form>
@@ -824,8 +804,8 @@ const Navigation = ({
                     <div className="search-results">
                       {getSearchResults && getSearchResults().length > 0 ? (
                         getSearchResults().slice(0, 5).map((product) => (
-                          <div 
-                            key={product.id} 
+                          <div
+                            key={product.id}
                             className="search-result-item"
                             onClick={() => {
                               if (handleSearchClick) {

@@ -133,19 +133,42 @@ export const useAppHandlers = () => {
 
   const handleCategoryClick = useCallback((category) => {
     app.closeAllPages();
-    app.setCurrentCategory(category);
+
+    // Map UI category labels to internal canonical categories
+    const aliasMap = {
+      'Necklace sets': 'Necklaces',
+      'Wedding collection': 'Bridal Sets',
+      'Hip beads': 'Hip belts'
+    };
+
+    const canonicalCategory = aliasMap[category] || category;
+
+    app.setCurrentCategory(canonicalCategory);
     app.setShowShopPage(true); // Ensure shop page is shown
     app.setIsSearching(false);
     app.setSearchQuery('');
+
+    // Map canonical categories to URL slugs
     const categoryMap = {
       'Necklaces': 'necklace',
       'Earrings': 'earring',
       'Bangles': 'bangle',
       'Rings': 'ring',
       'Bridal Sets': 'bridal-set',
-      'Temple Jewellery': 'temple-jewellery'
+      'Temple Jewellery': 'temple-jewellery',
+      'Haram': 'haram',
+      'Combo set': 'combo-set',
+      'Hip belts': 'hip-belts',
+      'Accessories': 'accessories',
+      "Gentlemen's items": 'gentlemens-items',
+      'Beads': 'beads',
+      'Mangalsutra': 'mangalsutra',
+      'Sarudu': 'sarudu',
+      'Chains': 'chains',
+      'Choker sets': 'choker-sets'
     };
-    const categorySlug = categoryMap[category] || category.toLowerCase().replace(/\s+/g, '-');
+
+    const categorySlug = categoryMap[canonicalCategory] || canonicalCategory.toLowerCase().replace(/\s+/g, '-');
     if (window?.history?.pushState) {
       window.history.pushState({}, '', `/shop/${categorySlug}`);
     }
@@ -1342,12 +1365,22 @@ export const useAppHandlers = () => {
 
   // Category handlers
   const getCategoryInfo = useCallback((category) => {
+    // Map UI category labels to internal canonical categories for shared content
+    const aliasMap = {
+      'Necklace sets': 'Necklaces',
+      'Wedding collection': 'Bridal Sets',
+      'Hip beads': 'Hip belts'
+    };
+
+    const canonicalCategory = aliasMap[category] || category;
+
     const categoryMap = {
+      // Core categories (some with updated titles as per requirements)
       'Necklaces': {
-        title: 'Necklaces',
-        description: 'Exquisite handcrafted necklaces featuring traditional and contemporary designs. From delicate chains to statement pieces, each necklace is crafted with precision and adorned with the finest gemstones.',
+        title: 'Necklace sets',
+        description: 'Exquisite handcrafted necklace sets featuring traditional and contemporary designs. From delicate chains to statement pieces, each set is crafted with precision and adorned with the finest gemstones.',
         bgImage: '/Necklace_bg.jpg',
-        styles: ['Temple Necklaces', 'Choker Necklaces', 'Long Haar', 'Pendant Sets', 'Layered Necklaces', 'Antique Necklaces', 'Diamond Necklaces', 'Pearl Necklaces']
+        styles: ['Temple Necklace Sets', 'Choker Sets', 'Long Haar Sets', 'Pendant Sets', 'Layered Sets', 'Antique Sets', 'Diamond Necklace Sets', 'Pearl Sets']
       },
       'Earrings': {
         title: 'Earrings',
@@ -1368,19 +1401,92 @@ export const useAppHandlers = () => {
         styles: ['Solitaire Rings', 'Cocktail Rings', 'Stackable Rings', 'Antique Rings', 'Temple Rings']
       },
       'Bridal Sets': {
-        title: 'Bridal Sets',
-        description: 'Complete bridal jewellery sets that make your special day unforgettable. Exquisite designs crafted for the modern bride.',
+        title: 'Wedding collection',
+        description: 'Complete wedding jewellery sets curated for every ceremony, from engagement to reception. Discover grand designs that make your special day unforgettable.',
         bgImage: '/Bridal_set_bg.jpg',
-        styles: ['Traditional Sets', 'Contemporary Sets', 'Antique Sets', 'Temple Sets']
+        styles: ['Traditional Wedding Sets', 'Contemporary Wedding Sets', 'Antique Wedding Sets', 'Temple Wedding Sets']
       },
       'Temple Jewellery': {
         title: 'Temple Jewellery',
         description: 'Sacred and elegant temple jewellery inspired by traditional designs. Perfect for special occasions and ceremonies.',
         bgImage: '/Temple_Jewellery_bg.jpg',
         styles: ['Temple Necklaces', 'Temple Earrings', 'Temple Sets', 'Antique Temple']
+      },
+
+      // New dedicated category pages
+      'Haram': {
+        title: 'Haram',
+        description: 'Grand long haram necklaces designed for weddings and festive occasions, featuring intricate motifs and rich detailing.',
+        bgImage: '/Haram.jpg',
+        styles: ['Temple Haram', 'Antique Haram', 'CZ Haram', 'Layered Haram']
+      },
+      'Combo set': {
+        title: 'Combo set',
+        description: 'Curated combo sets that pair necklaces, earrings and bangles for a perfectly coordinated look.',
+        bgImage: '/combo_set.jpg',
+        styles: ['Necklace & Earring Sets', 'Necklace, Earring & Bangle Sets', 'Everyday Combo Sets']
+      },
+      'Hip belts': {
+        title: 'Hip belts',
+        description: 'Traditional and designer hip belts that add royal elegance to bridal and festive outfits.',
+        bgImage: '/Hip_beads.jpg',
+        styles: ['Temple Hip Belts', 'Antique Hip Belts', 'Chain Hip Belts', 'Pearl Hip Belts']
+      },
+      'Accessories': {
+        title: 'Accessories',
+        description: 'Hair accessories, nose pins, anklets and more to complete your jewellery look from head to toe.',
+        bgImage: '/Accessories.jpg',
+        styles: ['Hair Accessories', 'Anklets', 'Nose Pins', 'Body Accessories']
+      },
+      "Gentlemen's items": {
+        title: "Gentlemen's items",
+        description: 'Elegant chains, bracelets and rings crafted especially for gentlemen, blending tradition with modern style.',
+        bgImage: '/Gentlemen_items.jpg',
+        styles: ['Chains', 'Bracelets', 'Finger Rings', 'Kada']
+      },
+      'Beads': {
+        title: 'Beads',
+        description: 'Classic and designer beads collections perfect for daily wear and special occasions.',
+        bgImage: '/Beads.jpg',
+        styles: ['Single Layer Beads', 'Multi-Layer Beads', 'Temple Beads']
+      },
+      'Mangalsutra': {
+        title: 'Mangalsutra',
+        description: 'Beautiful mangalsutra designs that blend tradition with contemporary aesthetics.',
+        bgImage: '/Mangalsutra.jpg',
+        styles: ['Short Mangalsutra', 'Long Mangalsutra', 'CZ Mangalsutra', 'Beaded Mangalsutra']
+      },
+      'Sarudu': {
+        title: 'Sarudu',
+        description: 'Traditional sarudu designs inspired by regional heritage and craftsmanship.',
+        bgImage: '/Sarudu.jpg',
+        styles: ['Classic Sarudu', 'Temple Sarudu', 'Antique Sarudu']
+      },
+      'Chains': {
+        title: 'Chains',
+        description: 'Everyday and occasion wear chains in a variety of patterns and finishes.',
+        bgImage: '/Chains.jpg',
+        styles: ['Simple Chains', 'Textured Chains', 'Layered Chains']
+      },
+      'Choker sets': {
+        title: 'Choker sets',
+        description: 'Statement choker sets that frame the neckline beautifully for bridal and party looks.',
+        bgImage: '/Choker_sets.jpg',
+        styles: ['Temple Chokers', 'Antique Chokers', 'CZ Chokers', 'Pearl Chokers']
       }
     };
-    return categoryMap[category] || categoryMap['Necklaces'];
+
+    const baseInfo = categoryMap[canonicalCategory] || categoryMap['Necklaces'];
+
+    // If the original label was an alias, override the title to show the label
+    if (aliasMap[category]) {
+      return {
+        ...baseInfo,
+        title: category
+      };
+    }
+
+    return baseInfo;
   }, []);
 
   const getCategoryProducts = useCallback((category) => {
@@ -1388,20 +1494,39 @@ export const useAppHandlers = () => {
       return [];
     }
     
+    // Map display categories to canonical product categories
+    const aliasMap = {
+      'Necklace sets': 'Necklaces',
+      'Wedding collection': 'Bridal Sets',
+      'Haram': 'Necklaces',
+      'Combo set': 'Bridal Sets',
+      'Hip belts': 'Bangles',
+      'Accessories': 'Earrings',
+      "Gentlemen's items": 'Rings',
+      'Beads': 'Necklaces',
+      'Mangalsutra': 'Necklaces',
+      'Sarudu': 'Temple Jewellery',
+      'Chains': 'Necklaces',
+      'Choker sets': 'Necklaces',
+      'Hip beads': 'Hip belts'
+    };
+
+    const canonicalCategory = aliasMap[category] || category;
+
     let filteredProducts = products.filter(product => {
       if (!product || !product.name) return false;
       const name = product.name.toLowerCase();
-      if (category === 'Necklaces') {
+      if (canonicalCategory === 'Necklaces') {
         return name.includes('necklace');
-      } else if (category === 'Earrings') {
+      } else if (canonicalCategory === 'Earrings') {
         return name.includes('earring') || name.includes('earing');
-      } else if (category === 'Bangles') {
+      } else if (canonicalCategory === 'Bangles') {
         return name.includes('bangle');
-      } else if (category === 'Rings') {
+      } else if (canonicalCategory === 'Rings') {
         return name.includes('ring') && !name.includes('earring') && !name.includes('earing');
-      } else if (category === 'Bridal Sets') {
+      } else if (canonicalCategory === 'Bridal Sets') {
         return name.includes('bridal') || (name.includes('set') && !name.includes('temple'));
-      } else if (category === 'Temple Jewellery') {
+      } else if (canonicalCategory === 'Temple Jewellery') {
         return name.includes('temple');
       }
       return false;
@@ -1566,7 +1691,7 @@ export const useAppHandlers = () => {
         if (reviewDiff !== 0) return reviewDiff;
         return (b.rating || 0) - (a.rating || 0);
       })
-      .slice(0, 4);
+      .slice(0, 5);
     
     return trending;
   }, [getRecommendedProducts]);

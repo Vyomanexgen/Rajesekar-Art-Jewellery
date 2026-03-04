@@ -1414,6 +1414,11 @@ form.search-box {
   background: transparent;
 }
 
+/* Widen the Trending Products container so cards use more horizontal space */
+.trending-section .content-width {
+  max-width: 1600px;
+}
+
 /* Home page "Trending Products" - specific selector so size is not overridden */
 .trending-section .trending-title {
   font-family: 'Georgia', 'Times New Roman', serif;
@@ -1437,7 +1442,7 @@ form.search-box {
 
 .trending-products {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 24px;
 }
 
@@ -1941,6 +1946,18 @@ form.search-box {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  position: relative;
+}
+
+/* Speech bubble tail for testimonial card */
+.testimonial-card::after {
+  content: "";
+  position: absolute;
+  bottom: -14px;
+  left: 40px;
+  border-width: 14px 10px 0 10px;
+  border-style: solid;
+  border-color: #5C3E90 transparent transparent transparent;
 }
 
 .testimonial-stars {
@@ -3629,18 +3646,127 @@ form.search-box {
   overflow: visible !important;
 }
 
-.shop-dropdown a {
-  padding: 12px 20px;
+.shop-dropdown.mega-menu-container {
+  position: fixed;
+  top: 115px;
+  /* closer to the header to reduce gap */
+  left: 0;
+  width: 100vw;
+  max-width: 100vw;
+  padding: 8px 24px 16px;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  box-sizing: border-box;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  margin-top: 0;
+  border-radius: 0 0 16px 16px;
+  background: #fff;
+  z-index: 10002;
+}
+
+.mega-menu-top-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.mega-menu-bottom-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding-top: 16px;
+  border-top: 1px solid #eee;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.mega-menu-top-row a {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  border-radius: 8px;
+  white-space: normal;
+  flex: 1 1 auto;
+  min-width: 80px;
+  max-width: 100px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
   color: #2a2a2a;
-  font-family: 'Poppins', 'Segoe UI', sans-serif;
-  font-size: 15px;
-  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.mega-menu-top-row a.active-mega-category,
+.mega-menu-top-row a:hover {
+  background: #fdfbff;
+  border-color: #e2d3ff;
+  transform: translateY(-2px);
+}
+
+.mega-menu-top-row .dropdown-icon {
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  width: 44px;
+  background: #f9f6ff;
+  border-radius: 12px;
+  color: #5f2b7f;
+  border: 1px solid #e2d3ff;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.mega-menu-top-row .dropdown-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   display: block;
 }
 
-.shop-dropdown a:hover {
-  background: #f5f5f5;
+.mega-menu-top-row a.active-mega-category .dropdown-icon,
+.mega-menu-top-row a:hover .dropdown-icon {
+  background: #5f2b7f;
+  color: #fff;
+}
+
+.mega-menu-top-row .dropdown-text {
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.2;
+  word-wrap: break-word;
+}
+
+.mega-menu-bottom-row .subcategory-link {
+  padding: 8px 16px;
+  background: #f9f6ff;
+  border: 1px solid #e2d3ff;
+  border-radius: 20px;
   color: #5f2b7f;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mega-menu-bottom-row .subcategory-link:hover {
+  background: #5f2b7f;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(95, 43, 127, 0.2);
 }
 
 /* Account Dropdown */
@@ -4583,6 +4709,11 @@ form.search-box {
   background: transparent;
 }
 
+/* Widen the Shop by Category container so categories use more horizontal space */
+.shop-category-section .content-width {
+  max-width: 1600px;
+}
+
 .category-header {
   text-align: center;
   margin-bottom: 30px;
@@ -4629,26 +4760,34 @@ form.search-box {
   letter-spacing: 0.3px;
 }
 
-.category-grid {
+.category-grid-row {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   gap: 16px;
-  max-width: 1200px;
+  max-width: 1600px;
   margin: 0 auto;
+}
+
+/* Tablet: 4 categories per row */
+@media (max-width: 1024px) {
+  .category-grid-row {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
 }
 
 /* Mobile: 3 categories per row */
 @media (max-width: 768px) {
-  .category-grid {
+  .category-grid-row {
     grid-template-columns: repeat(3, 1fr);
     gap: 12px;
   }
 }
 
-/* Extra small mobile: 3 categories per row (maintain) */
+/* Extra small mobile: 2 categories per row */
 @media (max-width: 480px) {
-  .category-grid {
-    grid-template-columns: repeat(3, 1fr);
+  .category-grid-row {
+    grid-template-columns: repeat(2, 1fr);
     gap: 10px;
   }
 }
@@ -4714,7 +4853,7 @@ form.search-box {
   justify-content: center;
   gap: 12px;
   z-index: 2;
-  width: 100%;
+  width: 90%;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -4904,7 +5043,7 @@ form.search-box {
 
 .category-card:hover .category-content,
 .category-card:active .category-content {
-  transform: translate(-50%, -60%);
+  transform: translate(-50%, -50%);
 }
 
 @media (max-width: 520px) {
@@ -19699,15 +19838,7 @@ form.search-box {
   content: "";
   position: absolute;
   inset: 0;
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  pointer-events: none;
-  z-index: 0;
-  border-radius: inherit;
-  border-top: 2px solid var(--glass-border-top-left);
-  border-left: 2px solid var(--glass-border-top-left);
-  box-shadow: var(--glass-shadow), inset 0 2px 0 0 rgba(255, 255, 255, 0.4), inset 2px 0 0 0 rgba(255, 255, 255, 0.3);
+  display: none;
 }
 
 /* Account page: glass layer must use z-index 0 so it's visible (global -1 would hide it) */
