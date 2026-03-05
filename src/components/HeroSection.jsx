@@ -3,91 +3,116 @@ import { motion } from "framer-motion";
 const heroImage = "/hero-jewellery.jpg";
 
 const HeroSection = () => {
-    return (
-        <section className="relative h-screen w-full overflow-hidden">
-            {/* Background Image */}
-            <div className="absolute inset-0">
-                <img
-                    src={heroImage}
-                    alt="Rajasekar Art Jewellery - Exquisite diamond and emerald necklace"
-                    className="h-full w-full object-cover"
-                />
-                {/* Rich purple velvet-style gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-b from-[#3b014d]/95 via-[#22002f]/80 to-black/90" />
-            </div>
+  return (
+    <section className="relative h-screen w-full overflow-hidden">
 
-            {/* Content */}
-            <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 -mt-10 md:-mt-16">
-                <motion.div
-                    className="text-center"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 1, delay: 0.3 }}
-                >
-                    <motion.div
-                        className="mb-4 flex items-center justify-center gap-4"
-                        initial={{ scaleX: 0 }}
-                        animate={{ scaleX: 1 }}
-                        transition={{ duration: 1, delay: 0.5 }}
-                    >
-                        <span className="h-[1px] w-16 bg-primary/50" />
-                        <span className="font-body text-base md:text-lg tracking-[0.55em] uppercase text-primary/70">
-                            Since 2025
-                        </span>
-                        <span className="h-[1px] w-16 bg-primary/50" />
-                    </motion.div>
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <img
+          src={heroImage}
+          alt="Rajasekar Art Jewellery"
+          className="h-full w-full object-cover"
+        />
+      </div>
 
-                    <motion.h1
-                        className="font-display hero-title-main font-bold italic text-gradient-gold mb-4"
-                        initial={{ opacity: 0, y: 40 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.6 }}
-                    >
-                        Rajasekar
-                    </motion.h1>
+      {/* Hero Content */}
+      <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
 
-                    <motion.p
-                        className="font-body text-2xl md:text-3xl tracking-[0.35em] text-foreground/80 mb-10 leading-relaxed"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.9 }}
-                    >
-                        Art Jewellery
-                    </motion.p>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
 
-                    <motion.p
-                        className="font-body text-lg md:text-xl text-foreground/60 max-w-xl mx-auto mb-10 leading-[1.9]"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.8, delay: 1.2 }}
-                    >
-                        Where timeless craftsmanship meets contemporary elegance.
-                        Each piece tells a story of heritage, passion, and artistry.
-                    </motion.p>
+          {/* Since 1985 */}
+          <motion.div
+            className="flex items-center justify-center gap-6 mb-6"
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 1, delay: 0.4 }}
+          >
+            <span className="w-20 h-[1px] bg-[#f2c23a]/50"></span>
 
-                    <motion.a
-                        href="#collections"
-                        className="btn-explore-gold font-body"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 1.4 }}
-                    >
-                        Explore Collections
-                    </motion.a>
-                </motion.div>
-            </div>
+            <span className="text-sm tracking-[0.5em] uppercase text-[#f2c23a]/90" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+              Since 2025
+            </span>
 
-            {/* Scroll indicator */}
-            <motion.div
-                className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-                animate={{ y: [0, 8, 0] }}
-                transition={{ repeat: Infinity, duration: 2 }}
-            >
-                <span className="font-body scroll-label-gold">Scroll</span>
-                <span className="scroll-line-gold" />
-            </motion.div>
-        </section>
-    );
+            <span className="w-20 h-[1px] bg-[#f2c23a]/50"></span>
+          </motion.div>
+
+
+          {/* Title */}
+          <motion.h1
+            className="font-display italic font-bold mb-3 text-[#f2c23a]
+            text-[80px] md:text-[80px] lg:text-[80px]"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            style={{ fontFamily: "'Playfair Display', serif" }}
+          >
+            Rajasekar
+          </motion.h1>
+
+
+          {/* Subtitle */}
+          <motion.p
+            className="text-xl md:text-2xl tracking-[0.35em] text-[#FFC42C]/80 mb-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+            style={{ fontFamily: "'Cormorant Garamond', serif" }}
+          >
+            Art Jewellery
+          </motion.p>
+
+
+          {/* Description */}
+          <motion.p
+            className="max-w-xl mx-auto text-base md:text-[17px] text-white/80 leading-relaxed mb-12"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 1 }}
+            style={{ fontFamily: "'Cormorant Garamond', serif" }}
+          >
+            Where timeless craftsmanship meets contemporary elegance.
+            Each piece tells a story of heritage, passion, and artistry.
+          </motion.p>
+
+
+          {/* Button */}
+          <motion.a
+            href="#collections"
+            className="inline-block border border-[#d4af37]/60 px-12 py-4
+            text-[13px] uppercase tracking-[0.35em]
+            text-[#d4af37] hover:bg-[#d4af37] hover:text-[#1f1230]
+            transition-all duration-500 bg-transparent"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1.2 }}
+            style={{ fontFamily: "'Cormorant Garamond', serif" }}
+          >
+            Explore Collections
+          </motion.a>
+
+        </motion.div>
+      </div>
+
+
+      {/* Scroll Indicator */}
+      <motion.div
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
+        animate={{ y: [0, 8, 0] }}
+        transition={{ repeat: Infinity, duration: 2 }}
+      >
+        <span className="text-[11px] uppercase tracking-[0.4em] text-[#d4af37]/60" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+          Scroll
+        </span>
+
+        <span className="h-12 w-[1px] bg-[#d4af37]/40"></span>
+      </motion.div>
+
+    </section>
+  );
 };
 
 export default HeroSection;

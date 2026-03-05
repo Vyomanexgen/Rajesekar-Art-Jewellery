@@ -500,15 +500,6 @@ const Navigation = ({
         </div>
       </header>
 
-      {/* Feature Bar - BIS Certification through 100% Authentic */}
-      <div className="feature-bar">
-        <div className="content-width feature-list">
-          <span>✨ BIS Certified Gold</span>
-          <span>🚚 Free Shipping</span>
-          <span>✓ 100% Authentic</span>
-        </div>
-      </div>
-
       {/* Mobile Menu - Always render at root level to ensure it works from any page */}
       {menuOpen ? (
         <div
