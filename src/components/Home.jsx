@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Footer from './Footer';
+import ContactSection from './ContactSection';
+import TestimonialsSection from './TestimonialsSection';
+import CollectionsSection from './CollectionsSection';
+import HeroSection from './HeroSection';
 
 // Slides data - moved from NavbarOnly.jsx
 const slides = [
@@ -170,142 +174,22 @@ const Home = ({
   return (
     <>
       {/* Main Content */}
-      <section className="hero-section" id="home">
-        <div className="hero-container">
-          <div className="hero-frame">
-            <div
-              className="hero-image"
-              style={{ backgroundImage: `url(${slides[currentSlide]})` }}
-            >
-              <div className="hero-overlay">
-                <div className="hero-content">
-                  <h2>{slideContent[currentSlide].title}</h2>
-                  <p>{slideContent[currentSlide].subtitle}</p>
-                  <div className="hero-buttons">
-                    <button
-                      className="primary"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        if (handleCategoryClick && slideContent[currentSlide].primaryNav) {
-                          handleCategoryClick(slideContent[currentSlide].primaryNav);
-                        } else {
-                          navigateToShop(e);
-                        }
-                      }}
-                    >
-                      {slideContent[currentSlide].primaryButton}
-                    </button>
-                    <button
-                      className="secondary"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        if (handleCategoryClick && slideContent[currentSlide].secondaryNav) {
-                          handleCategoryClick(slideContent[currentSlide].secondaryNav);
-                        }
-                      }}
-                    >
-                      {slideContent[currentSlide].secondaryButton}
-                    </button>
-                  </div>
-                </div>
-              </div>
+      <HeroSection />
 
-              <div className="hero-arrows">
-                <button className="hero-arrow" onClick={prevSlide} aria-label="Previous slide">
-                  ‹
-                </button>
-                <button className="hero-arrow" onClick={nextSlide} aria-label="Next slide">
-                  ›
-                </button>
-              </div>
-
-              {/* Pagination dots at the bottom of the sliding image */}
-              <div className="hero-dots">
-                {slides.map((_, index) => (
-                  <button
-                    key={index}
-                    className={`hero-dot ${currentSlide === index ? "active" : ""}`}
-                    onClick={() => goToSlide(index)}
-                    aria-label={`Go to slide ${index + 1}`}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
+      <section
+        className="bg-gradient-purple"
+        style={{
+          marginTop: 0,
+          marginBottom: 0,
+          paddingTop: '56px',
+          paddingBottom: '56px',
+        }}
+      >
+        <CollectionsSection handleCategoryClick={handleCategoryClick} />
       </section>
 
-      <section className="shop-category-section fade-in-section">
-        <div className="content-width">
-          <div className="category-header">
-            <h2 className="category-title">Shop by Category</h2>
-            <p className="category-subtitle">Discover our exclusive collections</p>
-          </div>
-
-          <div className="category-grid-row">
-            {categoriesRow1.map((cat) => (
-              <div
-                key={cat.id}
-                className="category-card"
-                onMouseEnter={() => setHoveredCategory(cat.id)}
-                onMouseLeave={() => setHoveredCategory(null)}
-                onClick={() => setHoveredCategory(hoveredCategory === cat.id ? null : cat.id)}
-              >
-                <div className="category-image-wrapper">
-                  <img src={cat.image} alt={cat.name} className="category-image" />
-                  <div className="category-content">
-                    <div className="category-label">{cat.name}</div>
-                    {hoveredCategory === cat.id && (
-                      <button
-                        className="category-explore-btn"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleCategoryClick(cat.name);
-                        }}
-                      >
-                        Explore Now
-                        <span className="btn-arrow">→</span>
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="category-grid-row">
-            {categoriesRow2.map((cat) => (
-              <div
-                key={cat.id}
-                className="category-card"
-                onMouseEnter={() => setHoveredCategory(cat.id)}
-                onMouseLeave={() => setHoveredCategory(null)}
-                onClick={() => setHoveredCategory(hoveredCategory === cat.id ? null : cat.id)}
-              >
-                <div className="category-image-wrapper">
-                  <img src={cat.image} alt={cat.name} className="category-image" />
-                  <div className="category-content">
-                    <div className="category-label">{cat.name}</div>
-                    {hoveredCategory === cat.id && (
-                      <button
-                        className="category-explore-btn"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleCategoryClick(cat.name);
-                        }}
-                      >
-                        Explore Now
-                        <span className="btn-arrow">→</span>
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
       {/* Designer Drop Event Banner */}
-      < section className="designer-drop-banner fade-in-section" >
+      <section className="designer-drop-banner fade-in-section bg-gradient-purple mt-16">
         <div className="content-width">
           <div className="promo-banner">
             <div className="promo-header">
@@ -334,7 +218,7 @@ const Home = ({
       {/* Trending Products Section */}
       {
         getTrendingProducts().length > 0 && (
-          <section className="trending-section fade-in-section">
+          <section className="trending-section fade-in-section bg-gradient-purple">
             <div className="content-width">
               <h2 className="trending-title">Trending Products</h2>
               <div className="trending-products">
@@ -393,7 +277,7 @@ const Home = ({
       {/* Because You Liked Section */}
       {
         getRecommendedProducts().length > 0 && (
-          <section className="recommended-section fade-in-section">
+          <section className="recommended-section fade-in-section bg-gradient-purple mt-16">
             <div className="content-width">
               <h2 className="recommended-title">Because You Liked...</h2>
               <div className="recommended-products">
@@ -449,54 +333,16 @@ const Home = ({
         )
       }
 
-      {/* What Our Customers Say Section */}
-      <section className="testimonials-section fade-in-section">
-        <div className="content-width">
-          <h2 className="testimonials-title">What Our Customers Say</h2>
-          <p className="testimonials-subtitle">Real reviews from real customers</p>
-          <div className="testimonials-grid">
-            <div className="testimonial-card">
-              <div className="testimonial-stars">
-                ★★★★★
-              </div>
-              <p className="testimonial-text">
-                "Absolutely beautiful jewellery! The quality is amazing and the designs are stunning. Highly recommend!"
-              </p>
-              <div className="testimonial-footer">
-                <span className="testimonial-name">Priya Sharma</span>
-                <span className="testimonial-date">Nov 2025</span>
-              </div>
-            </div>
-
-            <div className="testimonial-card">
-              <div className="testimonial-stars">
-                ★★★★★
-              </div>
-              <p className="testimonial-text">
-                "Bought a bridal set for my sister's wedding. She loved it! Great quality at an affordable price."
-              </p>
-              <div className="testimonial-footer">
-                <span className="testimonial-name">Rajesh Kumar</span>
-                <span className="testimonial-date">Oct 2025</span>
-              </div>
-            </div>
-
-            <div className="testimonial-card">
-              <div className="testimonial-stars">
-                ★★★★☆
-              </div>
-              <p className="testimonial-text">
-                "Great collection and excellent customer service. Fast delivery to Nellore. Will definitely shop again!"
-              </p>
-              <div className="testimonial-footer">
-                <span className="testimonial-name">Lakshmi Devi</span>
-                <span className="testimonial-date">Sep 2025</span>
-              </div>
-            </div>
-          </div>
-        </div>
+      <section className="bg-gradient-purple mt-16">
+        <TestimonialsSection />
       </section>
 
+      <section className="bg-gradient-purple mt-16">
+        <ContactSection />
+      </section>
+
+      {/* Gold Shine Line Separator */}
+      <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#f2c23a] to-transparent opacity-80 shadow-[0_0_15px_#f2c23a] bg-gradient-purple" />
 
       <Footer
         navigateToHome={navigateToHome}
@@ -506,7 +352,7 @@ const Home = ({
         navigateToAccount={navigateToAccount}
         navigateToOrders={navigateToOrders}
         handleCategoryClick={handleCategoryClick}
-        className="fade-in-section"
+        className="fade-in-section bg-gradient-purple"
       />
     </>
   );

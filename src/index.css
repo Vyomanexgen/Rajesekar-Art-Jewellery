@@ -90,9 +90,9 @@
   --shadow-soft: 0 15px 35px rgba(35, 7, 53, 0.15);
   --max-width: 1200px;
   /* Global page background (glass purple theme) */
-  --page-bg-purple: #9732CD;
-  /* Reduced/solid background like reference image - flat purple, no strong gradient */
-  --page-bg: #9732CD;
+  --page-bg-purple: #1f1230;
+  /* Reduced/solid background to match hero/contact deep purple */
+  --page-bg: #1f1230;
   /* Glass panel: visible gradient glassy effect - frosted + strong top/left highlight */
   --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.25) 25%, rgba(255, 255, 255, 0.12) 50%, rgba(255, 255, 255, 0.05) 100%);
   --glass-blur: 20px;
@@ -3695,11 +3695,13 @@ form.search-box {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   /* Hide scrollbar while keeping horizontal scroll */
-  scrollbar-width: none; /* Firefox */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 .mega-menu-top-row::-webkit-scrollbar {
-  display: none; /* Chrome, Safari */
+  display: none;
+  /* Chrome, Safari */
 }
 
 .mega-menu-bottom-row {
@@ -4804,7 +4806,7 @@ form.search-box {
 }
 
 /* Vertical spacing between category rows */
-.shop-category-section .category-grid-row + .category-grid-row {
+.shop-category-section .category-grid-row+.category-grid-row {
   margin-top: 16px;
 }
 
@@ -19844,7 +19846,7 @@ form.search-box {
 .newsletter-section {
   position: relative;
   z-index: 1;
-  border-radius: 16px;
+  border-radius: 0;
 }
 
 /* Keep content above the glass layer */
@@ -19899,11 +19901,11 @@ form.search-box {
   z-index: 0 !important;
 }
 
-/* Reduced screen / tablet: same reduced purple (#9732CD) */
+/* Reduced screen / tablet: match deep purple gradient */
 @media (max-width: 1024px) {
   html {
-    background-color: var(--page-bg, #9732CD);
-    background-image: none;
+    background-color: #1f1230;
+    background-image: linear-gradient(135deg, #1f1230 0%, #3d1d4e 100%);
     background-attachment: scroll;
     background-size: cover;
     background-position: center center;
@@ -19914,8 +19916,8 @@ form.search-box {
 /* Mobile: same reduced purple */
 @media (max-width: 768px) {
   html {
-    background-color: var(--page-bg, #9732CD);
-    background-image: none;
+    background-color: #1f1230;
+    background-image: linear-gradient(135deg, #1f1230 0%, #3d1d4e 100%);
     background-attachment: scroll;
     background-size: cover;
     background-position: center center;
@@ -19935,8 +19937,8 @@ form.search-box {
 /* Desktop: reduced purple, fixed attachment */
 @media (min-width: 769px) {
   html {
-    background-color: var(--page-bg, #9732CD);
-    background-image: none;
+    background-color: #1f1230;
+    background-image: linear-gradient(135deg, #1f1230 0%, #3d1d4e 100%);
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -19985,4 +19987,379 @@ body {
 
 .page-wrapper {
   background: transparent !important;
+}
+
+/* Custom styles for Contact Section */
+.bg-gradient-purple {
+  background: linear-gradient(135deg, #1f1230 0%, #3d1d4e 100%);
+}
+
+.text-gradient-gold {
+  background: linear-gradient(90deg, #f2c23a 0%, #d4af37 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.font-display {
+  font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+.font-body {
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+}
+
+.text-primary {
+  color: #f2c23a;
+}
+
+.text-primary\/60 {
+  color: rgba(242, 194, 58, 0.6);
+}
+
+.text-primary\/70 {
+  color: rgba(242, 194, 58, 0.7);
+}
+
+.text-foreground\/50 {
+  color: rgba(249, 246, 255, 0.5);
+}
+
+.border-border\/30 {
+  border-color: rgba(224, 212, 238, 0.3);
+}
+
+.hover\:border-primary\/30:hover {
+  border-color: rgba(242, 194, 58, 0.3);
+}
+
+/* Hero section gold CTA + scroll styles */
+.btn-explore-gold {
+  position: relative;
+  display: inline-block;
+  padding: 1.1rem 3.6rem;
+  border: 1px solid rgba(242, 194, 58, 0.8);
+  color: #f2c23a;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 0.9rem;
+  background: transparent;
+  text-decoration: none;
+  overflow: hidden;
+  transition: color 0.4s ease, background-color 0.4s ease, transform 0.4s ease,
+    box-shadow 0.4s ease, border-color 0.4s ease;
+  animation: hero-gold-frame 2.6s ease-in-out infinite;
+}
+
+.btn-explore-gold::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(242, 194, 58, 0.35);
+  pointer-events: none;
+  opacity: 0.4;
+  box-shadow: 0 0 0 rgba(242, 194, 58, 0.0);
+  animation: hero-gold-glow 2.6s ease-in-out infinite;
+}
+
+.btn-explore-gold:hover {
+  background: rgba(242, 194, 58, 0.08);
+  border-color: rgba(242, 194, 58, 1);
+  transform: translateY(-1px);
+  box-shadow: 0 0 24px rgba(242, 194, 58, 0.45);
+}
+
+.scroll-label-gold {
+  color: rgba(242, 194, 58, 0.8);
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  font-size: 0.65rem;
+  animation: hero-gold-text 2.4s ease-in-out infinite;
+}
+
+.scroll-line-gold {
+  background: linear-gradient(to bottom, rgba(242, 194, 58, 0.0), rgba(242, 194, 58, 0.9));
+  width: 1px;
+  height: 2rem;
+  animation: hero-gold-line 2.4s ease-in-out infinite;
+}
+
+@keyframes hero-gold-frame {
+  0%,
+  100% {
+    border-color: rgba(242, 194, 58, 0.7);
+  }
+  50% {
+    border-color: rgba(242, 194, 58, 1);
+  }
+}
+
+@keyframes hero-gold-glow {
+  0%,
+  100% {
+    opacity: 0.1;
+    box-shadow: 0 0 0 rgba(242, 194, 58, 0.0);
+  }
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 24px rgba(242, 194, 58, 0.6);
+  }
+}
+
+@keyframes hero-gold-text {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes hero-gold-line {
+  0% {
+    opacity: 0.2;
+    transform: scaleY(0.8) translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1) translateY(-4px);
+  }
+  100% {
+    opacity: 0.2;
+    transform: scaleY(0.8) translateY(0);
+  }
+}
+
+/* Hero title size */
+.hero-title-main {
+  font-size: 80px;
+}
+
+/* Section heading size */
+.section-heading-50 {
+  font-size: 50px;
+}
+
+/* Custom styles for Testimonials Section */
+.bg-background {
+  background-color: transparent;
+}
+
+.text-foreground\/60 {
+  color: rgba(249, 246, 255, 0.6);
+}
+
+.text-foreground\/40 {
+  color: rgba(249, 246, 255, 0.4);
+}
+
+.hover\:border-primary\/20:hover {
+  border-color: rgba(242, 194, 58, 0.2);
+}
+
+/* Custom styles for Collections Section Opacities */
+.bg-background\/40 {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.group:hover .group-hover\:bg-background\/60 {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Home - Shop by Category cards */
+.collection-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.collection-card img {
+  display: block;
+}
+
+.collection-overlay {
+  background-color: rgba(0, 0, 0, 0.35);
+  transition: background-color 0.4s ease;
+}
+
+.collection-card:hover .collection-overlay {
+  background-color: rgba(0, 0, 0, 0.65);
+}
+
+.collection-explore-btn {
+  opacity: 0;
+  transform: translateY(4px);
+}
+
+.collection-card:hover .collection-explore-btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.bg-primary\/50 {
+  background-color: rgba(242, 194, 58, 0.5);
+}
+
+.text-foreground\/70 {
+  color: rgba(249, 246, 255, 0.7);
+}
+
+/* Designer Drop Event Banner */
+.designer-drop-banner {
+  padding: 60px 0;
+  background: transparent;
+}
+
+.promo-banner {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 60px 40px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.promo-header {
+  margin-bottom: 16px;
+}
+
+.promo-title {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 48px;
+  font-weight: 700;
+  color: #f2c23a;
+  margin: 0;
+  text-shadow: 0 2px 10px rgba(242, 194, 58, 0.3);
+}
+
+.promo-subtitle {
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  font-size: 20px;
+  color: #fff;
+  margin-bottom: 40px;
+  opacity: 0.9;
+}
+
+.countdown-container {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.countdown-box {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 20px;
+  min-width: 100px;
+  text-align: center;
+}
+
+.countdown-value {
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.countdown-label {
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Restored Custom Utility Styles */
+.bg-gradient-purple {
+  background: linear-gradient(135deg, #1f1230 0%, #3d1d4e 100%);
+}
+
+.text-gradient-gold {
+  background: linear-gradient(90deg, #f2c23a 0%, #d4af37 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.font-display {
+  font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+.font-body {
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+}
+
+.text-primary {
+  color: #f2c23a;
+}
+
+.text-primary\/60 {
+  color: rgba(242, 194, 58, 0.6);
+}
+
+.text-primary\/70 {
+  color: rgba(242, 194, 58, 0.7);
+}
+
+.text-foreground\/50 {
+  color: rgba(249, 246, 255, 0.5);
+}
+
+.border-border\/30 {
+  border-color: rgba(224, 212, 238, 0.3);
+}
+
+.hover\:border-primary\/30:hover {
+  border-color: rgba(242, 194, 58, 0.3);
+}
+
+.bg-background {
+  background-color: transparent;
+}
+
+.text-foreground\/60 {
+  color: rgba(249, 246, 255, 0.6);
+}
+
+.text-foreground\/40 {
+  color: rgba(249, 246, 255, 0.4);
+}
+
+.hover\:border-primary\/20:hover {
+  border-color: rgba(242, 194, 58, 0.2);
+}
+
+.bg-background\/40 {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.group:hover .group-hover\:bg-background\/60 {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.bg-background\/70 {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.group:hover .group-hover\:bg-background\/70 {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.bg-primary\/50 {
+  background-color: rgba(242, 194, 58, 0.5);
+}
+
+.bg-primary\/70 {
+  background-color: rgba(242, 194, 58, 0.7);
+}
+
+.text-foreground\/80 {
+  color: rgba(249, 246, 255, 0.8);
 }

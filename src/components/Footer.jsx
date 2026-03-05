@@ -35,7 +35,9 @@ const Footer = ({
   };
 
   return (
-    <footer className={`main-footer ${className}`.trim()}>
+    <footer
+      className={`main-footer ${className}`.trim()}
+    >
       <div className="content-width">
         <div className="footer-content">
           {/* Column 1: Rajasekhar */}
