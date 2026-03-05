@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import NavbarOnly from "./NavbarOnly";
-
 // Sample product data
 const products = [
   { id: 1, name: "Traditional Gold Necklace", price: 2499, originalPrice: 3499, discount: 29, rating: 5, reviews: 128, badge: "Best Seller" },
@@ -97,18 +95,18 @@ export default function ShopPage({ onNavigateToHome }) {
 
   return (
     <div className="shop-page-wrapper">
-      <NavbarOnly onNavigateToShop={() => {}} />
+      <NavbarOnly onNavigateToShop={() => { }} />
       <div className="shop-page">
         {onNavigateToHome && (
           <div style={{ padding: "10px 20px", background: "#f5f5f5", borderBottom: "1px solid #e5e5e5", maxWidth: "1400px", margin: "0 auto" }}>
-            <button 
+            <button
               onClick={onNavigateToHome}
-              style={{ 
-                background: "#5f2b7f", 
-                color: "#fff", 
-                border: "none", 
-                padding: "8px 16px", 
-                borderRadius: "6px", 
+              style={{
+                background: "#5f2b7f",
+                color: "#fff",
+                border: "none",
+                padding: "8px 16px",
+                borderRadius: "6px",
                 cursor: "pointer",
                 fontSize: "14px"
               }}
@@ -118,208 +116,208 @@ export default function ShopPage({ onNavigateToHome }) {
           </div>
         )}
         <div className="shop-container">
-        {/* Left Sidebar - Filters */}
-        <aside className="filter-sidebar">
-          <div className="filter-header">
-            <h2>Featured Products</h2>
-            <p>Best sellers and new arrivals</p>
-          </div>
+          {/* Left Sidebar - Filters */}
+          <aside className="filter-sidebar">
+            <div className="filter-header">
+              <h2>Featured Products</h2>
+              <p>Best sellers and new arrivals</p>
+            </div>
 
-          <div className="filter-content">
-            {/* Price Range */}
-            <div className="filter-section">
-              <div className="filter-title" onClick={() => toggleFilter("price")}>
-                <span>Price Range</span>
-                <span className={`filter-arrow ${filtersOpen.price ? "open" : ""}`}>▲</span>
-              </div>
-              {filtersOpen.price && (
-                <div className="filter-options">
-                  <div className="price-slider-container">
-                    <div 
-                      className="price-slider-wrapper"
-                      style={{
-                        '--min-percent': `${(priceRange[0] / 50000) * 100}`,
-                        '--max-percent': `${(priceRange[1] / 50000) * 100}`
-                      }}
-                    >
-                      <input
-                        type="range"
-                        min="0"
-                        max="50000"
-                        value={priceRange[0]}
-                        onChange={(e) => handlePriceChange(0, e.target.value)}
-                        className="price-slider price-slider-min"
-                      />
-                      <input
-                        type="range"
-                        min="0"
-                        max="50000"
-                        value={priceRange[1]}
-                        onChange={(e) => handlePriceChange(1, e.target.value)}
-                        className="price-slider price-slider-max"
-                      />
-                    </div>
-                    <div className="price-display">
-                      <span>₹{priceRange[0].toLocaleString()}</span>
-                      <span>₹{priceRange[1].toLocaleString()}</span>
+            <div className="filter-content">
+              {/* Price Range */}
+              <div className="filter-section">
+                <div className="filter-title" onClick={() => toggleFilter("price")}>
+                  <span>Price Range</span>
+                  <span className={`filter-arrow ${filtersOpen.price ? "open" : ""}`}>▲</span>
+                </div>
+                {filtersOpen.price && (
+                  <div className="filter-options">
+                    <div className="price-slider-container">
+                      <div
+                        className="price-slider-wrapper"
+                        style={{
+                          '--min-percent': `${(priceRange[0] / 50000) * 100}`,
+                          '--max-percent': `${(priceRange[1] / 50000) * 100}`
+                        }}
+                      >
+                        <input
+                          type="range"
+                          min="0"
+                          max="50000"
+                          value={priceRange[0]}
+                          onChange={(e) => handlePriceChange(0, e.target.value)}
+                          className="price-slider price-slider-min"
+                        />
+                        <input
+                          type="range"
+                          min="0"
+                          max="50000"
+                          value={priceRange[1]}
+                          onChange={(e) => handlePriceChange(1, e.target.value)}
+                          className="price-slider price-slider-max"
+                        />
+                      </div>
+                      <div className="price-display">
+                        <span>₹{priceRange[0].toLocaleString()}</span>
+                        <span>₹{priceRange[1].toLocaleString()}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
-            </div>
-
-            {/* Material */}
-            <div className="filter-section">
-              <div className="filter-title" onClick={() => toggleFilter("material")}>
-                <span>Material</span>
-                <span className={`filter-arrow ${filtersOpen.material ? "open" : ""}`}>▲</span>
+                )}
               </div>
-              {filtersOpen.material && (
-                <div className="filter-options">
-                  {["14K Gold", "18K Gold", "22K Gold", "Silver", "Platinum", "Rose Gold"].map((item) => (
-                    <label key={item} className="checkbox-label">
-                      <input
-                        type="checkbox"
-                        checked={selectedFilters.material.includes(item)}
-                        onChange={() => handleCheckboxChange("material", item)}
-                      />
-                      <span>{item}</span>
-                    </label>
-                  ))}
-                </div>
-              )}
-            </div>
 
-            {/* Gemstone Type */}
-            <div className="filter-section">
-              <div className="filter-title" onClick={() => toggleFilter("gemstone")}>
-                <span>Gemstone Type</span>
-                <span className={`filter-arrow ${filtersOpen.gemstone ? "open" : ""}`}>▲</span>
-              </div>
-              {filtersOpen.gemstone && (
-                <div className="filter-options">
-                  {["Diamond", "Ruby", "Emerald", "Sapphire", "Pearl", "Kundan", "Polki"].map((item) => (
-                    <label key={item} className="checkbox-label">
-                      <input
-                        type="checkbox"
-                        checked={selectedFilters.gemstone.includes(item)}
-                        onChange={() => handleCheckboxChange("gemstone", item)}
-                      />
-                      <span>{item}</span>
-                    </label>
-                  ))}
+              {/* Material */}
+              <div className="filter-section">
+                <div className="filter-title" onClick={() => toggleFilter("material")}>
+                  <span>Material</span>
+                  <span className={`filter-arrow ${filtersOpen.material ? "open" : ""}`}>▲</span>
                 </div>
-              )}
-            </div>
-
-            {/* Design Style */}
-            <div className="filter-section">
-              <div className="filter-title" onClick={() => toggleFilter("designStyle")}>
-                <span>Design Style</span>
-                <span className={`filter-arrow ${filtersOpen.designStyle ? "open" : ""}`}>▲</span>
-              </div>
-              {filtersOpen.designStyle && (
-                <div className="filter-options">
-                  {["Traditional", "Contemporary", "Art Nouveau", "Vintage", "Minimalist", "Temple"].map((item) => (
-                    <label key={item} className="checkbox-label">
-                      <input
-                        type="checkbox"
-                        checked={selectedFilters.designStyle.includes(item)}
-                        onChange={() => handleCheckboxChange("designStyle", item)}
-                      />
-                      <span>{item}</span>
-                    </label>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Designer */}
-            <div className="filter-section">
-              <div className="filter-title" onClick={() => toggleFilter("designer")}>
-                <span>Designer</span>
-                <span className={`filter-arrow ${filtersOpen.designer ? "open" : ""}`}>▲</span>
-              </div>
-              {filtersOpen.designer && (
-                <div className="filter-options">
-                  {["Designer A", "Designer B", "Designer C", "Designer D"].map((item) => (
-                    <label key={item} className="checkbox-label">
-                      <input
-                        type="checkbox"
-                        checked={selectedFilters.designer.includes(item)}
-                        onChange={() => handleCheckboxChange("designer", item)}
-                      />
-                      <span>{item}</span>
-                    </label>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Collection */}
-            <div className="filter-section">
-              <div className="filter-title" onClick={() => toggleFilter("collection")}>
-                <span>Collection</span>
-                <span className={`filter-arrow ${filtersOpen.collection ? "open" : ""}`}>▲</span>
-              </div>
-              {filtersOpen.collection && (
-                <div className="filter-options">
-                  {["Bridal Collection", "Festive Special", "Limited Edition", "New Arrivals"].map((item) => (
-                    <label key={item} className="checkbox-label">
-                      <input
-                        type="checkbox"
-                        checked={selectedFilters.collection.includes(item)}
-                        onChange={() => handleCheckboxChange("collection", item)}
-                      />
-                      <span>{item}</span>
-                    </label>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-
-          <div className="filter-buttons">
-            <button className="apply-filters-btn">Apply Filters</button>
-            <button className="clear-all-btn" onClick={clearAllFilters}>Clear All</button>
-          </div>
-        </aside>
-
-        {/* Right Side - Products Grid */}
-        <div className="products-container">
-          <div className="products-grid">
-            {products.map((product) => (
-              <div key={product.id} className="product-card">
-                <div className="product-image-wrapper">
-                  <img src={getProductImage(product.name)} alt={product.name} className="product-image" />
-                  {product.badge && (
-                    <span className={`product-badge ${product.badge.toLowerCase().replace(" ", "-")}`}>
-                      {product.badge}
-                    </span>
-                  )}
-                  {product.discount && (
-                    <span className="product-discount">-{product.discount}%</span>
-                  )}
-                </div>
-                <div className="product-info">
-                  <h3 className="product-name">{product.name}</h3>
-                  <div className="product-rating">
-                    {Array(product.rating).fill("★").join("")}{Array(5 - product.rating).fill("☆").join("")} ({product.reviews})
+                {filtersOpen.material && (
+                  <div className="filter-options">
+                    {["14K Gold", "18K Gold", "22K Gold", "Silver", "Platinum", "Rose Gold"].map((item) => (
+                      <label key={item} className="checkbox-label">
+                        <input
+                          type="checkbox"
+                          checked={selectedFilters.material.includes(item)}
+                          onChange={() => handleCheckboxChange("material", item)}
+                        />
+                        <span>{item}</span>
+                      </label>
+                    ))}
                   </div>
-                  <div className="product-price">
-                    <span className="current-price">₹{product.price.toLocaleString()}</span>
-                    {product.originalPrice && (
-                      <span className="original-price">₹{product.originalPrice.toLocaleString()}</span>
+                )}
+              </div>
+
+              {/* Gemstone Type */}
+              <div className="filter-section">
+                <div className="filter-title" onClick={() => toggleFilter("gemstone")}>
+                  <span>Gemstone Type</span>
+                  <span className={`filter-arrow ${filtersOpen.gemstone ? "open" : ""}`}>▲</span>
+                </div>
+                {filtersOpen.gemstone && (
+                  <div className="filter-options">
+                    {["Diamond", "Ruby", "Emerald", "Sapphire", "Pearl", "Kundan", "Polki"].map((item) => (
+                      <label key={item} className="checkbox-label">
+                        <input
+                          type="checkbox"
+                          checked={selectedFilters.gemstone.includes(item)}
+                          onChange={() => handleCheckboxChange("gemstone", item)}
+                        />
+                        <span>{item}</span>
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Design Style */}
+              <div className="filter-section">
+                <div className="filter-title" onClick={() => toggleFilter("designStyle")}>
+                  <span>Design Style</span>
+                  <span className={`filter-arrow ${filtersOpen.designStyle ? "open" : ""}`}>▲</span>
+                </div>
+                {filtersOpen.designStyle && (
+                  <div className="filter-options">
+                    {["Traditional", "Contemporary", "Art Nouveau", "Vintage", "Minimalist", "Temple"].map((item) => (
+                      <label key={item} className="checkbox-label">
+                        <input
+                          type="checkbox"
+                          checked={selectedFilters.designStyle.includes(item)}
+                          onChange={() => handleCheckboxChange("designStyle", item)}
+                        />
+                        <span>{item}</span>
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Designer */}
+              <div className="filter-section">
+                <div className="filter-title" onClick={() => toggleFilter("designer")}>
+                  <span>Designer</span>
+                  <span className={`filter-arrow ${filtersOpen.designer ? "open" : ""}`}>▲</span>
+                </div>
+                {filtersOpen.designer && (
+                  <div className="filter-options">
+                    {["Designer A", "Designer B", "Designer C", "Designer D"].map((item) => (
+                      <label key={item} className="checkbox-label">
+                        <input
+                          type="checkbox"
+                          checked={selectedFilters.designer.includes(item)}
+                          onChange={() => handleCheckboxChange("designer", item)}
+                        />
+                        <span>{item}</span>
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Collection */}
+              <div className="filter-section">
+                <div className="filter-title" onClick={() => toggleFilter("collection")}>
+                  <span>Collection</span>
+                  <span className={`filter-arrow ${filtersOpen.collection ? "open" : ""}`}>▲</span>
+                </div>
+                {filtersOpen.collection && (
+                  <div className="filter-options">
+                    {["Bridal Collection", "Festive Special", "Limited Edition", "New Arrivals"].map((item) => (
+                      <label key={item} className="checkbox-label">
+                        <input
+                          type="checkbox"
+                          checked={selectedFilters.collection.includes(item)}
+                          onChange={() => handleCheckboxChange("collection", item)}
+                        />
+                        <span>{item}</span>
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="filter-buttons">
+              <button className="apply-filters-btn">Apply Filters</button>
+              <button className="clear-all-btn" onClick={clearAllFilters}>Clear All</button>
+            </div>
+          </aside>
+
+          {/* Right Side - Products Grid */}
+          <div className="products-container">
+            <div className="products-grid">
+              {products.map((product) => (
+                <div key={product.id} className="product-card">
+                  <div className="product-image-wrapper">
+                    <img src={getProductImage(product.name)} alt={product.name} className="product-image" />
+                    {product.badge && (
+                      <span className={`product-badge ${product.badge.toLowerCase().replace(" ", "-")}`}>
+                        {product.badge}
+                      </span>
+                    )}
+                    {product.discount && (
+                      <span className="product-discount">-{product.discount}%</span>
                     )}
                   </div>
-                  <button className="add-to-cart-btn">
-                    🛒 Add to Cart
-                  </button>
+                  <div className="product-info">
+                    <h3 className="product-name">{product.name}</h3>
+                    <div className="product-rating">
+                      {Array(product.rating).fill("★").join("")}{Array(5 - product.rating).fill("☆").join("")} ({product.reviews})
+                    </div>
+                    <div className="product-price">
+                      <span className="current-price">₹{product.price.toLocaleString()}</span>
+                      {product.originalPrice && (
+                        <span className="original-price">₹{product.originalPrice.toLocaleString()}</span>
+                      )}
+                    </div>
+                    <button className="add-to-cart-btn">
+                      🛒 Add to Cart
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
         </div>
       </div>
     </div>

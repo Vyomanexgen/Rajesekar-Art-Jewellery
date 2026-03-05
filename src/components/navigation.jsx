@@ -244,26 +244,6 @@ const Navigation = ({
               >
                 New Arrivals
               </a>
-              <a
-                href="/about"
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (navigateToAbout) navigateToAbout(e);
-                }}
-                className={activePage === 'about' ? 'active' : ''}
-              >
-                About
-              </a>
-              <a
-                href="/contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (navigateToContact) navigateToContact(e);
-                }}
-                className={activePage === 'contact' ? 'active' : ''}
-              >
-                Contact
-              </a>
             </nav>
 
             <div className="search-box-wrapper">
@@ -608,30 +588,6 @@ const Navigation = ({
                   }}
                 >
                   New Arrivals
-                </a>
-                <a
-                  href="/about"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    setMenuOpen(false);
-                    if (closeAllPages) closeAllPages();
-                    if (navigateToAbout) navigateToAbout(e);
-                  }}
-                >
-                  About
-                </a>
-                <a
-                  href="/contact"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    setMenuOpen(false);
-                    if (closeAllPages) closeAllPages();
-                    if (navigateToContact) navigateToContact(e);
-                  }}
-                >
-                  Contact
                 </a>
                 <a
                   href="/orders"

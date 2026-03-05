@@ -40,19 +40,21 @@ const HeroSection = () => {
             <span className="w-20 h-[1px] bg-[#f2c23a]/50"></span>
           </motion.div>
 
-
           {/* Title */}
           <motion.h1
-            className="font-display italic font-bold mb-3 text-[#f2c23a]
-            text-[80px] md:text-[80px] lg:text-[80px]"
+            className="font-display italic font-bold mb-3"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            style={{ fontFamily: "'Playfair Display', serif" }}
+            style={{
+              fontFamily: "'Playfair Display', serif",
+              color: "#FFD700",
+              fontSize: "80px",
+              lineHeight: "1.1"
+            }}
           >
-            Rajasekar
+            RAJASEKHAR
           </motion.h1>
-
 
           {/* Subtitle */}
           <motion.p
@@ -82,16 +84,18 @@ const HeroSection = () => {
           {/* Button */}
           <motion.a
             href="#collections"
-            className="inline-block border border-[#d4af37]/60 px-12 py-4
-            text-[13px] uppercase tracking-[0.35em]
-            text-[#d4af37] hover:bg-[#d4af37] hover:text-[#1f1230]
-            transition-all duration-500 bg-transparent"
+            className="inline-block px-12 py-4 text-[13px] uppercase tracking-[0.35em] transition-all duration-500 bg-transparent hover:bg-[#FFD700] hover:text-[#1f1230]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.2 }}
-            style={{ fontFamily: "'Cormorant Garamond', serif" }}
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              color: "#FFD700",
+              border: "1px solid #FFD700",
+              textDecoration: "none"
+            }}
           >
-            Explore Collections
+            EXPLORE COLLECTION
           </motion.a>
 
         </motion.div>
