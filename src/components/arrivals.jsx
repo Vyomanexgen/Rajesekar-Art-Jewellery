@@ -20,6 +20,24 @@ const Arrivals = ({
   navigateToOrders,
   handleCategoryClick
 }) => {
+  // Use the same 14 category labels as the main shop/category pages
+  const newArrivalsCategories = [
+    'Necklace sets',
+    'Haram',
+    'Combo set',
+    'Wedding collection',
+    'Earrings',
+    'Bangles',
+    'Hip beads',
+    'Accessories',
+    "Gentlemen's items",
+    'Beads',
+    'Mangalsutra',
+    'Sarudu',
+    'Chains',
+    'Choker sets'
+  ];
+
   return (
     <>
       {/* New Arrivals Section */}
@@ -30,57 +48,22 @@ const Arrivals = ({
             <p className="new-arrivals-subtitle">Discover our latest collection of exquisite jewellery</p>
           </div>
           
-          {/* Category Buttons */}
+          {/* Category Buttons - 14 category pages (same structure as shop) */}
           <div className="category-buttons-container">
             <div className="category-buttons">
-              <button 
-                className={`category-filter-btn ${selectedNewArrivalsCategory === 'Necklaces' ? 'active' : ''}`}
-                onClick={() => {
-                  setSelectedNewArrivalsCategory(selectedNewArrivalsCategory === 'Necklaces' ? null : 'Necklaces');
-                }}
-              >
-                Necklaces
-              </button>
-              <button 
-                className={`category-filter-btn ${selectedNewArrivalsCategory === 'Rings' ? 'active' : ''}`}
-                onClick={() => {
-                  setSelectedNewArrivalsCategory(selectedNewArrivalsCategory === 'Rings' ? null : 'Rings');
-                }}
-              >
-                Rings
-              </button>
-              <button 
-                className={`category-filter-btn ${selectedNewArrivalsCategory === 'Earrings' ? 'active' : ''}`}
-                onClick={() => {
-                  setSelectedNewArrivalsCategory(selectedNewArrivalsCategory === 'Earrings' ? null : 'Earrings');
-                }}
-              >
-                Earrings
-              </button>
-              <button 
-                className={`category-filter-btn ${selectedNewArrivalsCategory === 'Bangles' ? 'active' : ''}`}
-                onClick={() => {
-                  setSelectedNewArrivalsCategory(selectedNewArrivalsCategory === 'Bangles' ? null : 'Bangles');
-                }}
-              >
-                Bangles
-              </button>
-              <button 
-                className={`category-filter-btn ${selectedNewArrivalsCategory === 'Bridal Sets' ? 'active' : ''}`}
-                onClick={() => {
-                  setSelectedNewArrivalsCategory(selectedNewArrivalsCategory === 'Bridal Sets' ? null : 'Bridal Sets');
-                }}
-              >
-                Bridal Sets
-              </button>
-              <button 
-                className={`category-filter-btn ${selectedNewArrivalsCategory === 'Temple Jewellery' ? 'active' : ''}`}
-                onClick={() => {
-                  setSelectedNewArrivalsCategory(selectedNewArrivalsCategory === 'Temple Jewellery' ? null : 'Temple Jewellery');
-                }}
-              >
-                Temple Jewellery
-              </button>
+              {newArrivalsCategories.map((category) => (
+                <button
+                  key={category}
+                  className={`category-filter-btn ${selectedNewArrivalsCategory === category ? 'active' : ''}`}
+                  onClick={() => {
+                    setSelectedNewArrivalsCategory(
+                      selectedNewArrivalsCategory === category ? null : category
+                    );
+                  }}
+                >
+                  {category}
+                </button>
+              ))}
             </div>
           </div>
 

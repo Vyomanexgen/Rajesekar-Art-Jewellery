@@ -12,20 +12,26 @@ const slideContent = [
   {
     title: "New Earing Collection",
     subtitle: "Crafted with Love & Tradition",
-    primaryButton: "Explore Now",
-    secondaryButton: "Book Appointment"
+    primaryButton: "Shop now",
+    secondaryButton: "View Necklace",
+    primaryNav: "Earrings",
+    secondaryNav: "Necklace sets"
   },
   {
     title: "Necklace",
     subtitle: "Traditional Designs, Modern Appeal",
-    primaryButton: "Shop Necklace",
-    secondaryButton: "Learn More"
+    primaryButton: "Shop now",
+    secondaryButton: "View Necklace",
+    primaryNav: "Necklace sets",
+    secondaryNav: "Necklace sets"
   },
   {
     title: "Bangles",
     subtitle: "At the Best Price",
-    primaryButton: "Shop Now",
-    secondaryButton: "View Products"
+    primaryButton: "Shop now",
+    secondaryButton: "View Products",
+    primaryNav: "Gentlemen's items",
+    secondaryNav: "Bangles"
   }
 ];
 
@@ -86,9 +92,7 @@ const Home = ({
     'Necklaces': 'Elegant necklaces crafted with precision, featuring traditional and modern designs that complement every occasion.',
     'Earrings': 'Stunning earrings ranging from delicate studs to statement pieces, perfect for adding sparkle to your look.',
     'Bangles': 'Beautiful bangles in various designs and materials, from traditional gold to contemporary styles.',
-    'Rings': 'Exquisite rings for every finger, featuring intricate designs and premium quality craftsmanship.',
-    'Bridal Sets': 'Complete bridal collections designed to make your special day unforgettable with timeless elegance.',
-    'Temple Jewellery': 'Traditional temple jewellery pieces that celebrate heritage and culture with authentic designs.'
+    'Bridal Sets': 'Complete bridal collections designed to make your special day unforgettable with timeless elegance.'
   };
 
   // Scroll-triggered fade-in animation for sections
@@ -178,8 +182,30 @@ const Home = ({
                   <h2>{slideContent[currentSlide].title}</h2>
                   <p>{slideContent[currentSlide].subtitle}</p>
                   <div className="hero-buttons">
-                    <button className="primary" onClick={navigateToShop}>{slideContent[currentSlide].primaryButton}</button>
-                    <button className="secondary">{slideContent[currentSlide].secondaryButton}</button>
+                    <button
+                      className="primary"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (handleCategoryClick && slideContent[currentSlide].primaryNav) {
+                          handleCategoryClick(slideContent[currentSlide].primaryNav);
+                        } else {
+                          navigateToShop(e);
+                        }
+                      }}
+                    >
+                      {slideContent[currentSlide].primaryButton}
+                    </button>
+                    <button
+                      className="secondary"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (handleCategoryClick && slideContent[currentSlide].secondaryNav) {
+                          handleCategoryClick(slideContent[currentSlide].secondaryNav);
+                        }
+                      }}
+                    >
+                      {slideContent[currentSlide].secondaryButton}
+                    </button>
                   </div>
                 </div>
               </div>
@@ -211,6 +237,11 @@ const Home = ({
 
       <section className="shop-category-section fade-in-section">
         <div className="content-width">
+          <div className="category-header">
+            <h2 className="category-title">Shop by Category</h2>
+            <p className="category-subtitle">Discover our exclusive collections</p>
+          </div>
+
           <div className="category-grid-row">
             {categoriesRow1.map((cat) => (
               <div
@@ -241,12 +272,6 @@ const Home = ({
               </div>
             ))}
           </div>
-
-          <div className="category-header">
-            <h2 className="category-title">Shop by Category</h2>
-            <p className="category-subtitle">Discover our exclusive collections</p>
-          </div>
-
           <div className="category-grid-row">
             {categoriesRow2.map((cat) => (
               <div

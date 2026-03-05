@@ -185,9 +185,7 @@ const AppRouter = () => {
         'necklace': 'Necklaces',
         'earring': 'Earrings',
         'bangle': 'Bangles',
-        'ring': 'Rings',
         'bridal-set': 'Bridal Sets',
-        'temple-jewellery': 'Temple Jewellery',
         // New category slugs
         'haram': 'Haram',
         'combo-set': 'Combo set',

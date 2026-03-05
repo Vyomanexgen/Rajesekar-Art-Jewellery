@@ -149,8 +149,8 @@ const Shop = ({ handlers }) => {
     categoryInfo = null;
   }
 
-  // Category buttons - include "All Products" option
-  const categories = ['All Products', 'Necklaces', 'Earrings', 'Bangles', 'Rings', 'Bridal Sets', 'Temple Jewellery'];
+  // Category buttons - include "All Products" option (Rings & Temple Jewellery removed)
+  const categories = ['All Products', 'Necklaces', 'Earrings', 'Bangles', 'Bridal Sets'];
 
   // Handle "All Products" click
   const handleAllProductsClick = (e) => {
@@ -187,8 +187,6 @@ const Shop = ({ handlers }) => {
   const allProductsCategories = [
     { name: 'Bangles', image: '/Bangles.jpg', emoji: '⭕' },
     { name: 'Necklaces', image: '/Necklaces.jpg', emoji: '📿' },
-    { name: 'Rings', image: '/Rings.jpg', emoji: '💍' },
-    { name: 'Temple Jewellery', image: '/Temple_Jewellery.jpg', emoji: '🛕' },
     { name: 'Bridal Sets', image: '/Bridal_set.jpg', emoji: '👰' },
     { name: 'Earrings', image: '/Earings.jpg', emoji: '💎' }
   ];
@@ -197,6 +195,24 @@ const Shop = ({ handlers }) => {
   const getAllProductsCategoryInfo = (categoryName) => {
     return allProductsCategories.find(cat => cat.name === categoryName) || allProductsCategories[1]; // Default to Necklaces
   };
+
+  // Pagination order for category pages starting from Necklace sets
+  const categoryPaginationOrder = [
+    'Necklace sets',
+    'Haram',
+    'Combo set',
+    'Wedding collection',
+    'Earrings',
+    'Bangles',
+    'Hip beads',
+    'Accessories',
+    "Gentlemen's items",
+    'Beads',
+    'Mangalsutra',
+    'Sarudu',
+    'Chains',
+    'Choker sets'
+  ];
 
   // Get related products (always 6 products: same category first, then fill from other categories)
   const relatedProducts = useMemo(() => {
@@ -214,7 +230,7 @@ const Shop = ({ handlers }) => {
     // Step 2: If we have fewer than targetCount, add products from other categories
     if (related.length < targetCount) {
       const usedIds = new Set([centerProduct.id, ...related.map(p => p.id)]);
-      const allCategories = ['Earrings', 'Bangles', 'Rings', 'Necklaces', 'Temple Jewellery', 'Bridal Sets'];
+      const allCategories = ['Earrings', 'Bangles', 'Necklaces', 'Bridal Sets'];
       const otherCategories = allCategories.filter(cat => cat !== currentCategory);
 
       // Get products from other categories, excluding already used ones
@@ -244,7 +260,7 @@ const Shop = ({ handlers }) => {
     if (!centerProduct) return [];
     const targetCount = 6;
     const currentCategory = centerProduct.category;
-    const allCategories = ['Earrings', 'Bangles', 'Rings', 'Necklaces', 'Temple Jewellery', 'Bridal Sets'];
+    const allCategories = ['Earrings', 'Bangles', 'Necklaces', 'Bridal Sets'];
     const otherCategories = allCategories.filter(cat => cat !== currentCategory);
 
     const recommended = [];
@@ -337,8 +353,87 @@ const Shop = ({ handlers }) => {
                   pointerEvents: 'none'
                 }} />
 
-                {/* Category Styles Section */}
                 <div className="content-width" style={{ maxWidth: '1400px', margin: '0 auto', padding: '40px 16px', position: 'relative', zIndex: 2 }}>
+                  {/* Category pagination/navigation - visible on Necklace sets and other category pages */}
+                  {(() => {
+                    const currentLabel = categoryInfo.title || currentCategory;
+                    const currentIndex = categoryPaginationOrder.indexOf(currentLabel);
+                    const nextLabel = currentIndex >= 0 && currentIndex < categoryPaginationOrder.length - 1
+                      ? categoryPaginationOrder[currentIndex + 1]
+                      : null;
+
+                    // Only show when we're on one of the defined category pages (starting from Necklace sets)
+                    if (currentIndex === -1) return null;
+
+                    return (
+                      <div
+                        className="category-pagination-nav"
+                        style={{
+                          display: 'flex',
+                          flexWrap: 'wrap',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          gap: '12px',
+                          marginBottom: '24px'
+                        }}
+                      >
+                        <div
+                          style={{
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            gap: '8px'
+                          }}
+                        >
+                          {categoryPaginationOrder.map((label) => (
+                            <button
+                              key={label}
+                              type="button"
+                              onClick={() => handleCategoryClick && handleCategoryClick(label)}
+                              style={{
+                                padding: '6px 12px',
+                                borderRadius: '999px',
+                                border: label === currentLabel ? '1px solid #f4e4bc' : '1px solid rgba(255,255,255,0.4)',
+                                background: label === currentLabel ? '#f4e4bc' : 'rgba(255,255,255,0.12)',
+                                color: label === currentLabel ? '#3b153a' : '#ffffff',
+                                fontSize: '12px',
+                                fontWeight: 500,
+                                cursor: 'pointer',
+                                whiteSpace: 'nowrap'
+                              }}
+                            >
+                              {label}
+                            </button>
+                          ))}
+                        </div>
+
+                        {nextLabel && (
+                          <button
+                            type="button"
+                            onClick={() => handleCategoryClick && handleCategoryClick(nextLabel)}
+                            style={{
+                              padding: '6px 14px',
+                              borderRadius: '999px',
+                              border: 'none',
+                              background: '#f4e4bc',
+                              color: '#3b153a',
+                              fontSize: '12px',
+                              fontWeight: 600,
+                              cursor: 'pointer',
+                              whiteSpace: 'nowrap',
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '6px'
+                            }}
+                          >
+                            Next
+                            <span style={{ fontSize: '14px' }}>→</span>
+                          </button>
+                        )}
+                      </div>
+                    );
+                  })()}
+
+                  {/* Category Styles Section */}
                   {categoryInfo.styles && categoryInfo.styles.length > 0 && (
                     <div className="category-styles-section">
                       {/* All product Button - Above Popular Styles (navigate back to all products) */}
@@ -796,7 +891,7 @@ const Shop = ({ handlers }) => {
                   overflowX: 'auto',
                   WebkitOverflowScrolling: 'touch'
                 }}>
-                  {['Bangles', 'Rings', 'Necklaces', 'Bridal Sets', 'Temple Jewellery', 'Earrings'].map((category) => {
+                  {['Bangles', 'Necklaces', 'Bridal Sets', 'Earrings'].map((category) => {
                     const isActive = selectedAllProductsCategory === category;
                     return (
                       <button

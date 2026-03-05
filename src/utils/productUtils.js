@@ -20,6 +20,10 @@ export const getProductImage = (product) => {
 
 // Helper function to get product description
 export const getProductDescription = (product) => {
+  if (typeof product === 'object' && product.description) {
+    return product.description;
+  }
+  if (!product || !product.name) return 'Premium quality jewellery crafted with love and tradition.';
   if (product.name.includes("Bangles")) {
     return "Beautiful set of 4 gold bangles with traditional design patterns.";
   } else if (product.name.includes("Earring")) {

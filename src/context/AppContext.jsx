@@ -205,6 +205,20 @@ export const AppProvider = ({ children }) => {
     }
   }, []);
 
+  // Hide Shop dropdown on scroll for better UX
+  useEffect(() => {
+    const handleScroll = () => {
+      if (showShopDropdown) {
+        setShowShopDropdown(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [showShopDropdown]);
+
   // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {

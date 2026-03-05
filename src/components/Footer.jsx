@@ -119,9 +119,7 @@ const Footer = ({
                 <li><a href="#" onClick={(e) => safeCategoryClick('Necklaces', e)}>Necklaces</a></li>
                 <li><a href="#" onClick={(e) => safeCategoryClick('Earrings', e)}>Earrings</a></li>
                 <li><a href="#" onClick={(e) => safeCategoryClick('Bangles', e)}>Bangles</a></li>
-                <li><a href="#" onClick={(e) => safeCategoryClick('Rings', e)}>Rings</a></li>
                 <li><a href="#" onClick={(e) => safeCategoryClick('Bridal Sets', e)}>Bridal Sets</a></li>
-                <li><a href="#" onClick={(e) => safeCategoryClick('Temple Jewellery', e)}>Temple Jewellery</a></li>
               </ul>
             </div>
 

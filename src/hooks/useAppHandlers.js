@@ -153,9 +153,7 @@ export const useAppHandlers = () => {
       'Necklaces': 'necklace',
       'Earrings': 'earring',
       'Bangles': 'bangle',
-      'Rings': 'ring',
       'Bridal Sets': 'bridal-set',
-      'Temple Jewellery': 'temple-jewellery',
       'Haram': 'haram',
       'Combo set': 'combo-set',
       'Hip belts': 'hip-belts',
@@ -1394,25 +1392,12 @@ export const useAppHandlers = () => {
         bgImage: '/Bangles_bg.jpg',
         styles: ['Traditional Bangles', 'Kadas', 'Churis', 'Stackable Bangles', 'Antique Bangles']
       },
-      'Rings': {
-        title: 'Rings',
-        description: 'Stunning rings for every occasion. From engagement rings to statement pieces, find the perfect ring to express your style.',
-        bgImage: '/Rings_bg.jpg',
-        styles: ['Solitaire Rings', 'Cocktail Rings', 'Stackable Rings', 'Antique Rings', 'Temple Rings']
-      },
       'Bridal Sets': {
         title: 'Wedding collection',
         description: 'Complete wedding jewellery sets curated for every ceremony, from engagement to reception. Discover grand designs that make your special day unforgettable.',
         bgImage: '/Bridal_set_bg.jpg',
         styles: ['Traditional Wedding Sets', 'Contemporary Wedding Sets', 'Antique Wedding Sets', 'Temple Wedding Sets']
       },
-      'Temple Jewellery': {
-        title: 'Temple Jewellery',
-        description: 'Sacred and elegant temple jewellery inspired by traditional designs. Perfect for special occasions and ceremonies.',
-        bgImage: '/Temple_Jewellery_bg.jpg',
-        styles: ['Temple Necklaces', 'Temple Earrings', 'Temple Sets', 'Antique Temple']
-      },
-
       // New dedicated category pages
       'Haram': {
         title: 'Haram',
@@ -1493,41 +1478,41 @@ export const useAppHandlers = () => {
     if (!category || !products || products.length === 0) {
       return [];
     }
-    
-    // Map display categories to canonical product categories
-    const aliasMap = {
-      'Necklace sets': 'Necklaces',
-      'Wedding collection': 'Bridal Sets',
-      'Haram': 'Necklaces',
-      'Combo set': 'Bridal Sets',
-      'Hip belts': 'Bangles',
-      'Accessories': 'Earrings',
-      "Gentlemen's items": 'Rings',
-      'Beads': 'Necklaces',
-      'Mangalsutra': 'Necklaces',
-      'Sarudu': 'Temple Jewellery',
-      'Chains': 'Necklaces',
-      'Choker sets': 'Necklaces',
-      'Hip beads': 'Hip belts'
-    };
 
-    const canonicalCategory = aliasMap[category] || category;
+    // Categories that have their own products in db (no default/fallback to Necklaces etc.)
+    const ownCategorySlugs = [
+      'Haram',
+      'Combo set',
+      'Hip belts',
+      'Accessories',
+      "Gentlemen's items",
+      'Beads',
+      'Mangalsutra',
+      'Sarudu',
+      'Chains',
+      'Choker sets'
+    ];
+    const aliasToOwn = { 'Hip beads': 'Hip belts' };
+    const displayCategory = aliasToOwn[category] || category;
+    const useOwnProducts = ownCategorySlugs.includes(displayCategory);
 
     let filteredProducts = products.filter(product => {
       if (!product || !product.name) return false;
+      if (useOwnProducts) {
+        return (product.category || '') === displayCategory;
+      }
       const name = product.name.toLowerCase();
-      if (canonicalCategory === 'Necklaces') {
+      if (displayCategory === 'Necklace sets' || displayCategory === 'Necklaces') {
         return name.includes('necklace');
-      } else if (canonicalCategory === 'Earrings') {
+      }
+      if (displayCategory === 'Earrings') {
         return name.includes('earring') || name.includes('earing');
-      } else if (canonicalCategory === 'Bangles') {
+      }
+      if (displayCategory === 'Bangles') {
         return name.includes('bangle');
-      } else if (canonicalCategory === 'Rings') {
-        return name.includes('ring') && !name.includes('earring') && !name.includes('earing');
-      } else if (canonicalCategory === 'Bridal Sets') {
+      }
+      if (displayCategory === 'Wedding collection' || displayCategory === 'Bridal Sets') {
         return name.includes('bridal') || (name.includes('set') && !name.includes('temple'));
-      } else if (canonicalCategory === 'Temple Jewellery') {
-        return name.includes('temple');
       }
       return false;
     }).filter(product => {
@@ -1573,19 +1558,10 @@ export const useAppHandlers = () => {
 
   // New Arrivals handlers
   const getNewArrivalsProducts = useCallback(() => {
-    const necklaceProducts = products.filter(p => p.name.toLowerCase().includes('necklace')).slice(0, 1);
-    const bangleProducts = products.filter(p => p.name.toLowerCase().includes('bangle')).slice(0, 1);
-    const antiqueGoldRing = products.find(p => p.name === "Antique Gold Ring");
-    const otherRingProducts = products.filter(p => 
-      p.name.toLowerCase().includes('ring') && p.name !== "Antique Gold Ring"
-    ).slice(0, 1);
-    const newArrivals = [
-      ...necklaceProducts,
-      ...bangleProducts,
-      antiqueGoldRing,
-      ...otherRingProducts
-    ].filter(Boolean);
-    return newArrivals;
+    // Treat highest id products as latest/new arrivals
+    const sortedByNewest = [...products].sort((a, b) => (b.id || 0) - (a.id || 0));
+    // Limit to a reasonable number for the page
+    return sortedByNewest.slice(0, 40);
   }, []);
 
   const getFilteredNewArrivalsProducts = useCallback(() => {
@@ -1593,57 +1569,27 @@ export const useAppHandlers = () => {
     if (!app.selectedNewArrivalsCategory) {
       return allNewArrivals;
     }
-    
-    // Filter new arrivals by selected category
-    const categoryFiltered = allNewArrivals.filter(product => {
-      const name = product.name.toLowerCase();
-      switch (app.selectedNewArrivalsCategory) {
-        case 'Necklaces':
-          return name.includes('necklace');
-        case 'Rings':
-          return name.includes('ring') && !name.includes('earring') && !name.includes('earing');
-        case 'Earrings':
-          return name.includes('earring') || name.includes('earing');
-        case 'Bangles':
-          return name.includes('bangle');
-        case 'Bridal Sets':
-          return name.includes('bridal') || (name.includes('set') && !name.includes('temple'));
-        case 'Temple Jewellery':
-          return name.includes('temple');
-        default:
-          return true;
-      }
-    });
-    
-    // If category has no products in new arrivals, get at least 2 products from that category from all products
+
+    // Map New Arrivals UI labels to actual product.category values
+    const aliasMap = {
+      'Necklace sets': 'Necklaces',
+      'Wedding collection': 'Bridal Sets',
+      'Hip beads': 'Hip belts'
+    };
+    const targetCategory =
+      aliasMap[app.selectedNewArrivalsCategory] || app.selectedNewArrivalsCategory;
+
+    const categoryFiltered = allNewArrivals.filter(
+      (product) => product.category === targetCategory
+    );
+
+    // Fallback: if no products in the new-arrivals subset, pull from full catalog
     if (categoryFiltered.length === 0) {
-      // Get products from the category without price filters for fallback
-      const categoryProducts = products.filter(product => {
-        if (!product || !product.name) return false;
-        const name = product.name.toLowerCase();
-        switch (app.selectedNewArrivalsCategory) {
-          case 'Necklaces':
-            return name.includes('necklace');
-          case 'Earrings':
-            return name.includes('earring') || name.includes('earing');
-          case 'Bangles':
-            return name.includes('bangle');
-          case 'Rings':
-            return name.includes('ring') && !name.includes('earring') && !name.includes('earing');
-          case 'Bridal Sets':
-            return name.includes('bridal') || (name.includes('set') && !name.includes('temple'));
-          case 'Temple Jewellery':
-            return name.includes('temple');
-          default:
-            return false;
-        }
-      });
-      // Return at least 2 products from the category (or all if less than 2)
-      return categoryProducts.slice(0, Math.max(2, categoryProducts.length));
+      return products.filter((product) => product.category === targetCategory);
     }
-    
+
     return categoryFiltered;
-  }, [getNewArrivalsProducts, app.selectedNewArrivalsCategory]);
+  }, [getNewArrivalsProducts, app.selectedNewArrivalsCategory, products]);
 
   // Wishlist handlers
   const getWishlistProducts = useCallback(() => {
