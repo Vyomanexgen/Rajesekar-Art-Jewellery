@@ -4,7 +4,7 @@ const heroImage = "/hero-jewellery.jpg";
 
 const HeroSection = () => {
   return (
-    <section className="relative h-screen w-full overflow-hidden">
+    <section className="relative h-screen w-full overflow-hidden" style={{ paddingTop: '100px' }}>
 
       {/* Background Image */}
       <div className="absolute inset-0">
@@ -42,14 +42,14 @@ const HeroSection = () => {
 
           {/* Title */}
           <motion.h1
-            className="font-display italic font-bold mb-3"
+            className="italic font-bold mb-3"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
             style={{
-              fontFamily: "'Playfair Display', serif",
+              fontFamily: 'Georgia, "Times New Roman", serif',
               color: "#FFD700",
-              fontSize: "80px",
+              fontSize: "40px",
               lineHeight: "1.1"
             }}
           >
@@ -84,18 +84,12 @@ const HeroSection = () => {
           {/* Button */}
           <motion.a
             href="#collections"
-            className="inline-block px-12 py-4 text-[13px] uppercase tracking-[0.35em] transition-all duration-500 bg-transparent hover:bg-[#FFD700] hover:text-[#1f1230]"
+            className="hero-explore-btn inline-block px-12 py-4 text-[13px] uppercase tracking-[0.35em]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.2 }}
-            style={{
-              fontFamily: "'Cormorant Garamond', serif",
-              color: "#FFD700",
-              border: "1px solid #FFD700",
-              textDecoration: "none"
-            }}
           >
-            EXPLORE COLLECTION
+            EXPLORE COLLECTIONS
           </motion.a>
 
         </motion.div>

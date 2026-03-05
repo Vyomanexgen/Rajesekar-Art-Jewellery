@@ -28,16 +28,16 @@ const CollectionCard = ({ item, index, onExplore }) => {
     return (
         <motion.div
             ref={ref}
-            className="collection-card group relative overflow-hidden cursor-pointer rounded-lg"
+            className="collection-card group relative overflow-hidden cursor-pointer rounded-md w-[312px] h-[312px] shrink-0"
             initial={{ opacity: 0, y: 40 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: (index % 7) * 0.1 }}
         >
-            <div className="aspect-square overflow-hidden">
+            <div className="w-full h-full overflow-hidden">
                 <img
                     src={item.image}
                     alt={`${item.name} collection by Rajasekar Art Jewellery`}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="h-full w-full object-cover"
                     loading="lazy"
                     onError={(e) => {
                         e.target.src = "/combo_set.jpg"; // fallback image
@@ -45,20 +45,10 @@ const CollectionCard = ({ item, index, onExplore }) => {
                 />
                 <div className="collection-overlay absolute inset-0 bg-background/40 transition-opacity duration-500" />
             </div>
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-center gap-2">
-                <h3 className="font-display text-xs sm:text-sm md:text-base font-semibold text-gradient-gold italic drop-shadow-md">
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-center gap-2 pointer-events-none">
+                <h3 className="font-display text-xl sm:text-2xl md:text-3xl font-semibold text-gradient-gold italic drop-shadow-md">
                     {item.shortName || item.name}
                 </h3>
-                <button
-                    onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        if (onExplore) onExplore(item.name);
-                    }}
-                    className="collection-explore-btn px-4 py-1.5 rounded-full bg-[#f2c23a] text-[#1f1230] font-body text-[10px] sm:text-xs font-semibold tracking-[0.25em] uppercase transition-all duration-500 shadow-lg"
-                >
-                    Explore
-                </button>
             </div>
         </motion.div>
     );
@@ -95,12 +85,40 @@ const CollectionsSection = ({ handleCategoryClick }) => {
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-3 md:gap-4">
-                    {collections.map((item, i) => (
-                        <CollectionCard key={item.name} item={item} index={i} onExplore={handleExploreClick} />
-                    ))}
+                <div className="flex flex-col gap-8 md:gap-14">
+                    <div className="flex flex-nowrap overflow-x-auto overflow-y-hidden gap-6 pb-6 scrollbar-hide snap-x snap-mandatory">
+                        {collections.slice(0, 7).map((item, i) => (
+                            <div key={item.name} className="snap-start" onClick={(e) => {
+                                e.preventDefault();
+                                if (handleCategoryClick) handleCategoryClick(item.name);
+                            }}>
+                                <CollectionCard item={item} index={i} onExplore={handleExploreClick} />
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="flex flex-nowrap overflow-x-auto overflow-y-hidden gap-6 pb-6 scrollbar-hide snap-x snap-mandatory">
+                        {collections.slice(7).map((item, i) => (
+                            <div key={item.name} className="snap-start" onClick={(e) => {
+                                e.preventDefault();
+                                if (handleCategoryClick) handleCategoryClick(item.name);
+                            }}>
+                                <CollectionCard item={item} index={i} onExplore={handleExploreClick} />
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
+
+            <style jsx>{`
+                .scrollbar-hide::-webkit-scrollbar {
+                    display: none;
+                }
+                .scrollbar-hide {
+                    -ms-overflow-style: none;
+                    scrollbar-width: none;
+                }
+            `}</style>
         </section>
     );
 };

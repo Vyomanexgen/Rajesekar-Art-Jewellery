@@ -4,6 +4,7 @@ import ContactSection from './ContactSection';
 import TestimonialsSection from './TestimonialsSection';
 import CollectionsSection from './CollectionsSection';
 import HeroSection from './HeroSection';
+import AboutSection from './AboutSection';
 
 // Slides data - moved from NavbarOnly.jsx
 const slides = [
@@ -274,6 +275,10 @@ const Home = ({
         )
       }
 
+      <section className="bg-gradient-purple mt-16">
+        <AboutSection />
+      </section>
+
       {/* Because You Liked Section */}
       {
         getRecommendedProducts().length > 0 && (
@@ -333,7 +338,7 @@ const Home = ({
         )
       }
 
-      <section className="bg-gradient-purple mt-16">
+      <section className="bg-[#1a1025] mt-16">
         <TestimonialsSection />
       </section>
 

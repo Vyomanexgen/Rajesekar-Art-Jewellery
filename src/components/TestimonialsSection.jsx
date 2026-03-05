@@ -66,12 +66,15 @@ const TestimonialsSection = () => {
                     <h2 className="font-display section-heading-50 font-bold text-gradient-gold italic mb-4">
                         Cherished by Many
                     </h2>
-                    <p className="font-body text-base text-foreground/50 max-w-md mx-auto">
+                    <p
+                        className="font-body text-base text-foreground/50 max-w-md mx-auto"
+                        style={{ fontFamily: "'Cormorant Garamond', serif" }}
+                    >
                         Words from those who wear our artistry close to their hearts
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 max-w-6xl mx-auto px-4 md:px-8">
                     {testimonials.map((t, i) => {
                         const ref = useRef(null);
                         const isInView = useInView(ref, { once: true, margin: "-50px" });
@@ -79,7 +82,7 @@ const TestimonialsSection = () => {
                             <motion.div
                                 key={t.name}
                                 ref={ref}
-                                className="p-8 border border-border/30 hover:border-primary/20 transition-colors duration-500"
+                                className="testimonial-box"
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                                 transition={{ duration: 0.6, delay: i * 0.1 }}

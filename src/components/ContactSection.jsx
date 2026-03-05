@@ -8,9 +8,8 @@ const ContactSection = () => {
 
     return (
         <section
-            className="py-24 md:py-32"
+            className="py-16 md:py-24 min-h-[70vh] flex flex-col justify-center"
             ref={ref}
-            style={{ paddingTop: "80px", paddingBottom: "80px" }}
         >
             <div className="container mx-auto px-4">
                 <motion.div
@@ -25,7 +24,10 @@ const ContactSection = () => {
                     <h2 className="font-display section-heading-50 font-bold text-gradient-gold italic mb-4">
                         Get in Touch
                     </h2>
-                    <p className="font-body text-base text-foreground/50 max-w-md mx-auto">
+                    <p
+                        className="font-body text-base text-foreground/50 max-w-md mx-auto"
+                        style={{ fontFamily: "'Cormorant Garamond', serif" }}
+                    >
                         Experience our collections in person. We'd love to help you find your perfect piece.
                     </p>
                 </motion.div>
@@ -43,15 +45,26 @@ const ContactSection = () => {
                     ].map((item, i) => (
                         <motion.div
                             key={item.title}
-                            className="text-center p-8 border border-border/30 hover:border-primary/30 transition-colors duration-500"
+                            className="contact-box flex flex-col items-center justify-center text-center"
                             initial={{ opacity: 0, y: 20 }}
                             animate={isInView ? { opacity: 1, y: 0 } : {}}
                             transition={{ delay: 0.5 + i * 0.15, duration: 0.6 }}
                         >
-                            <item.icon className="mx-auto mb-4 text-primary/70" size={24} strokeWidth={1} />
-                            <h3 className="font-display text-lg font-semibold text-primary mb-3">{item.title}</h3>
+                            <item.icon className="mx-auto mb-6 text-[#f2c23a]" size={28} strokeWidth={1} />
+                            <h3
+                                className="font-display text-xl font-semibold text-[#f2c23a] mb-4 tracking-wide"
+                                style={{ color: "#f2c23a" }}
+                            >
+                                {item.title}
+                            </h3>
                             {item.lines.map((line) => (
-                                <p key={line} className="font-body text-sm text-foreground/50">{line}</p>
+                                <p
+                                    key={line}
+                                    className="font-body text-sm text-foreground/50 truncate"
+                                    style={{ fontFamily: "'Cormorant Garamond', serif", whiteSpace: "normal" }}
+                                >
+                                    {line}
+                                </p>
                             ))}
                         </motion.div>
                     ))}

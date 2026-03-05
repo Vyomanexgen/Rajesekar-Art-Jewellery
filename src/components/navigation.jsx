@@ -96,6 +96,27 @@ const Navigation = ({
   const [currentPath, setCurrentPath] = useState(typeof window !== 'undefined' ? window.location.pathname : '');
   const [showMobileSearch, setShowMobileSearch] = useState(false);
   const [activeMegaCategory, setActiveMegaCategory] = useState(shopCategories[0]);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Handle scroll event for navbar background
+  useEffect(() => {
+    const handleScroll = () => {
+      // Set to true when scrolled past 50px (roughly past top area)
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Run once on mount to get initial scroll state
+    handleScroll();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   // Listen to URL changes to update active state
   useEffect(() => {
@@ -156,12 +177,24 @@ const Navigation = ({
   return (
     <>
       {/* Main Header - Navigation Bar */}
-      <header className="main-header">
+      <header
+        className={`main-header ${isScrolled ? 'scrolled' : ''}`}
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          width: '100%',
+          backgroundColor: isScrolled ? '#1a1025' : 'transparent',
+          transition: 'background-color 0.4s ease-in-out',
+          zIndex: 1000
+        }}
+      >
         <div className="content-width main-header-inner">
           <div className="logo-area">
             <img src="/logo.jpg.jpeg" alt="Rajasekhar Art Jewellery Logo" className="logo-icon" style={{ objectFit: 'cover', padding: 0 }} />
             <div className="logo-text">
-              <h1>Rajasekhar Art Jewellery</h1>
+              <h1 style={{ fontFamily: '"Playfair Display", serif', color: '#FFD700', fontWeight: 'bold' }}>Rajasekhar Art Jewellery</h1>
             </div>
           </div>
 
@@ -373,18 +406,22 @@ const Navigation = ({
                 🔍
               </button>
             </div>
-            <div className="icon-item">
-              <button onClick={(e) => navigateToWishlist(e)}>
-                {wishlistItems.size > 0 && <span className="wishlist-badge">{wishlistItems.size}</span>}
-                <span className="wishlist-heart">🤍</span>
-              </button>
-            </div>
-            <div className="icon-item">
-              <button onClick={(e) => navigateToCart(e)}>
-                {getCartCount() > 0 && <span className="wishlist-badge">{getCartCount()}</span>}
-                🛒
-              </button>
-            </div>
+            {isLoggedIn && (
+              <>
+                <div className="icon-item">
+                  <button onClick={(e) => navigateToWishlist(e)}>
+                    {wishlistItems.size > 0 && <span className="wishlist-badge">{wishlistItems.size}</span>}
+                    <span className="wishlist-heart">🤍</span>
+                  </button>
+                </div>
+                <div className="icon-item">
+                  <button onClick={(e) => navigateToCart(e)}>
+                    {getCartCount() > 0 && <span className="wishlist-badge">{getCartCount()}</span>}
+                    🛒
+                  </button>
+                </div>
+              </>
+            )}
             <button
               ref={hamburgerRef}
               className="hamburger mobile-hamburger"
@@ -399,27 +436,31 @@ const Navigation = ({
 
           {/* Desktop: Header icons */}
           <div className="header-icons">
-            <div className={`icon-item${activePage === 'orders' ? ' active' : ''}`}>
-              <button onClick={(e) => navigateToOrders(e)}>
-                {isLoggedIn && userOrders.length > 0 && <span className="wishlist-badge">{userOrders.length}</span>}
-                📦
-              </button>
-              <span>Order</span>
-            </div>
-            <div className={`icon-item${activePage === 'wishlist' ? ' active' : ''}`}>
-              <button onClick={(e) => navigateToWishlist(e)}>
-                {wishlistItems.size > 0 && <span className="wishlist-badge">{wishlistItems.size}</span>}
-                <span className="wishlist-heart">🤍</span>
-              </button>
-              <span>Wishlist</span>
-            </div>
-            <div className={`icon-item${activePage === 'cart' ? ' active' : ''}`}>
-              <button onClick={(e) => navigateToCart(e)}>
-                {getCartCount() > 0 && <span className="wishlist-badge">{getCartCount()}</span>}
-                🛒
-              </button>
-              <span>Cart</span>
-            </div>
+            {isLoggedIn && (
+              <>
+                <div className={`icon-item${activePage === 'orders' ? ' active' : ''}`}>
+                  <button onClick={(e) => navigateToOrders(e)}>
+                    {userOrders.length > 0 && <span className="wishlist-badge">{userOrders.length}</span>}
+                    📦
+                  </button>
+                  <span>Order</span>
+                </div>
+                <div className={`icon-item${activePage === 'wishlist' ? ' active' : ''}`}>
+                  <button onClick={(e) => navigateToWishlist(e)}>
+                    {wishlistItems.size > 0 && <span className="wishlist-badge">{wishlistItems.size}</span>}
+                    <span className="wishlist-heart">🤍</span>
+                  </button>
+                  <span>Wishlist</span>
+                </div>
+                <div className={`icon-item${activePage === 'cart' ? ' active' : ''}`}>
+                  <button onClick={(e) => navigateToCart(e)}>
+                    {getCartCount() > 0 && <span className="wishlist-badge">{getCartCount()}</span>}
+                    🛒
+                  </button>
+                  <span>Cart</span>
+                </div>
+              </>
+            )}
             <div className={`icon-item account-dropdown-wrapper${activePage === 'account' ? ' active' : ''}`}>
               <button onClick={(e) => navigateToAccount(e)}>
                 <span className="account-icon">👤</span>
@@ -548,7 +589,7 @@ const Navigation = ({
               <div className="logo-area" style={{ display: 'flex', alignItems: 'center', gap: '12px', paddingLeft: '16px' }}>
                 <img src="/logo.jpg.jpeg" alt="Rajasekhar Art Jewellery Logo" className="logo-icon" style={{ objectFit: 'cover', padding: 0 }} />
                 <div className="logo-text">
-                  <h1 style={{ fontWeight: 'bold', margin: 0, padding: 0, color: '#5f2b7f' }}>Rajasekhar Art Jewellery</h1>
+                  <h1 style={{ fontFamily: '"Playfair Display", serif', color: '#FFD700', fontWeight: 'bold', margin: 0, padding: 0 }}>Rajasekhar Art Jewellery</h1>
                 </div>
               </div>
             </div>
@@ -734,6 +775,11 @@ const Navigation = ({
                   value={searchQuery}
                   onChange={handleSearchChange}
                   onFocus={() => setShowSearchDropdown(true)}
+                  style={{
+                    background: 'transparent',
+                    border: '1px solid rgba(0, 0, 0, 0.2)',
+                    color: '#333'
+                  }}
                 />
                 <button
                   type="submit"
