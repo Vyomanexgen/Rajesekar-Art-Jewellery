@@ -1575,16 +1575,16 @@ form.search-box {
   }
 
   .trending-product-card {
-    flex: 0 0 70%;
-    max-width: 70%;
+    flex: 0 0 55%;
+    max-width: 55%;
     scroll-snap-align: start;
   }
 }
 
 @media (max-width: 480px) {
   .trending-product-card {
-    flex: 0 0 80%;
-    max-width: 80%;
+    flex: 0 0 60%;
+    max-width: 60%;
   }
 }
 
@@ -1648,16 +1648,18 @@ form.search-box {
 
 @media (max-width: 480px) {
   .promo-banner {
-    padding: 28px 20px;
+    padding: 20px 12px;
   }
 
   .promo-title {
-    font-size: 20px;
-    white-space: nowrap;
+    font-size: 24px;
+    white-space: normal;
+    line-height: 1.2;
   }
 
   .promo-header {
     gap: 8px;
+    flex-wrap: wrap;
   }
 
   .diamond-icon {
@@ -9008,13 +9010,13 @@ form.search-box {
   align-items: center;
   justify-content: center;
   font-weight: 800;
-  font-size: 24px;
+  font-size: 27px;
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.15);
 }
 
 .footer-company-name {
   font-family: 'Times New Roman', serif;
-  font-size: 28px;
+  font-size: 31px;
   font-weight: 700;
   color: #f2c23a;
   margin: 0;
@@ -9022,7 +9024,7 @@ form.search-box {
 
 .footer-tagline {
   font-family: 'Times New Roman', serif;
-  font-size: 14px;
+  font-size: 17px;
   color: #fff;
   line-height: 1.6;
   margin: 0;
@@ -9059,7 +9061,7 @@ form.search-box {
 
 .footer-heading {
   font-family: 'Times New Roman', serif;
-  font-size: 22px;
+  font-size: 25px;
   font-weight: 700;
   color: #f2c23a;
   margin: 0 0 16px 0;
@@ -9076,7 +9078,7 @@ form.search-box {
 
 .footer-links li a {
   font-family: 'Times New Roman', serif;
-  font-size: 15px;
+  font-size: 18px;
   color: #fff;
   text-decoration: none;
   transition: color 0.2s ease;
@@ -9099,7 +9101,7 @@ form.search-box {
   align-items: flex-start;
   gap: 12px;
   font-family: 'Times New Roman', serif;
-  font-size: 15px;
+  font-size: 18px;
   color: #fff;
   line-height: 1.6;
   min-width: 0;
@@ -9108,7 +9110,7 @@ form.search-box {
 
 .footer-icon {
   color: #f2c23a;
-  font-size: 18px;
+  font-size: 21px;
   flex-shrink: 0;
   margin-top: 2px;
   display: flex;
@@ -9174,7 +9176,7 @@ form.search-box {
 
 .footer-copyright {
   font-family: 'Times New Roman', serif;
-  font-size: 14px;
+  font-size: 17px;
   color: #fff;
   margin: 0;
 }
@@ -9184,7 +9186,7 @@ form.search-box {
   align-items: center;
   gap: 8px;
   font-family: 'Times New Roman', serif;
-  font-size: 14px;
+  font-size: 17px;
 }
 
 .footer-policies a {
@@ -9277,11 +9279,11 @@ form.search-box {
   }
 
   .footer-company-name {
-    font-size: 24px;
+    font-size: 27px;
   }
 
   .footer-heading {
-    font-size: 20px;
+    font-size: 23px;
   }
 }
 
@@ -20413,6 +20415,12 @@ body {
   }
 }
 
+@media (max-width: 480px) {
+  .testimonial-box {
+    padding: 1.5rem;
+  }
+}
+
 /* Contact Box Custom Styles */
 .contact-box {
   border: 1px solid rgba(242, 194, 58, 0.3);
@@ -20430,4 +20438,13 @@ body {
 .contact-box:hover {
   border-color: #f2c23a;
   transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .contact-box {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
 }

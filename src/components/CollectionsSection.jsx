@@ -28,7 +28,7 @@ const CollectionCard = ({ item, index, onExplore }) => {
     return (
         <motion.div
             ref={ref}
-            className="collection-card group relative overflow-hidden cursor-pointer rounded-md w-[312px] h-[312px] shrink-0"
+            className="collection-card group relative overflow-hidden cursor-pointer rounded-md w-[140px] h-[140px] sm:w-[250px] sm:h-[250px] md:w-[312px] md:h-[312px] shrink-0"
             initial={{ opacity: 0, y: 40 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: (index % 7) * 0.1 }}
@@ -110,7 +110,7 @@ const CollectionsSection = ({ handleCategoryClick }) => {
                 </div>
             </div>
 
-            <style jsx>{`
+            <style>{`
                 .scrollbar-hide::-webkit-scrollbar {
                     display: none;
                 }

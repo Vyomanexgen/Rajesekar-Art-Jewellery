@@ -4,7 +4,7 @@ const heroImage = "/hero-jewellery.jpg";
 
 const HeroSection = () => {
   return (
-    <section className="relative h-screen w-full overflow-hidden" style={{ paddingTop: '100px' }}>
+    <section className="relative min-h-[100dvh] w-full overflow-hidden flex flex-col justify-center" style={{ paddingTop: '100px' }}>
 
       {/* Background Image */}
       <div className="absolute inset-0">
@@ -13,6 +13,10 @@ const HeroSection = () => {
           alt="Rajasekar Art Jewellery"
           className="h-full w-full object-cover"
         />
+        {/* Dark Overlay Theme */}
+        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.8)_100%)]"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-transparent to-black/90"></div>
       </div>
 
       {/* Hero Content */}
@@ -26,7 +30,7 @@ const HeroSection = () => {
 
           {/* Since 1985 */}
           <motion.div
-            className="flex items-center justify-center gap-6 mb-6"
+            className="flex items-center justify-center gap-6 mb-10"
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
             transition={{ duration: 1, delay: 0.4 }}
@@ -42,14 +46,13 @@ const HeroSection = () => {
 
           {/* Title */}
           <motion.h1
-            className="italic font-bold mb-3"
+            className="italic font-bold mb-6 md:mb-10 text-[40px] sm:text-[60px] md:text-[80px]"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
             style={{
               fontFamily: 'Georgia, "Times New Roman", serif',
               color: "#FFD700",
-              fontSize: "40px",
               lineHeight: "1.1"
             }}
           >
@@ -84,7 +87,7 @@ const HeroSection = () => {
           {/* Button */}
           <motion.a
             href="#collections"
-            className="hero-explore-btn inline-block px-12 py-4 text-[13px] uppercase tracking-[0.35em]"
+            className="hero-explore-btn inline-block w-[280px] sm:w-[350px] text-center py-4 text-[11px] sm:text-[13px] uppercase tracking-[0.35em]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.2 }}

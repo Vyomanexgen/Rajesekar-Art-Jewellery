@@ -33,7 +33,7 @@ const ContactSection = () => {
                 </motion.div>
 
                 <motion.div
-                    className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto"
+                    className="flex md:grid md:grid-cols-3 gap-6 md:gap-8 max-w-3xl mx-auto overflow-x-auto snap-x snap-mandatory pb-4 px-2 md:px-0 scrollbar-hide items-stretch"
                     initial={{ opacity: 0, y: 40 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.8, delay: 0.3 }}
@@ -45,7 +45,7 @@ const ContactSection = () => {
                     ].map((item, i) => (
                         <motion.div
                             key={item.title}
-                            className="contact-box flex flex-col items-center justify-center text-center"
+                            className="contact-box flex flex-col items-center justify-center text-center shrink-0 w-[220px] md:w-auto snap-center bg-white/5 border border-white/10 rounded-xl p-6 md:p-8"
                             initial={{ opacity: 0, y: 20 }}
                             animate={isInView ? { opacity: 1, y: 0 } : {}}
                             transition={{ delay: 0.5 + i * 0.15, duration: 0.6 }}

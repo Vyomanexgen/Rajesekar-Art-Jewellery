@@ -194,7 +194,7 @@ const Navigation = ({
           <div className="logo-area">
             <img src="/logo.jpg.jpeg" alt="Rajasekhar Art Jewellery Logo" className="logo-icon" style={{ objectFit: 'cover', padding: 0 }} />
             <div className="logo-text">
-              <h1 style={{ fontFamily: '"Playfair Display", serif', color: '#FFD700', fontWeight: 'bold' }}>Rajasekhar Art Jewellery</h1>
+              <h1 style={{ fontFamily: '"Playfair Display", serif', color: '#FFFFFF', fontWeight: 'bold' }}>Rajasekhar Art Jewellery</h1>
             </div>
           </div>
 
@@ -279,6 +279,83 @@ const Navigation = ({
               </a>
             </nav>
 
+            
+          </div>
+
+          {/* Mobile: Search, Wishlist, Cart, and Hamburger icons - all in one row on the left */}
+          <div className="header-icons-mobile">
+            <div className="icon-item mobile-search-icon">
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  setShowMobileSearch(true);
+                  // Focus search input after modal opens
+                  setTimeout(() => {
+                    if (mobileSearchInputRef.current) {
+                      mobileSearchInputRef.current.focus();
+                    }
+                  }, 100);
+                }}
+                aria-label="Search"
+              >
+                🔍
+              </button>
+            </div>
+            {isLoggedIn && (
+              <>
+                <div className="icon-item">
+                  <button onClick={(e) => navigateToWishlist(e)}>
+                    {wishlistItems.size > 0 && <span className="wishlist-badge">{wishlistItems.size}</span>}
+                    <span className="wishlist-heart">🤍</span>
+                  </button>
+                </div>
+                <div className="icon-item">
+                  <button onClick={(e) => navigateToCart(e)}>
+                    {getCartCount() > 0 && <span className="wishlist-badge">{getCartCount()}</span>}
+                    🛒
+                  </button>
+                </div>
+              </>
+            )}
+            <button
+              ref={hamburgerRef}
+              className="hamburger mobile-hamburger"
+              onClick={() => setMenuOpen((prev) => !prev)}
+              aria-label="Open menu"
+              type="button"
+              data-testid="hamburger-button"
+            >
+              ☰
+            </button>
+          </div>
+
+          {/* Desktop: Header icons */}
+          <div className="header-icons">
+            {isLoggedIn && (
+              <>
+                <div className={`icon-item${activePage === 'orders' ? ' active' : ''}`}>
+                  <button onClick={(e) => navigateToOrders(e)}>
+                    {userOrders.length > 0 && <span className="wishlist-badge">{userOrders.length}</span>}
+                    📦
+                  </button>
+                  <span>Order</span>
+                </div>
+                <div className={`icon-item${activePage === 'wishlist' ? ' active' : ''}`}>
+                  <button onClick={(e) => navigateToWishlist(e)}>
+                    {wishlistItems.size > 0 && <span className="wishlist-badge">{wishlistItems.size}</span>}
+                    <span className="wishlist-heart">🤍</span>
+                  </button>
+                  <span>Wishlist</span>
+                </div>
+                <div className={`icon-item${activePage === 'cart' ? ' active' : ''}`}>
+                  <button onClick={(e) => navigateToCart(e)}>
+                    {getCartCount() > 0 && <span className="wishlist-badge">{getCartCount()}</span>}
+                    🛒
+                  </button>
+                  <span>Cart</span>
+                </div>
+              </>
+            )}
             <div className="search-box-wrapper">
               <form
                 className="search-box"
@@ -385,82 +462,6 @@ const Navigation = ({
                 </div>
               )}
             </div>
-          </div>
-
-          {/* Mobile: Search, Wishlist, Cart, and Hamburger icons - all in one row on the left */}
-          <div className="header-icons-mobile">
-            <div className="icon-item mobile-search-icon">
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  setShowMobileSearch(true);
-                  // Focus search input after modal opens
-                  setTimeout(() => {
-                    if (mobileSearchInputRef.current) {
-                      mobileSearchInputRef.current.focus();
-                    }
-                  }, 100);
-                }}
-                aria-label="Search"
-              >
-                🔍
-              </button>
-            </div>
-            {isLoggedIn && (
-              <>
-                <div className="icon-item">
-                  <button onClick={(e) => navigateToWishlist(e)}>
-                    {wishlistItems.size > 0 && <span className="wishlist-badge">{wishlistItems.size}</span>}
-                    <span className="wishlist-heart">🤍</span>
-                  </button>
-                </div>
-                <div className="icon-item">
-                  <button onClick={(e) => navigateToCart(e)}>
-                    {getCartCount() > 0 && <span className="wishlist-badge">{getCartCount()}</span>}
-                    🛒
-                  </button>
-                </div>
-              </>
-            )}
-            <button
-              ref={hamburgerRef}
-              className="hamburger mobile-hamburger"
-              onClick={() => setMenuOpen((prev) => !prev)}
-              aria-label="Open menu"
-              type="button"
-              data-testid="hamburger-button"
-            >
-              ☰
-            </button>
-          </div>
-
-          {/* Desktop: Header icons */}
-          <div className="header-icons">
-            {isLoggedIn && (
-              <>
-                <div className={`icon-item${activePage === 'orders' ? ' active' : ''}`}>
-                  <button onClick={(e) => navigateToOrders(e)}>
-                    {userOrders.length > 0 && <span className="wishlist-badge">{userOrders.length}</span>}
-                    📦
-                  </button>
-                  <span>Order</span>
-                </div>
-                <div className={`icon-item${activePage === 'wishlist' ? ' active' : ''}`}>
-                  <button onClick={(e) => navigateToWishlist(e)}>
-                    {wishlistItems.size > 0 && <span className="wishlist-badge">{wishlistItems.size}</span>}
-                    <span className="wishlist-heart">🤍</span>
-                  </button>
-                  <span>Wishlist</span>
-                </div>
-                <div className={`icon-item${activePage === 'cart' ? ' active' : ''}`}>
-                  <button onClick={(e) => navigateToCart(e)}>
-                    {getCartCount() > 0 && <span className="wishlist-badge">{getCartCount()}</span>}
-                    🛒
-                  </button>
-                  <span>Cart</span>
-                </div>
-              </>
-            )}
             <div className={`icon-item account-dropdown-wrapper${activePage === 'account' ? ' active' : ''}`}>
               <button onClick={(e) => navigateToAccount(e)}>
                 <span className="account-icon">👤</span>
