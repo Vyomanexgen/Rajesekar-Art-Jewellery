@@ -1,10 +1,11 @@
 /* --- Global Container Sizing --- */
 .responsive-container {
   height: 85vh; /* 85% of viewport height as requested */
-  width: 100vw; /* 100% of viewport width */
+  width: 100%; /* Fill parent width without causing viewport overflow */
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  box-sizing: border-box;
   font-family: "Times New Roman", Times, serif;
   border: 1px solid #ccc; /* Border to visualize the 85vh boundary */
 }

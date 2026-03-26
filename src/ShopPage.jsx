@@ -94,44 +94,36 @@ export default function ShopPage({ onNavigateToHome }) {
   };
 
   return (
-    <div className="shop-page-wrapper">
+    <div className="shop-page-wrapper min-h-screen bg-gradient-to-br from-slate-50 via-white to-amber-50/40 text-slate-900">
       <NavbarOnly onNavigateToShop={() => { }} />
-      <div className="shop-page">
+      <div className="shop-page pt-24 md:pt-28">
         {onNavigateToHome && (
-          <div style={{ padding: "10px 20px", background: "#f5f5f5", borderBottom: "1px solid #e5e5e5", maxWidth: "1400px", margin: "0 auto" }}>
+          <div className="mx-auto w-full max-w-[1400px] border-b border-slate-200 bg-white/90 px-5 py-3 shadow-sm backdrop-blur">
             <button
               onClick={onNavigateToHome}
-              style={{
-                background: "#5f2b7f",
-                color: "#fff",
-                border: "none",
-                padding: "8px 16px",
-                borderRadius: "6px",
-                cursor: "pointer",
-                fontSize: "14px"
-              }}
+              className="inline-flex items-center rounded-lg bg-indigo-700 px-4 py-2 text-sm font-medium text-white transition hover:bg-indigo-600"
             >
               ← Back to Home
             </button>
           </div>
         )}
-        <div className="shop-container">
+        <div className="shop-container mx-auto flex w-full max-w-[1400px] flex-col gap-6 px-4 py-6 lg:flex-row lg:px-5">
           {/* Left Sidebar - Filters */}
-          <aside className="filter-sidebar">
-            <div className="filter-header">
-              <h2>Featured Products</h2>
-              <p>Best sellers and new arrivals</p>
+          <aside className="filter-sidebar w-full rounded-2xl border border-slate-200 bg-white p-4 shadow-sm lg:sticky lg:top-24 lg:w-[310px] lg:self-start">
+            <div className="filter-header mb-4 border-b border-slate-100 pb-4">
+              <h2 className="text-xl font-semibold text-slate-900">Featured Products</h2>
+              <p className="mt-1 text-sm text-slate-600">Best sellers and new arrivals</p>
             </div>
 
-            <div className="filter-content">
+            <div className="filter-content space-y-4">
               {/* Price Range */}
-              <div className="filter-section">
-                <div className="filter-title" onClick={() => toggleFilter("price")}>
+              <div className="filter-section rounded-xl border border-slate-200 bg-slate-50/60 p-3">
+                <div className="filter-title flex cursor-pointer items-center justify-between text-sm font-medium text-slate-800" onClick={() => toggleFilter("price")}>
                   <span>Price Range</span>
-                  <span className={`filter-arrow ${filtersOpen.price ? "open" : ""}`}>▲</span>
+                  <span className={`filter-arrow ${filtersOpen.price ? "open" : ""} text-xs text-slate-500`}>▲</span>
                 </div>
                 {filtersOpen.price && (
-                  <div className="filter-options">
+                  <div className="filter-options mt-3">
                     <div className="price-slider-container">
                       <div
                         className="price-slider-wrapper"
@@ -157,7 +149,7 @@ export default function ShopPage({ onNavigateToHome }) {
                           className="price-slider price-slider-max"
                         />
                       </div>
-                      <div className="price-display">
+                      <div className="price-display mt-3 flex items-center justify-between text-xs font-medium text-slate-700">
                         <span>₹{priceRange[0].toLocaleString()}</span>
                         <span>₹{priceRange[1].toLocaleString()}</span>
                       </div>
@@ -167,19 +159,20 @@ export default function ShopPage({ onNavigateToHome }) {
               </div>
 
               {/* Material */}
-              <div className="filter-section">
-                <div className="filter-title" onClick={() => toggleFilter("material")}>
+              <div className="filter-section rounded-xl border border-slate-200 bg-slate-50/60 p-3">
+                <div className="filter-title flex cursor-pointer items-center justify-between text-sm font-medium text-slate-800" onClick={() => toggleFilter("material")}>
                   <span>Material</span>
-                  <span className={`filter-arrow ${filtersOpen.material ? "open" : ""}`}>▲</span>
+                  <span className={`filter-arrow ${filtersOpen.material ? "open" : ""} text-xs text-slate-500`}>▲</span>
                 </div>
                 {filtersOpen.material && (
-                  <div className="filter-options">
+                  <div className="filter-options mt-3 space-y-2">
                     {["14K Gold", "18K Gold", "22K Gold", "Silver", "Platinum", "Rose Gold"].map((item) => (
-                      <label key={item} className="checkbox-label">
+                      <label key={item} className="checkbox-label flex items-center gap-2 text-sm text-slate-700">
                         <input
                           type="checkbox"
                           checked={selectedFilters.material.includes(item)}
                           onChange={() => handleCheckboxChange("material", item)}
+                          className="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
                         />
                         <span>{item}</span>
                       </label>
@@ -189,19 +182,20 @@ export default function ShopPage({ onNavigateToHome }) {
               </div>
 
               {/* Gemstone Type */}
-              <div className="filter-section">
-                <div className="filter-title" onClick={() => toggleFilter("gemstone")}>
+              <div className="filter-section rounded-xl border border-slate-200 bg-slate-50/60 p-3">
+                <div className="filter-title flex cursor-pointer items-center justify-between text-sm font-medium text-slate-800" onClick={() => toggleFilter("gemstone")}>
                   <span>Gemstone Type</span>
-                  <span className={`filter-arrow ${filtersOpen.gemstone ? "open" : ""}`}>▲</span>
+                  <span className={`filter-arrow ${filtersOpen.gemstone ? "open" : ""} text-xs text-slate-500`}>▲</span>
                 </div>
                 {filtersOpen.gemstone && (
-                  <div className="filter-options">
+                  <div className="filter-options mt-3 space-y-2">
                     {["Diamond", "Ruby", "Emerald", "Sapphire", "Pearl", "Kundan", "Polki"].map((item) => (
-                      <label key={item} className="checkbox-label">
+                      <label key={item} className="checkbox-label flex items-center gap-2 text-sm text-slate-700">
                         <input
                           type="checkbox"
                           checked={selectedFilters.gemstone.includes(item)}
                           onChange={() => handleCheckboxChange("gemstone", item)}
+                          className="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
                         />
                         <span>{item}</span>
                       </label>
@@ -211,19 +205,20 @@ export default function ShopPage({ onNavigateToHome }) {
               </div>
 
               {/* Design Style */}
-              <div className="filter-section">
-                <div className="filter-title" onClick={() => toggleFilter("designStyle")}>
+              <div className="filter-section rounded-xl border border-slate-200 bg-slate-50/60 p-3">
+                <div className="filter-title flex cursor-pointer items-center justify-between text-sm font-medium text-slate-800" onClick={() => toggleFilter("designStyle")}>
                   <span>Design Style</span>
-                  <span className={`filter-arrow ${filtersOpen.designStyle ? "open" : ""}`}>▲</span>
+                  <span className={`filter-arrow ${filtersOpen.designStyle ? "open" : ""} text-xs text-slate-500`}>▲</span>
                 </div>
                 {filtersOpen.designStyle && (
-                  <div className="filter-options">
+                  <div className="filter-options mt-3 space-y-2">
                     {["Traditional", "Contemporary", "Art Nouveau", "Vintage", "Minimalist", "Temple"].map((item) => (
-                      <label key={item} className="checkbox-label">
+                      <label key={item} className="checkbox-label flex items-center gap-2 text-sm text-slate-700">
                         <input
                           type="checkbox"
                           checked={selectedFilters.designStyle.includes(item)}
                           onChange={() => handleCheckboxChange("designStyle", item)}
+                          className="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
                         />
                         <span>{item}</span>
                       </label>
@@ -233,19 +228,20 @@ export default function ShopPage({ onNavigateToHome }) {
               </div>
 
               {/* Designer */}
-              <div className="filter-section">
-                <div className="filter-title" onClick={() => toggleFilter("designer")}>
+              <div className="filter-section rounded-xl border border-slate-200 bg-slate-50/60 p-3">
+                <div className="filter-title flex cursor-pointer items-center justify-between text-sm font-medium text-slate-800" onClick={() => toggleFilter("designer")}>
                   <span>Designer</span>
-                  <span className={`filter-arrow ${filtersOpen.designer ? "open" : ""}`}>▲</span>
+                  <span className={`filter-arrow ${filtersOpen.designer ? "open" : ""} text-xs text-slate-500`}>▲</span>
                 </div>
                 {filtersOpen.designer && (
-                  <div className="filter-options">
+                  <div className="filter-options mt-3 space-y-2">
                     {["Designer A", "Designer B", "Designer C", "Designer D"].map((item) => (
-                      <label key={item} className="checkbox-label">
+                      <label key={item} className="checkbox-label flex items-center gap-2 text-sm text-slate-700">
                         <input
                           type="checkbox"
                           checked={selectedFilters.designer.includes(item)}
                           onChange={() => handleCheckboxChange("designer", item)}
+                          className="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
                         />
                         <span>{item}</span>
                       </label>
@@ -255,19 +251,20 @@ export default function ShopPage({ onNavigateToHome }) {
               </div>
 
               {/* Collection */}
-              <div className="filter-section">
-                <div className="filter-title" onClick={() => toggleFilter("collection")}>
+              <div className="filter-section rounded-xl border border-slate-200 bg-slate-50/60 p-3">
+                <div className="filter-title flex cursor-pointer items-center justify-between text-sm font-medium text-slate-800" onClick={() => toggleFilter("collection")}>
                   <span>Collection</span>
-                  <span className={`filter-arrow ${filtersOpen.collection ? "open" : ""}`}>▲</span>
+                  <span className={`filter-arrow ${filtersOpen.collection ? "open" : ""} text-xs text-slate-500`}>▲</span>
                 </div>
                 {filtersOpen.collection && (
-                  <div className="filter-options">
+                  <div className="filter-options mt-3 space-y-2">
                     {["Bridal Collection", "Festive Special", "Limited Edition", "New Arrivals"].map((item) => (
-                      <label key={item} className="checkbox-label">
+                      <label key={item} className="checkbox-label flex items-center gap-2 text-sm text-slate-700">
                         <input
                           type="checkbox"
                           checked={selectedFilters.collection.includes(item)}
                           onChange={() => handleCheckboxChange("collection", item)}
+                          className="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
                         />
                         <span>{item}</span>
                       </label>
@@ -277,40 +274,44 @@ export default function ShopPage({ onNavigateToHome }) {
               </div>
             </div>
 
-            <div className="filter-buttons">
-              <button className="apply-filters-btn">Apply Filters</button>
-              <button className="clear-all-btn" onClick={clearAllFilters}>Clear All</button>
+            <div className="filter-buttons mt-5 grid grid-cols-2 gap-2">
+              <button className="apply-filters-btn inline-flex items-center justify-center rounded-lg bg-indigo-700 px-3 py-2 text-sm font-medium text-white transition hover:bg-indigo-600">Apply Filters</button>
+              <button className="clear-all-btn inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50" onClick={clearAllFilters}>Clear All</button>
             </div>
           </aside>
 
           {/* Right Side - Products Grid */}
-          <div className="products-container">
-            <div className="products-grid">
+          <div className="products-container flex-1">
+            <div className="mb-4 rounded-2xl border border-amber-200/50 bg-white/80 p-4 shadow-sm backdrop-blur">
+              <h1 className="text-2xl font-semibold text-slate-900">Shop Collection</h1>
+              <p className="mt-1 text-sm text-slate-600">Explore handpicked jewellery pieces crafted for every occasion.</p>
+            </div>
+            <div className="products-grid grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
               {products.map((product) => (
-                <div key={product.id} className="product-card">
-                  <div className="product-image-wrapper">
-                    <img src={getProductImage(product.name)} alt={product.name} className="product-image" />
+                <div key={product.id} className="product-card overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+                  <div className="product-image-wrapper group relative overflow-hidden bg-slate-100">
+                    <img src={getProductImage(product.name)} alt={product.name} className="product-image h-72 w-full object-cover transition duration-300 group-hover:scale-105" />
                     {product.badge && (
-                      <span className={`product-badge ${product.badge.toLowerCase().replace(" ", "-")}`}>
+                      <span className={`product-badge ${product.badge.toLowerCase().replace(" ", "-")} absolute left-2 top-2 rounded-full bg-indigo-600 px-2 py-1 text-xs font-semibold text-white`}>
                         {product.badge}
                       </span>
                     )}
                     {product.discount && (
-                      <span className="product-discount">-{product.discount}%</span>
+                      <span className="product-discount absolute right-2 top-2 rounded-full bg-rose-600 px-2 py-1 text-xs font-semibold text-white">-{product.discount}%</span>
                     )}
                   </div>
-                  <div className="product-info">
-                    <h3 className="product-name">{product.name}</h3>
-                    <div className="product-rating">
+                  <div className="product-info space-y-2 p-4">
+                    <h3 className="product-name line-clamp-2 text-base font-medium text-slate-900">{product.name}</h3>
+                    <div className="product-rating text-sm text-amber-600">
                       {Array(product.rating).fill("★").join("")}{Array(5 - product.rating).fill("☆").join("")} ({product.reviews})
                     </div>
-                    <div className="product-price">
-                      <span className="current-price">₹{product.price.toLocaleString()}</span>
+                    <div className="product-price flex items-center gap-2">
+                      <span className="current-price text-base font-semibold text-amber-700">₹{product.price.toLocaleString()}</span>
                       {product.originalPrice && (
-                        <span className="original-price">₹{product.originalPrice.toLocaleString()}</span>
+                        <span className="original-price text-sm text-slate-400 line-through">₹{product.originalPrice.toLocaleString()}</span>
                       )}
                     </div>
-                    <button className="add-to-cart-btn">
+                    <button className="add-to-cart-btn inline-flex w-full items-center justify-center rounded-lg bg-amber-500 px-3 py-2 text-sm font-medium text-slate-900 transition hover:bg-amber-400">
                       🛒 Add to Cart
                     </button>
                   </div>
