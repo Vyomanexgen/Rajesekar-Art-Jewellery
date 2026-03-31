@@ -43,6 +43,7 @@ const slideContent = [
 const homeGradientClass = 'bg-[linear-gradient(180deg,#140923_0%,#261042_100%)]';
 const homePanelClass = 'relative z-[2] border-y border-white/10 bg-[linear-gradient(130deg,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0.02)_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.12),inset_0_-1px_0_rgba(10,6,28,0.45)] backdrop-blur-[2px] max-md:backdrop-blur-[1px]';
 const homeProductCardClass = 'border border-[rgba(215,200,255,0.58)] bg-[linear-gradient(135deg,rgba(255,255,255,0.94)_0%,rgba(246,243,255,0.88)_100%)] shadow-[0_16px_34px_rgba(24,14,52,0.22)] transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_24px_40px_rgba(20,12,44,0.3)]';
+const homeTrendingCardClass = 'group';
 const homeGoldTitleClass = 'bg-[linear-gradient(135deg,#a56608_0%,#d7ab2d_48%,#f2d97e_100%)] bg-clip-text text-transparent [text-shadow:0_6px_20px_rgba(0,0,0,0.34)]';
 const promoBannerClass = 'border border-white/20 bg-[linear-gradient(130deg,rgba(28,18,62,0.85)_0%,rgba(49,25,94,0.7)_48%,rgba(31,82,128,0.62)_100%)] shadow-[0_26px_60px_rgba(8,5,22,0.38)]';
 
@@ -249,7 +250,7 @@ const Home = ({
               <h2 className={`trending-title ${homeGoldTitleClass}`}>Trending Products</h2>
               <div className="trending-products">
                 {getTrendingProducts().map((product) => (
-                  <div key={product.id} className={`trending-product-card ${homeProductCardClass}`}>
+                  <div key={product.id} className={`trending-product-card ${homeTrendingCardClass}`}>
                     <div className="trending-product-image-wrapper" onClick={() => handleProductClick(product)}>
                       <img src={getProductImage(product)} alt={product.name} className="trending-product-image" />
                       <div className="product-hover-icons">
@@ -278,11 +279,15 @@ const Home = ({
                       )}
                     </div>
                     <div className="trending-product-info">
+                      <span className="trending-card-tag">Trending Now</span>
                       <h3 className="trending-product-name">{product.name}</h3>
-                      <div className="trending-product-rating">
-                        {Array(product.rating).fill("★").join("")}{Array(5 - product.rating).fill("☆").join("")} <span className="review-count">({product.reviews})</span>
+                      <div className="trending-product-rating-row">
+                        <span className="trending-product-rating">
+                          {Array(product.rating).fill("★").join("")}{Array(5 - product.rating).fill("☆").join("")}
+                        </span>
+                        <span className="review-count">({product.reviews})</span>
                       </div>
-                      <div className="trending-product-price">
+                      <div className="trending-product-price-row">
                         <span className="trending-current-price">₹{product.price.toLocaleString()}</span>
                         {product.originalPrice && (
                           <span className="trending-original-price">₹{product.originalPrice.toLocaleString()}</span>

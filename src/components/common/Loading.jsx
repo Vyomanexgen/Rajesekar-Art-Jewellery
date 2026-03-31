@@ -60,7 +60,7 @@ const Loading = ({ onComplete }) => {
 
   return (
     <motion.div
-      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-gradient-to-br from-[#1a0b2e] to-[#0f051a]"
+      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden bg-[#0f051a]"
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8, ease: "easeInOut" }}
       role="progressbar"
@@ -69,7 +69,21 @@ const Loading = ({ onComplete }) => {
       aria-valuemax="100"
       aria-label="Loading page"
     >
-      <div className="flex flex-col items-center justify-center gap-6 sm:gap-8 px-4">
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/hero-jewellery.jpg')" }}
+        aria-hidden="true"
+      />
+      <div
+        className="absolute inset-0 bg-gradient-to-br from-[#1a0b2e]/85 via-[#140924]/80 to-[#0f051a]/90"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute inset-0"
+        style={{ boxShadow: "inset 0 0 220px rgba(0, 0, 0, 0.75)" }}
+        aria-hidden="true"
+      />
+      <div className="relative z-10 flex flex-col items-center justify-center gap-6 sm:gap-8 px-4">
         {/* Logo/Name with responsive sizing */}
         <div className="flex gap-1 sm:gap-2 flex-wrap justify-center">
           {letters.map((letter, i) => (

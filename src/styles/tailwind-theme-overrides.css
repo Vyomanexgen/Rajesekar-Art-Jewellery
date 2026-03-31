@@ -253,38 +253,156 @@
     @apply inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-amber-100 text-amber-700;
   }
 
+  /* Newsletter Section */
+  .footer-newsletter-section {
+    @apply border-b border-white/10 bg-gradient-to-r from-amber-600/10 via-purple-600/10 to-pink-600/10 py-8 backdrop-blur-md;
+  }
+
+  .newsletter-container {
+    @apply flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between;
+  }
+
+  .newsletter-content {
+    @apply flex-1;
+  }
+
+  .newsletter-title {
+    @apply text-xl font-bold text-white;
+  }
+
+  .newsletter-subtitle {
+    @apply mt-1 text-sm text-gray-300;
+  }
+
+  .newsletter-form {
+    @apply flex gap-2 sm:flex-1 sm:max-w-xs;
+  }
+
+  .newsletter-input {
+    @apply flex-1 rounded-lg border border-amber-500/30 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-gray-400 transition focus:border-amber-400 focus:bg-white/10 focus:outline-none;
+  }
+
+  .newsletter-button {
+    @apply whitespace-nowrap rounded-lg bg-gradient-to-r from-amber-500 to-amber-600 px-6 py-2.5 text-sm font-semibold text-white transition hover:from-amber-600 hover:to-amber-700 active:scale-95;
+  }
+
+  /* Main Footer */
   .main-footer {
-    @apply mt-10 border-t border-white/20 bg-gray-900/90 py-10 text-gray-100 backdrop-blur;
+    @apply mt-12 bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 text-gray-100;
   }
 
-  .footer-content {
-    @apply grid gap-8 md:grid-cols-2 lg:grid-cols-4;
+  .footer-main {
+    @apply border-b border-white/10 py-12;
   }
 
-  .footer-links-row {
-    @apply col-span-full grid gap-6 md:grid-cols-3;
+  .footer-grid {
+    @apply grid gap-8 md:gap-10 md:grid-cols-2 lg:grid-cols-4;
   }
 
-  .footer-heading {
-    @apply mb-3 text-base font-semibold text-amber-300;
+  /* Footer Column */
+  .footer-column {
+    @apply flex flex-col gap-4;
   }
 
+  /* Brand Info */
+  .brand-info {
+    @apply flex items-center gap-3;
+  }
+
+  .footer-logo {
+    @apply h-12 w-12 rounded-lg object-cover shadow-lg;
+  }
+
+  .brand-name {
+    @apply text-lg font-bold text-white;
+  }
+
+  .brand-tagline {
+    @apply text-sm text-gray-300 leading-relaxed;
+  }
+
+  /* Social Links */
+  .social-links {
+    @apply flex gap-3;
+  }
+
+  .social-link {
+    @apply inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-gray-300 transition hover:bg-amber-500 hover:text-white;
+  }
+
+  /* Column Heading */
+  .column-heading {
+    @apply text-sm font-bold uppercase tracking-wider text-amber-400;
+  }
+
+  /* Footer Links */
   .footer-links {
-    @apply space-y-2 text-sm text-gray-200;
+    @apply space-y-2.5;
   }
 
-  .footer-links a,
-  .footer-contact-link,
-  .footer-policies a {
-    @apply transition hover:text-amber-300;
+  .footer-links li {
+    @apply list-none;
+  }
+
+  .footer-links a {
+    @apply text-sm text-gray-300 transition hover:text-amber-300 hover:translate-x-1;
+  }
+
+  /* Contact Info */
+  .contact-info {
+    @apply space-y-3;
+  }
+
+  .contact-item {
+    @apply flex gap-3;
+  }
+
+  .contact-icon {
+    @apply h-5 w-5 flex-shrink-0 text-amber-400 mt-0.5;
+  }
+
+  .contact-item a {
+    @apply text-sm text-gray-300 transition hover:text-amber-300;
+  }
+
+  /* Footer Bottom Section */
+  .footer-bottom-section {
+    @apply bg-gray-950 py-6;
   }
 
   .footer-bottom {
-    @apply mt-8 border-t border-gray-700 pt-4;
+    @apply flex flex-col items-center justify-between gap-4 text-sm text-gray-400 md:flex-row;
   }
 
-  .footer-bottom-content {
-    @apply flex flex-col items-start justify-between gap-3 text-sm text-gray-300 md:flex-row md:items-center;
+  .copyright-text {
+    @apply text-xs text-gray-400;
+  }
+
+  .footer-bottom-links {
+    @apply flex gap-4 text-xs;
+  }
+
+  .footer-bottom-links a {
+    @apply text-gray-400 transition hover:text-amber-300;
+  }
+
+  .separator {
+    @apply text-gray-600;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .footer-grid {
+      @apply grid-cols-1 gap-6;
+    }
+
+    .newsletter-form {
+      @apply flex-col sm:flex-row;
+    }
+
+    .newsletter-input {
+      @apply w-full;
+    }
   }
 
   .cart-toast {

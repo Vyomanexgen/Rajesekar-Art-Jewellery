@@ -32,11 +32,11 @@ const WhatsAppButton = () => {
     <button
       onClick={handleWhatsAppClick}
       className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8 z-50 
-                 bg-green-500 hover:bg-green-600 active:bg-green-700
-                 text-white rounded-full p-3 sm:p-4 md:p-5
-                 shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out
+                 bg-transparent hover:bg-transparent active:bg-transparent
+                 text-green-500 hover:text-green-600 active:text-green-700 rounded-full p-1
+                 shadow-none transition-all duration-300 ease-in-out
                  transform hover:scale-110 active:scale-95
-                 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2
+                 focus:outline-none focus:ring-2 focus:ring-green-500
                  group"
       aria-label="Contact us on WhatsApp"
       title="Chat with us on WhatsApp"
@@ -45,7 +45,7 @@ const WhatsAppButton = () => {
       <svg
         width="24"
         height="24"
-        className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 group-hover:animate-pulse"
+        className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 group-hover:animate-pulse"
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -57,10 +57,6 @@ const WhatsAppButton = () => {
         />
       </svg>
       
-      {/* Tooltip - visible on hover */}
-      <span className="absolute bottom-full right-0 mb-2 px-3 py-1 bg-gray-900 text-white text-xs rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-        Chat with us
-      </span>
     </button>
   );
 };

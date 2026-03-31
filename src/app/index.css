@@ -1469,24 +1469,28 @@ form.search-box {
 }
 
 .trending-product-card {
-  background: #fff;
-  border: 1px solid #e5e5e5;
-  border-radius: 12px;
+  background: linear-gradient(160deg, #fffdfa 0%, #fdf6e5 100%);
+  border: 1px solid rgba(191, 145, 43, 0.25);
+  border-radius: 16px;
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  box-shadow: 0 10px 22px rgba(20, 10, 42, 0.14);
 }
 
 .trending-product-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  transform: translateY(-6px);
+  border-color: rgba(191, 145, 43, 0.45);
+  box-shadow: 0 20px 38px rgba(15, 8, 31, 0.24);
 }
 
 .trending-product-image-wrapper {
   position: relative;
   width: 100%;
-  padding-top: 85%;
+  padding-top: 100%;
   overflow: hidden;
-  background: #f5f5f5;
+  background: #f6eacb;
   cursor: pointer;
 }
 
@@ -1497,25 +1501,84 @@ form.search-box {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.trending-product-card:hover .trending-product-image {
+  transform: scale(1.06);
+}
+
+.trending-product-image-wrapper .product-hover-icons {
+  top: 10px;
+  right: 10px;
+  left: auto;
+}
+
+.trending-product-image-wrapper .product-eye-icon,
+.trending-product-image-wrapper .product-wishlist-icon {
+  width: 34px;
+  height: 34px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(184, 134, 29, 0.2);
 }
 
 .trending-product-image-wrapper:hover .product-hover-icons {
   opacity: 1;
 }
 
+.trending-badge.product-badge {
+  top: 10px;
+  left: 10px;
+  border-radius: 999px;
+  padding: 5px 10px;
+  font-size: 10px;
+  letter-spacing: 0.4px;
+  background: linear-gradient(135deg, #f4d06e 0%, #d59f28 100%);
+  color: #2d1238;
+  box-shadow: 0 4px 12px rgba(105, 70, 14, 0.25);
+}
+
+.trending-discount.product-discount {
+  top: 10px;
+  right: 10px;
+  border-radius: 999px;
+  padding: 5px 9px;
+  font-size: 11px;
+  background: #2b143b;
+  color: #f3d984;
+}
+
 .trending-product-info {
-  padding: 16px;
+  padding: 14px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.trending-card-tag {
+  display: inline-flex;
+  align-self: flex-start;
+  margin-bottom: 8px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(175, 126, 22, 0.35);
+  background: rgba(247, 219, 142, 0.35);
+  color: #5e3d08;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
 .trending-product-name {
   font-family: 'Georgia', 'Times New Roman', serif;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
-  color: #2a2a2a;
+  color: #2b163b;
   margin-bottom: 8px;
   line-height: 1.4;
   height: auto;
-  min-height: 50px;
+  min-height: 44px;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -1523,46 +1586,59 @@ form.search-box {
   -webkit-box-orient: vertical;
 }
 
-.trending-product-rating {
-  font-size: 13px;
-  color: #f2c23a;
-  margin-bottom: 8px;
+.trending-product-rating-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
 }
 
-.trending-product-price {
+.trending-product-rating {
+  font-size: 12px;
+  color: #c38a1f;
+}
+
+.trending-product-price-row {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 8px;
   margin-bottom: 12px;
 }
 
 .trending-current-price {
-  font-size: 18px;
+  font-size: 21px;
   font-weight: 700;
-  color: #1f1230;
+  color: #23123a;
 }
 
 .trending-original-price {
   font-size: 14px;
-  color: #999;
+  color: #8f8198;
   text-decoration: line-through;
 }
 
 .trending-add-to-cart-btn {
   width: 100%;
-  background: #f2c23a;
-  color: #3b153a;
+  background: linear-gradient(135deg, #f5d372 0%, #d8a52f 100%);
+  color: #2d1237;
+  margin-top: auto;
   border: none;
-  padding: 10px 16px;
-  border-radius: 8px;
-  font-weight: 600;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
   cursor: pointer;
-  transition: background 0.3s ease;
-  font-size: 14px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  font-size: 13px;
+  text-transform: uppercase;
+  box-shadow: 0 7px 14px rgba(131, 85, 14, 0.24);
 }
 
 .trending-add-to-cart-btn:hover {
-  background: #e6b530;
+  filter: brightness(1.03);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 20px rgba(111, 72, 11, 0.28);
 }
 
 @media (max-width: 1200px) {
@@ -1600,6 +1676,7 @@ form.search-box {
     flex: 0 0 55%;
     max-width: 55%;
     scroll-snap-align: start;
+    border-radius: 14px;
   }
 }
 
