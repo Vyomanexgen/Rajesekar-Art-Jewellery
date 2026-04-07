@@ -8,12 +8,13 @@ const ContactSection = () => {
 
     return (
         <section
-            className="py-16 md:py-24 min-h-[70vh] flex flex-col justify-center"
+            className="pt-32 md:pt-40 pb-16 md:pb-24 min-h-[70vh] flex flex-col justify-center"
             ref={ref}
         >
             <div className="container mx-auto px-4">
                 <motion.div
                     className="text-center mb-16"
+                    style={{ marginTop: "64px" }}
                     initial={{ opacity: 0, y: 30 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.8 }}

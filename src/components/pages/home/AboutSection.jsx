@@ -29,7 +29,7 @@ const AboutSection = () => {
                             The Art of Perfection
                         </h2>
                         <div
-                            className="space-y-4 font-body text-base md:text-lg text-foreground/60 leading-relaxed"
+                            className="space-y-4 font-body text-lg md:text-xl text-foreground/60 leading-relaxed"
                             style={{ fontFamily: "'Cormorant Garamond', serif" }}
                         >
                             <p>

@@ -2051,9 +2051,9 @@ form.search-box {
 }
 
 .testimonial-card {
-  background: #5C3E90;
+  background: transparent;
   border-radius: 12px;
-  padding: 32px;
+  padding: 24px 48px 48px 48px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
@@ -2069,7 +2069,7 @@ form.search-box {
   left: 40px;
   border-width: 14px 10px 0 10px;
   border-style: solid;
-  border-color: #5C3E90 transparent transparent transparent;
+  border-color: transparent transparent transparent transparent;
 }
 
 .testimonial-stars {
@@ -8730,9 +8730,9 @@ form.search-box {
 }
 
 .testimonial-card {
-  background: #5C3E90;
+  background: transparent;
   border-radius: 12px;
-  padding: 32px;
+  padding: 24px 48px 48px 48px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;

@@ -30,7 +30,7 @@ const testimonials = [
 ];
 
 const Stars = ({ count }) => (
-    <div className="flex gap-1 mb-4 ml-2">
+    <div className="flex gap-1 mb-4">
         {Array.from({ length: count }).map((_, i) => (
             <Star
                 key={i}
@@ -85,7 +85,7 @@ const TestimonialsSection = () => {
                             <motion.div
                                 key={t.name}
                                 ref={ref}
-                                className="h-full px-6 md:px-7 pt-6 md:pt-7 pb-6 md:pb-7 rounded-xl border border-[#D4AF37]/20 bg-[#140A22]/70 backdrop-blur-md flex flex-col"
+                                className="testimonial-card h-full rounded-xl border border-[#D4AF37]/20 bg-[#140A22]/70 backdrop-blur-md flex flex-col"
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                                 transition={{ duration: 0.6, delay: i * 0.1 }}
@@ -96,12 +96,12 @@ const TestimonialsSection = () => {
                                 </div>
 
                                 {/* Text */}
-                                <p className="ml-2 text-sm md:text-base leading-relaxed mb-6 italic text-[#E9D8A6]/80 text-left">
+                                <p className="text-sm md:text-base leading-relaxed mb-6 italic text-[#E9D8A6]/80 text-left">
                                     "{t.text}"
                                 </p>
 
                                 {/* Bottom */}
-                                <div className="mt-auto ml-2">
+                                <div className="mt-auto">
                                     <span className="text-sm font-semibold text-[#F1C86A] block">
                                         {t.name}
                                     </span>

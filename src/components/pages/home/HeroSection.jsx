@@ -37,7 +37,7 @@ const HeroSection = () => {
           >
             <span className="w-20 h-[1px] bg-[#f2c23a]/50"></span>
 
-            <span className="text-sm tracking-[0.5em] uppercase text-[#f2c23a]/90" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+            <span className="text-base tracking-[0.5em] uppercase text-[#f2c23a]/90" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
               Since 2025
             </span>
 
@@ -61,7 +61,7 @@ const HeroSection = () => {
 
           {/* Subtitle */}
           <motion.p
-            className="text-xl md:text-2xl tracking-[0.35em] text-[#FFC42C]/80 mb-8"
+            className="text-2xl md:text-3xl tracking-[0.35em] text-[#FFC42C]/80 mb-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.8 }}
@@ -73,7 +73,7 @@ const HeroSection = () => {
 
           {/* Description */}
           <motion.p
-            className="max-w-xl mx-auto text-base md:text-[17px] text-white/80 leading-relaxed mb-12"
+            className="max-w-xl mx-auto text-lg md:text-xl text-white/80 leading-relaxed mb-12"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 1 }}
@@ -87,7 +87,7 @@ const HeroSection = () => {
           {/* Button */}
           <motion.a
             href="#collections"
-            className="hero-explore-btn inline-block w-[280px] sm:w-[350px] text-center py-4 text-[11px] sm:text-[13px] uppercase tracking-[0.35em]"
+            className="hero-explore-btn inline-block w-[280px] sm:w-[350px] text-center py-4 text-[13px] sm:text-[15px] uppercase tracking-[0.35em]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.2 }}
@@ -105,7 +105,7 @@ const HeroSection = () => {
         animate={{ y: [0, 8, 0] }}
         transition={{ repeat: Infinity, duration: 2 }}
       >
-        <span className="text-[11px] uppercase tracking-[0.4em] text-[#d4af37]/60" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+        <span className="text-[12px] uppercase tracking-[0.4em] text-[#d4af37]/60" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
           Scroll
         </span>
 

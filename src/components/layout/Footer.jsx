@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import './Footer.css';
 
 const Footer = ({
   navigateToHome,
@@ -10,15 +11,14 @@ const Footer = ({
   handleCategoryClick,
   className = ''
 }) => {
-  const [email, setEmail] = useState('');
-  const [subscribed, setSubscribed] = useState(false);
-
   const safeNavigate = (fn, e) => {
     if (e) e.preventDefault();
     if (typeof fn === 'function') {
       try {
         fn(e);
-      } catch (_err) {}
+      } catch (error) {
+        console.error('Navigation error:', error);
+      }
     }
   };
 
@@ -28,147 +28,192 @@ const Footer = ({
       try {
         handleCategoryClick(category);
         window.scrollTo({ top: 0, behavior: 'smooth' });
-      } catch (_err) {}
-    }
-  };
-
-  const handleNewsletterSubscribe = (e) => {
-    e.preventDefault();
-    if (email) {
-      setSubscribed(true);
-      setEmail('');
-      setTimeout(() => setSubscribed(false), 3000);
+      } catch (error) {
+        console.error('Category click error:', error);
+      }
     }
   };
 
   return (
-    <footer className={`main-footer ${className}`.trim()}>
-      {/* Newsletter Section */}
-      <div className="footer-newsletter-section">
-        <div className="content-width">
-          <div className="newsletter-container">
-            <div className="newsletter-content">
-              <h3 className="newsletter-title">Subscribe to Our Newsletter</h3>
-              <p className="newsletter-subtitle">Get exclusive deals, new arrivals, and special offers delivered to your inbox</p>
+    <footer className={`footer-wrapper ${className}`.trim()}>
+      <div className="footer-container">
+        {/* Trust Badges Section */}
+        <div className="footer-trust-section">
+          <div className="trust-badge">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+            <div>
+              <h4>Authentic Jewellery</h4>
+              <p>Certified & Genuine</p>
             </div>
-            <form onSubmit={handleNewsletterSubscribe} className="newsletter-form">
-              <input
-                type="email"
-                placeholder="Enter your email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="newsletter-input"
-              />
-              <button type="submit" className="newsletter-button">
-                {subscribed ? '✓ Subscribed' : 'Subscribe'}
-              </button>
-            </form>
           </div>
-        </div>
-      </div>
-
-      {/* Main Footer Content */}
-      <div className="footer-main">
-        <div className="content-width">
-          <div className="footer-grid">
-            {/* Column 1: Brand Info */}
-            <div className="footer-column">
-              <div className="brand-info">
-                <img src="/logo.jpg.jpeg" alt="Rajasekhar Logo" className="footer-logo" />
-                <h3 className="brand-name">Rajasekhar</h3>
-              </div>
-              <p className="brand-tagline">Exclusive 1-Gram Art Jewellery at the Best Price. Crafted with love and tradition.</p>
-              <div className="social-links">
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="social-link">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                  </svg>
-                </a>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="social-link">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z" clipRule="evenodd" fillRule="evenodd" />
-                  </svg>
-                </a>
-                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="social-link">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z" />
-                  </svg>
-                </a>
-                <a href="https://wa.me/911234567890" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="social-link">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884z" />
-                  </svg>
-                </a>
-              </div>
+          <div className="trust-badge">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M8 12l2 2 4-4"/>
+            </svg>
+            <div>
+              <h4>Fast Shipping</h4>
+              <p>Pan India Delivery</p>
             </div>
-
-            {/* Column 2: Quick Links */}
-            <div className="footer-column">
-              <h4 className="column-heading">Quick Links</h4>
-              <ul className="footer-links">
-                <li><a href="#" onClick={(e) => safeNavigate(navigateToHome, e)}>Home</a></li>
-                <li><a href="#" onClick={(e) => safeNavigate(navigateToShop, e)}>Shop All Products</a></li>
-                <li><a href="#" onClick={(e) => safeNavigate(navigateToAbout, e)}>About Us</a></li>
-                <li><a href="#" onClick={(e) => safeNavigate(navigateToContact, e)}>Contact Us</a></li>
-                <li><a href="#" onClick={(e) => safeNavigate(navigateToAccount, e)}>My Account</a></li>
-              </ul>
+          </div>
+          <div className="trust-badge">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <rect x="1" y="4" width="22" height="16" rx="2"/>
+              <path d="M1 6h22M3 11h18"/>
+            </svg>
+            <div>
+              <h4>Secure Payment</h4>
+              <p>Safe Transactions</p>
             </div>
-
-            {/* Column 3: Categories */}
-            <div className="footer-column">
-              <h4 className="column-heading">Categories</h4>
-              <ul className="footer-links">
-                <li><a href="#" onClick={(e) => safeCategoryClick('Necklaces', e)}>Necklaces</a></li>
-                <li><a href="#" onClick={(e) => safeCategoryClick('Earrings', e)}>Earrings</a></li>
-                <li><a href="#" onClick={(e) => safeCategoryClick('Bangles', e)}>Bangles</a></li>
-                <li><a href="#" onClick={(e) => safeCategoryClick('Bridal Sets', e)}>Bridal Sets</a></li>
-                <li><a href="#" onClick={(e) => safeNavigate(navigateToOrders, e)}>Track Order</a></li>
-              </ul>
-            </div>
-
-            {/* Column 4: Contact Info */}
-            <div className="footer-column">
-              <h4 className="column-heading">Contact Us</h4>
-              <div className="contact-info">
-                <div className="contact-item">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="contact-icon">
-                    <path d="M12 0C7.589 0 4 3.589 4 8c0 4.245 7.273 15.307 7.583 15.702a1 1 0 0 0 .834.298 1 1 0 0 0 .833-.298C13.727 23.307 20 12.245 20 8c0-4.411-3.589-8-8-8zm0 11c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3z" />
-                  </svg>
-                  <a href="https://www.google.com/maps/search/?api=1&query=Opposite+R9000,+Trunk+Road,+Nellore+524001,+Andhra+Pradesh" target="_blank" rel="noopener noreferrer">
-                    Opposite R9000, Trunk Road, Nellore 524001
-                  </a>
-                </div>
-                <div className="contact-item">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="contact-icon">
-                    <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
-                  </svg>
-                  <a href="tel:+911234567890">+91 1234567890</a>
-                </div>
-                <div className="contact-item">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="contact-icon">
-                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-                  </svg>
-                  <a href="mailto:info@rajasekharjewellery.com">info@rajasekharjewellery.com</a>
-                </div>
-              </div>
+          </div>
+          <div className="trust-badge">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <circle cx="12" cy="12" r="11"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+            <div>
+              <h4>24/7 Support</h4>
+              <p>Always Available</p>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Footer Bottom */}
-      <div className="footer-bottom-section">
-        <div className="content-width">
-          <div className="footer-bottom">
-            <p className="copyright-text">&copy; 2025 Rajasekhar Art Jewellery. All rights reserved.</p>
-            <div className="footer-bottom-links">
-              <a href="/privacy-policy">Privacy Policy</a>
-              <span className="separator">•</span>
-              <a href="/terms-conditions">Terms & Conditions</a>
-              <span className="separator">•</span>
-              <a href="/return-policy">Return Policy</a>
+        {/* Main Footer Content */}
+        <div className="footer-main-content">
+          {/* Column 1: Brand */}
+          <div className="footer-column">
+            <div className="footer-brand-section">
+              <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" className="footer-logo-svg">
+                <circle cx="25" cy="25" r="24" stroke="url(#grad1)" strokeWidth="1.5"/>
+                <text x="25" y="33" textAnchor="middle" fill="url(#grad1)" fontSize="30" fontWeight="bold" fontFamily="Georgia">★</text>
+                <defs>
+                  <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#f2c23a"/>
+                    <stop offset="100%" stopColor="#d7ab2d"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+              <div className="footer-brand-text">
+                <h3 className="footer-brand-name">RAJASEKHAR</h3>
+                <p className="footer-brand-subtitle">Art Jewellery</p>
+              </div>
             </div>
+            <p className="footer-description">
+              Exquisite 1-gram art jewellery crafted with precision, tradition, and timeless elegance. Every piece resonates with authenticity and contemporary artistry.
+            </p>
+            <div className="footer-social">
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Follow on Facebook" className="social-link facebook">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+              </a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Follow on Instagram" className="social-link instagram">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="2" y="2" width="20" height="20" rx="4.5" fill="none" stroke="currentColor" strokeWidth="1.5"/>
+                  <circle cx="12" cy="12" r="3.5" fill="none" stroke="currentColor" strokeWidth="1.5"/>
+                  <circle cx="18" cy="6" r="1" fill="currentColor"/>
+                </svg>
+              </a>
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube" title="Subscribe on YouTube" className="social-link youtube">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+              </a>
+              <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" title="Message on WhatsApp" className="social-link whatsapp">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 3 .97 4.29L2.05 22l6.03-1.71C10.04 21.6 11 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2m0 18c-.89 0-1.76-.19-2.6-.49l-.18-.09-1.9.54.55-1.89-.1-.18C4.5 15.77 4 13.95 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8m4.52-4.36c-.25-.12-1.47-.73-1.7-.81-.23-.09-.4-.14-.56.14-.16.28-.61.81-.75.97-.14.17-.28.19-.53.06-1.02-.49-1.69-.72-2.38-1.53-.44-.5-.74-1.12-1.04-1.74.04-.05.09-.12.12-.19.06-.14.03-.26-.03-.37-.07-.11-.6-1.43-.82-1.95-.22-.53-.45-.46-.6-.47-.16 0-.34-.01-.52-.01-.18 0-.48.07-.73.35-.25.28-.96.94-.96 2.29 0 1.35.98 2.66 1.11 2.84.13.18 1.86 2.84 4.5 3.98.63.27 1.12.43 1.5.55.63.2 1.21.17 1.67.1.51-.08 1.57-.64 1.79-1.27.22-.62.22-1.16.16-1.28-.07-.11-.24-.18-.49-.31z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          {/* Column 2: Quick Links */}
+          <div className="footer-column">
+            <h4 className="footer-column-title">Quick Links</h4>
+            <ul className="footer-links-list">
+              <li><a href="#" onClick={(e) => safeNavigate(navigateToHome, e)}>Home</a></li>
+              <li><a href="#" onClick={(e) => safeNavigate(navigateToShop, e)}>Shop All</a></li>
+              <li><a href="#" onClick={(e) => safeNavigate(navigateToAbout, e)}>About Us</a></li>
+              <li><a href="#" onClick={(e) => safeNavigate(navigateToContact, e)}>Contact</a></li>
+              <li><a href="#" onClick={(e) => safeNavigate(navigateToAccount, e)}>My Account</a></li>
+              <li><a href="#" onClick={(e) => safeNavigate(navigateToOrders, e)}>Track Orders</a></li>
+            </ul>
+          </div>
+
+          {/* Column 3: Collections */}
+          <div className="footer-column">
+            <h4 className="footer-column-title">Collections</h4>
+            <ul className="footer-links-list">
+              <li><a href="#" onClick={(e) => safeCategoryClick('Necklace sets', e)}>Necklace Sets</a></li>
+              <li><a href="#" onClick={(e) => safeCategoryClick('Earrings', e)}>Earrings</a></li>
+              <li><a href="#" onClick={(e) => safeCategoryClick('Bangles', e)}>Bangles</a></li>
+              <li><a href="#" onClick={(e) => safeCategoryClick('Wedding collection', e)}>Bridal Collection</a></li>
+              <li><a href="#" onClick={(e) => safeCategoryClick('Hip belts', e)}>Hip Belts</a></li>
+              <li><a href="#" onClick={(e) => safeCategoryClick('Accessories', e)}>Accessories</a></li>
+            </ul>
+          </div>
+
+          {/* Column 4: Contact Info */}
+          <div className="footer-column">
+            <h4 className="footer-column-title">Contact Info</h4>
+            <div className="footer-contact-list">
+              <div className="contact-item">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M12 1C6.48 1 2 5.48 2 11c0 3.45 1.8 6.46 4.5 8.2.3.2.7.1.9-.2l3.5-5.3c.2-.3.6-.4.9-.2 1.2.8 2.6 1.3 4.2 1.3s3-.5 4.2-1.3c.3-.2.7-.1.9.2l3.5 5.3c.2.3.6.4.9.2 2.7-1.74 4.5-4.75 4.5-8.2 0-5.52-4.48-10-10-10z"/>
+                </svg>
+                <div>
+                  <p className="contact-label">Address</p>
+                  <p className="contact-value">Opposite R9000, Trunk Road, Nellore 524001, AP</p>
+                </div>
+              </div>
+              <div className="contact-item">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+                <div>
+                  <p className="contact-label">Phone</p>
+                  <p className="contact-value"><a href="tel:+919876543210">+91 9876543210</a></p>
+                </div>
+              </div>
+              <div className="contact-item">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <rect x="2" y="4" width="20" height="16" rx="2"/>
+                  <path d="M2 6l10 7 10-7"/>
+                </svg>
+                <div>
+                  <p className="contact-label">Email</p>
+                  <p className="contact-value"><a href="mailto:info@rajasekharjewellery.com">info@rajasekharjewellery.com</a></p>
+                </div>
+              </div>
+              <div className="contact-item">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polyline points="12 6 12 12 16 14"/>
+                </svg>
+                <div>
+                  <p className="contact-label">Business Hours</p>
+                  <p className="contact-value">Mon - Sun: 10 AM to 8 PM IST</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Divider */}
+        <div className="footer-divider"></div>
+
+        {/* Footer Bottom */}
+        <div className="footer-bottom">
+          <p className="footer-copyright">© 2025 Rajasekhar Art Jewellery. All rights reserved. Crafted with passion in India.</p>
+          <div className="footer-bottom-links">
+            <a href="/privacy-policy" onClick={(e) => e.preventDefault()}>Privacy Policy</a>
+            <span className="separator">•</span>
+            <a href="/terms-conditions" onClick={(e) => e.preventDefault()}>Terms & Conditions</a>
+            <span className="separator">•</span>
+            <a href="/return-policy" onClick={(e) => e.preventDefault()}>Return Policy</a>
           </div>
         </div>
       </div>
